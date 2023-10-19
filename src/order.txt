@@ -1,4 +1,3 @@
-11:00 order A1,B3,C2 8
-11:02 order B4,D1 6
-11:03 order D2,E1 19
-
+roastedDuck 8
+firedMeatWithChili 6
+roastedDuck 19

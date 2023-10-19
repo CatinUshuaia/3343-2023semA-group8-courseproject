@@ -1,2 +1,3 @@
-11:00 order Shandong1,Cantonese1,Zhejiang2
-11:05 cancel Cantonese1
+roastedDuck 8
+firedMeatWithChili 6
+roastedDuck 19

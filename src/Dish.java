@@ -1,15 +1,16 @@
-public class Dish {
+import java.util.Objects;
 
+public class Dish {
     private String dishName;
     private int dishCode;
     private int dishProductTime; //count by second
-
+    private String wayToCook;
     public Dish(){
     }
-    public Dish(String dishName, int dishCode, int dishProductTime){
+    public Dish(String dishName){
         this.dishName = dishName;
-        this.dishCode = dishCode;
-        this.dishProductTime = dishProductTime;
+//        this.dishCode = dishCode;
+//        this.dishProductTime=dishProductTime;
     }
 
     public String getDishName() { return dishName; }
@@ -25,6 +26,13 @@ public class Dish {
         this.dishProductTime = dishProductTime;
     }
 
+    public void setWayToCook() {
+        if(Objects.equals(this.dishName, "roastDuck")){
+            this.wayToCook="roast";
+        }else if(Objects.equals(this.dishName, "friedMeatWithChili")){
+            this.wayToCook="fry";
+        }
+    }
     @Override
     public String toString(){
         return dishName + Integer.toString(dishCode);

@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 public class Main {
     private static String COOK_INPUT = "cook.txt";
     // instead of inputing file, randomly generate the cook info
@@ -12,11 +14,14 @@ public class Main {
     private static String ORDER_INPUT = "order.txt";
 
     public static void main(String[] args) throws IOException {
-
-        ArrayList<Cook> cooks = Cook.inputCookInfo("src/cook.txt");
-        for(Cook c: cooks){
-            System.out.println(c.getInfo());
+int totalOrder=0;
+        ArrayList<Order> order = Order.inputOrderInfo("src/order.txt");
+        System.out.println(order);
+//        ArrayList<Cook> cooks = Cook.inputCookInfo("src/cook.txt");
+//        for(Cook c: cooks){
+//            System.out.println(c.getInfo());
+//        }
+            }
         }
 
-    }
-}
+

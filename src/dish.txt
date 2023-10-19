@@ -1,2 +1,2 @@
-Shandong1 10
-Cantonese1 15
+friedMeatWithChili 10
+roastDuck 15
