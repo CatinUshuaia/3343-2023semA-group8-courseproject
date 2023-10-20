@@ -14,14 +14,17 @@ public class Main {
     private static String ORDER_INPUT = "order.txt";
 
     public static void main(String[] args) throws IOException {
-int totalOrder=0;
-        ArrayList<Order> order = Order.inputOrderInfo("src/order.txt");
-        System.out.println(order);
-//        ArrayList<Cook> cooks = Cook.inputCookInfo("src/cook.txt");
+        int totalOrder=0;
+
+        ArrayList<Dish> dishes = Dish.inputDishInfo("src/dish.txt");
+        ArrayList<Cook> cooks = Cook.inputCookInfo("src/cook.txt");
 //        for(Cook c: cooks){
 //            System.out.println(c.getInfo());
 //        }
-            }
-        }
+        ArrayList<Order> order = Order.inputOrderInfo("src/order.txt",dishes);
+        System.out.println(order);
+
+    }
+}
 
 
