@@ -14,6 +14,12 @@ public class KitchenSchedule {
             }
             ArrayList<Dish> dishes = o.getDishes();
             Collections.sort(dishes);
+            for(Dish d: dishes){
+                Collections.sort(cooks);
+                Cook c = cooks.get(0);
+                schedule.add(time+" "+c+""+d);
+                c.cookFood();
+            }
 
         }
     }

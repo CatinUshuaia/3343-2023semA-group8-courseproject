@@ -23,7 +23,7 @@ public class Main {
 //        }
         ArrayList<Order> order = Order.inputOrderInfo("src/order.txt",dishes);
         System.out.println(order);
-
+        Dish.testSort();
     }
 }
 

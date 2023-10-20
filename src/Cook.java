@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -6,10 +7,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class Cook {
+public class Cook implements Comparable<Cook> {
     private Set<String> expertise = new HashSet<>();
     private String name;
     private int rank;
+
+    private CookStatus status;
+
 
     public Cook(String[] cuisines,String n, int rank){
         this.name = n;
@@ -17,6 +21,7 @@ public class Cook {
         for(String c : cuisines) {
             expertise.add(c);
         }
+        this.status = CookStatus.READY;
     }
 
     @Override
@@ -42,4 +47,17 @@ public class Cook {
         return cooks;
     }
 
+    @Override
+    public int compareTo(Cook o) {
+        return this.status.compareTo(o.status);
+    }
+
+    public void cookFood() {
+        assert this.status == CookStatus.READY;
+        this.status = CookStatus.BUSY;
+    }
+
+    public static void resortCooks(ArrayList<Cook> cooks) {
+        Collections.sort(cooks);
+    }
 }

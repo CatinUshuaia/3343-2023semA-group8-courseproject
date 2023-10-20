@@ -1,4 +1,4 @@
-public enum CookingMethod implements Comparable<CookingMethod>{
+public enum CookingMethod {
     ROAST("roast", 1),
     FRY("fry", 2);
 
@@ -22,15 +22,4 @@ public enum CookingMethod implements Comparable<CookingMethod>{
         return name;
     }
 
-//    public static void main(String[] args) {
-//        CookingMethod roast = CookingMethod.ROAST;
-//        CookingMethod fry = CookingMethod.FRY;
-//
-//        System.out.println();
-//        System.out.println("Cooking Method: " + fry.getName() + ", Priority: " + fry.getPriority());
-//    }
-//    @Override
-//    public int compareTo(CookingMethod other) {
-//        return this.getPriority() - other.getPriority();
-//    }
 }
