@@ -1,3 +1,4 @@
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -12,7 +13,9 @@ public class Cook implements Comparable<Cook> {
     private String name;
     private int rank;
 
-    private CookStatus status;
+//    private CookStatus status;
+
+    private LocalTime availableTime;
 
 
     public Cook(String[] cuisines,String n, int rank){
@@ -21,7 +24,8 @@ public class Cook implements Comparable<Cook> {
         for(String c : cuisines) {
             expertise.add(c);
         }
-        this.status = CookStatus.READY;
+//        this.status = CookStatus.READY;
+//        this.cookingDish = null;
     }
 
     @Override
@@ -48,16 +52,35 @@ public class Cook implements Comparable<Cook> {
     }
 
     @Override
+    //Used to sort cooks
+    //以后的算法可能跟复杂，考虑的不仅仅是availableTime
     public int compareTo(Cook o) {
-        return this.status.compareTo(o.status);
+
+        return this.availableTime.compareTo(o.availableTime);
     }
 
-    public void cookFood() {
-        assert this.status == CookStatus.READY;
-        this.status = CookStatus.BUSY;
+    private void cookFood(int dishOperationTime) {
+//        assert this.status == CookStatus.READY;
+//        this.status = CookStatus.BUSY;
+//        System.out.println("Before "+ this.availableTime.toString());
+        this.availableTime = this.availableTime.plusMinutes(dishOperationTime);
+//        System.out.println("After "+this.availableTime);
     }
 
-    public static void resortCooks(ArrayList<Cook> cooks) {
+    public void initializeAvailableTime(LocalTime time) {
+        assert this.availableTime == null;
+        this.availableTime = time;
+    }
+
+    public LocalTime getAvailableTime() {
+        return this.availableTime;
+    }
+
+    public static String selectCook(ArrayList<Cook> cooks,int dishOperationTime) {
         Collections.sort(cooks);
+        Cook selectedCook = cooks.get(0);
+        LocalTime startTime = selectedCook.getAvailableTime();
+        selectedCook.cookFood(dishOperationTime);
+        return startTime+" "+selectedCook;
     }
 }

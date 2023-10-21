@@ -75,6 +75,15 @@ public class Dish  implements Comparable<Dish>{
         return this.wayToCook.compareTo(other.wayToCook);
     }
 
+    public int getOccupiedTime(){
+        int operationTime = this.wayToCook.getOperationTime();
+        if(operationTime==-1) {
+            return this.dishProductTime;
+        }else{
+            return operationTime;
+        }
+    }
+
     public static void testSort(){
         ArrayList<Dish> dishes = new ArrayList<Dish>();
         dishes.add(new Dish("roastedDuck", 10));

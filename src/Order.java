@@ -10,8 +10,9 @@ public class Order {
     private double distance;
     private int status;
     //0: 已下单但未送出
-    //1: 已下单且已经送出
-    //2：已经下单且客人已收到
+    //1: 所有菜品已做好，未送出
+    //2：外卖员已经送出，客人未收到
+    //3：客人已收到
     //-1: 订单已取消
 
     private LocalTime orderTime;
@@ -85,5 +86,9 @@ public class Order {
 //    public void cancelOrder(){
 //        this.dishes.clear();
 //    }
+
+    public void allDishedCooked(){
+        this.status = 1;
+    }
 
 }
