@@ -30,13 +30,12 @@ public class KitchenSchedule {
         }
         return schedule;
     }
-
-    public static Map.Entry<LocalTime, Dish> selectDish(ArrayList<Order> orders, LocalTime time){
+    public static Map.Entry<LocalTime, Dish> selectDish1_2(ArrayList<Order> orders, LocalTime time){
         ArrayList<Dish> dishes_beforeTime = new ArrayList<Dish>();
         int idx_afterTime = -1;
 
         for(Order o:orders){
-            o.checkIfAllDishCooked();
+            o.updateStatusIfAllDishCooked();
             if(o.getStatus()==0 && o.getOrderTime().compareTo(time)!=1){
                 dishes_beforeTime.addAll(o.getDishes());
             }
@@ -74,7 +73,7 @@ public class KitchenSchedule {
 
         while(true){
             Cook selectedCook = Cook.selectCook(cooks);
-            Map.Entry<LocalTime, Dish> result = selectDish(orders,selectedCook.getAvailableTime());
+            Map.Entry<LocalTime, Dish> result = selectDish1_2(orders,selectedCook.getAvailableTime());
 
             if(result == null){
                 System.out.println("Done.");
@@ -85,13 +84,14 @@ public class KitchenSchedule {
             Dish selectedDish = result.getValue();
 
             selectedCook.cookFood(selectedDish.getOccupiedTime());
-            selectedDish.setIsCooked(true);
+            selectedDish.cooked();
 //            System.out.println(startTime+" "+selectedCook+" "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
             schedule.add(startTime+" "+selectedCook+" "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
         }
         return schedule;
     }
 
+    //latest version: 1.3
     public static ArrayList<String> generateSchedule1_3(ArrayList<Order> orders,ArrayList<Cook> cooks){
         ArrayList<String> schedules = new ArrayList<>();
         ArrayList<Dish> uncookedDishes = new ArrayList<>();
@@ -120,9 +120,7 @@ public class KitchenSchedule {
                 startTime = selectedCook.getAvailableTime();
                 uncookedDishes.remove(selectedDish);
                 selectedCook.cookFood(selectedDish.getOccupiedTime());
-                selectedDish.setIsCooked(true);
-
-
+                selectedDish.cooked();
             }else{
                 //find the earliest arrived dish
                 selectedDish = uncookedDishes.get(0);
@@ -135,7 +133,7 @@ public class KitchenSchedule {
                 }
                 uncookedDishes.remove(selectedDish);
                 selectedCook.cookFood(selectedDish.getOccupiedTime());
-                selectedDish.setIsCooked(true);
+                selectedDish.cooked();
 
             }
 

@@ -28,7 +28,7 @@ public class Order {
         this.orderTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
         this.dishes.forEach(d -> {
             d.setOrder(this);
-            d.setIsCooked(false);
+            d.initializeIsCooked();
         });
     }
 
@@ -92,7 +92,7 @@ public class Order {
 //        this.dishes.clear();
 //    }
 
-    public void checkIfAllDishCooked(){
+    public void updateStatusIfAllDishCooked(){
         boolean allCooked = true;
         for (Dish dish : this.dishes) {
             if(!dish.getIsCooked()){

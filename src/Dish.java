@@ -127,13 +127,13 @@ public class Dish  implements Comparable<Dish>,Cloneable{
     public boolean getIsCooked(){
         return this.cooked;
     }
-    public void setIsCooked(Boolean value){
-        this.cooked = value;
+    public void initializeIsCooked(){
+        this.cooked = false;
     }
 
     public void cooked(){
+        this.order.updateStatusIfAllDishCooked();
         this.cooked = true;
-
     }
 
     public LocalTime getOrderedTime(){
