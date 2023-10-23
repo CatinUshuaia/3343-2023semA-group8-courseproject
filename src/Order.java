@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -9,7 +10,7 @@ public class Order {
     private ArrayList<Dish> dishes;
     private double distance;
     private int status;
-    //0: 已下单但未送出
+    //0: 已下单
     //1: 所有菜品已做好，未送出
     //2：外卖员已经送出，客人未收到
     //3：客人已收到
@@ -25,6 +26,10 @@ public class Order {
         this.distance = distance;
         this.status = 0;
         this.orderTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
+        this.dishes.forEach(d -> {
+            d.setOrder(this);
+            d.setIsCooked(false);
+        });
     }
 
     public int getOrderCode() {
@@ -52,7 +57,7 @@ public class Order {
 //    }
 
 
-    public static ArrayList<Order> inputOrderInfo(String filePath, ArrayList<Dish> allDishes) throws IOException {
+    public static ArrayList<Order> inputOrderInfo(String filePath, ArrayList<Dish> allDishes) throws IOException, CloneNotSupportedException {
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line;
         int orderCode=0;
@@ -66,7 +71,7 @@ public class Order {
             for (String dishName : splitDishes) {
                 for (Dish dish : allDishes) {
                     if (dishName.equals(dish.getDishName())) {
-                        dishes.add(dish);
+                        dishes.add(dish.clone());
                     }
                 }
             }
@@ -87,8 +92,20 @@ public class Order {
 //        this.dishes.clear();
 //    }
 
-    public void allDishedCooked(){
-        this.status = 1;
+    public void checkIfAllDishCooked(){
+        boolean allCooked = true;
+        for (Dish dish : this.dishes) {
+            if(!dish.getIsCooked()){
+                allCooked = false;
+            }
+        }
+        if(allCooked){
+            this.status = 1;
+        }
+    }
+
+    public int getStatus(){
+        return this.status;
     }
 
 }

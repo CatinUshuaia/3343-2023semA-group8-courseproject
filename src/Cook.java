@@ -59,7 +59,7 @@ public class Cook implements Comparable<Cook> {
         return this.availableTime.compareTo(o.availableTime);
     }
 
-    private void cookFood(int dishOperationTime) {
+    public void cookFood(int dishOperationTime) {
 //        assert this.status == CookStatus.READY;
 //        this.status = CookStatus.BUSY;
 //        System.out.println("Before "+ this.availableTime.toString());
@@ -83,4 +83,10 @@ public class Cook implements Comparable<Cook> {
         selectedCook.cookFood(dishOperationTime);
         return startTime+" "+selectedCook;
     }
+
+    public static Cook selectCook(ArrayList<Cook> cooks){
+        Collections.sort(cooks);
+        return cooks.get(0);
+    }
+
 }

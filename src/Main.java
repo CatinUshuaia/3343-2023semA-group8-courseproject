@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
 import java.io.FileNotFoundException;
@@ -13,7 +14,7 @@ public class Main {
 
     private static String ORDER_INPUT = "order.txt";
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, CloneNotSupportedException {
         int totalOrder=0;
 
         ArrayList<Dish> dishes = Dish.inputDishInfo("src/dish.txt");
@@ -22,10 +23,15 @@ public class Main {
 //            System.out.println(c.getInfo());
 //        }
         ArrayList<Order> order = Order.inputOrderInfo("src/order.txt",dishes);
-        System.out.println(order);
-//        Dish.testSort();
-        KitchenSchedule.generateSchedule1_1(order,cooks);
+//        System.out.println(order);
+
+        ArrayList<String> schedule = KitchenSchedule.generateSchedule1_3(order,cooks);
+        for(String s: schedule){
+            System.out.println(s);
+        }
+
     }
+
 }
 
 

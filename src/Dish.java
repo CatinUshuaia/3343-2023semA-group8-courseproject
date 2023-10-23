@@ -1,14 +1,17 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Collections;
-public class Dish  implements Comparable<Dish>{
+public class Dish  implements Comparable<Dish>,Cloneable{
     private String dishName;
     private int dishCode;
     private int dishProductTime; //count by second
     private CookingMethod wayToCook;
+    private Order order;
+    private Boolean cooked;
     public Dish(){
     }
     public Dish(String dishName, int dishProductTime){
@@ -17,12 +20,20 @@ public class Dish  implements Comparable<Dish>{
         this.dishProductTime = dishProductTime;
 //        this.dishCode = dishCode;
 //        this.dishProductTime=dishProductTime;
+        this.order = null;
+
     }
 
-    public String getDishName() { return dishName; }
-    public void setDishName(String dishName){
-        this.dishName = dishName;
+    public void setOrder(Order order){
+        assert this.order == null;
+        this.order = order;
+        assert this.cooked == null;
+        this.cooked = false;
     }
+    public Order getOrder(){
+        return this.order;
+    }
+    public String getDishName() { return dishName; }
     public int getDishCode(){ return dishCode; }
     public void setDishCode(int dishCode){
         this.dishCode = dishCode;
@@ -70,9 +81,23 @@ public class Dish  implements Comparable<Dish>{
 
     @Override
     public int compareTo(Dish other) {
-//        return 1;
-//        return this.wayToCook.getPriority() - other.wayToCook.getPriority();
-        return this.wayToCook.compareTo(other.wayToCook);
+
+        if(this.cooked){
+            return 1;
+        }else if(other.cooked){
+            return -1;
+        }
+
+        //above logic is ued in generateSchedule1_2
+        //which can be removed later
+
+        int comparison_wayToCook = this.wayToCook.compareTo(other.wayToCook);
+        if(comparison_wayToCook!=0){
+            return comparison_wayToCook;
+        }
+
+        return this.order.getOrderTime()
+                .compareTo(other.order.getOrderTime());
     }
 
     public int getOccupiedTime(){
@@ -84,12 +109,35 @@ public class Dish  implements Comparable<Dish>{
         }
     }
 
-    public static void testSort(){
-        ArrayList<Dish> dishes = new ArrayList<Dish>();
-        dishes.add(new Dish("roastedDuck", 10));
-        dishes.add(new Dish("friedMeatWithChili", 20));
-        Collections.sort(dishes);
-        System.out.println(dishes);
+//    public static void testSort(){
+//        ArrayList<Dish> dishes = new ArrayList<Dish>();
+//        dishes.add(new Dish("roastedDuck", 10));
+//        dishes.add(new Dish("friedMeatWithChili", 20));
+//        Collections.sort(dishes);
+//        System.out.println(dishes);
+//    }
+    @Override
+    public Dish clone() throws CloneNotSupportedException{
+        assert this.order == null;
+        assert this.cooked == null;
+        //we only need to clone the object when it is not in any order.
+        //so shallow clone is adopted
+        return (Dish)super.clone();
+    }
+    public boolean getIsCooked(){
+        return this.cooked;
+    }
+    public void setIsCooked(Boolean value){
+        this.cooked = value;
+    }
+
+    public void cooked(){
+        this.cooked = true;
+
+    }
+
+    public LocalTime getOrderedTime(){
+        return this.order.getOrderTime();
     }
 
 }
