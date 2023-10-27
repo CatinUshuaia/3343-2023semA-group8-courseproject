@@ -22,12 +22,12 @@ public class Main {
 //        for(Cook c: cooks){
 //            System.out.println(c.getInfo());
 //        }
-        ArrayList<Order> order = Order.inputOrderInfo("src/order.txt",dishes);
+        ArrayList<Order> orders = Order.inputOrderInfo("src/order.txt",dishes);
 //        System.out.println(order);
 
-        ArrayList<String> schedule = KitchenSchedule.generateSchedule1_3(order,cooks);
-        for(String s: schedule){
-            System.out.println(s);
+        KitchenSchedule.generateSchedule1_3(orders,cooks);
+        for(Order o: orders){
+            System.out.println(o.getCookedTime()+" order"+o.getOrderCode()+" is cooked. Ready to delivery");
         }
 
     }

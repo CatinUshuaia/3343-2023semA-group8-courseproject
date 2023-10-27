@@ -84,7 +84,7 @@ public class KitchenSchedule {
             Dish selectedDish = result.getValue();
 
             selectedCook.cookFood(selectedDish.getOccupiedTime());
-            selectedDish.cooked();
+            selectedDish.cooked(startTime);
 //            System.out.println(startTime+" "+selectedCook+" "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
             schedule.add(startTime+" "+selectedCook+" "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
         }
@@ -92,7 +92,7 @@ public class KitchenSchedule {
     }
 
     //latest version: 1.3
-    public static ArrayList<String> generateSchedule1_3(ArrayList<Order> orders,ArrayList<Cook> cooks){
+    public static ArrayList<Order> generateSchedule1_3(ArrayList<Order> orders,ArrayList<Cook> cooks){
         ArrayList<String> schedules = new ArrayList<>();
         ArrayList<Dish> uncookedDishes = new ArrayList<>();
         orders.forEach(o -> uncookedDishes.addAll(o.getDishes()));
@@ -103,6 +103,8 @@ public class KitchenSchedule {
         cooks.forEach(c -> c.initializeAvailableTime(time));
 
         LocalTime startTime = time;
+
+        ArrayList<Order> finishedOrder = new ArrayList<>();
 
         while(uncookedDishes.size()>0){
             Cook selectedCook = Cook.selectCook(cooks);
@@ -118,30 +120,32 @@ public class KitchenSchedule {
 
             if(selectedDish != null){
                 startTime = selectedCook.getAvailableTime();
-                uncookedDishes.remove(selectedDish);
-                selectedCook.cookFood(selectedDish.getOccupiedTime());
-                selectedDish.cooked();
+
             }else{
                 //find the earliest arrived dish
                 selectedDish = uncookedDishes.get(0);
-                startTime = selectedDish.getOrderedTime();
-
                 for(Dish d: uncookedDishes){
                     if(d.getOrderedTime().compareTo(selectedDish.getOrderedTime())==-1) {
                         selectedDish = d;
                     }
                 }
-                uncookedDishes.remove(selectedDish);
-                selectedCook.cookFood(selectedDish.getOccupiedTime());
-                selectedDish.cooked();
-
+                startTime = selectedDish.getOrderedTime();
+            }
+            uncookedDishes.remove(selectedDish);
+            selectedCook.cookFood(selectedDish.getOccupiedTime());
+            selectedDish.cooked(startTime);
+            Order order = selectedDish.getOrder();
+            order.updateStatusIfAllDishCooked();
+            System.out.println(startTime+" "+selectedCook+" start cooking "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
+            if(order.getStatus()==1){
+                finishedOrder.add(order);
+//                System.out.println(order.getCookedTime()+" order"+order.getOrderCode()+" is cooked. Ready to delivery");
             }
 
-//            System.out.println(startTime+" "+selectedCook+" "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
-            schedules.add(startTime+" "+selectedCook+" "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
+//            schedules.add(startTime+" "+selectedCook+" "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
 
         }
-        return schedules;
+        return finishedOrder;
 
     }
 

@@ -17,6 +17,7 @@ public class Order {
     //-1: 订单已取消
 
     private LocalTime orderTime;
+    private LocalTime cookedTime;
     public Order() {
     }
 
@@ -94,14 +95,27 @@ public class Order {
 
     public void updateStatusIfAllDishCooked(){
         boolean allCooked = true;
+        LocalTime latestTime = null;
         for (Dish dish : this.dishes) {
             if(!dish.getIsCooked()){
                 allCooked = false;
+            }else{
+                if(latestTime == null){
+                    latestTime = dish.getCookedTime();
+
+                }else if(dish.getCookedTime().compareTo(latestTime)==1){
+                    latestTime = dish.getCookedTime();
+                }
             }
         }
         if(allCooked){
             this.status = 1;
+            this.cookedTime = latestTime;
         }
+    }
+
+    public LocalTime getCookedTime() {
+        return cookedTime;
     }
 
     public int getStatus(){
