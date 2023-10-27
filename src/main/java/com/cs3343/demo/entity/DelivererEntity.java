@@ -1,4 +1,4 @@
-package entity;
+package com.cs3343.demo.entity;
 
 import jakarta.persistence.*;
 

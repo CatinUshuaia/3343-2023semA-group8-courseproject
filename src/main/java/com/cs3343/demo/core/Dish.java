@@ -1,5 +1,4 @@
 package com.cs3343.demo.core;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,6 +13,7 @@ public class Dish  implements Comparable<Dish>,Cloneable{
     private CookingMethod wayToCook;
     private Order order;
     private Boolean cooked;
+    private LocalTime cookedTime;
     public Dish(){
     }
     public Dish(String dishName, int dishProductTime){
@@ -40,10 +40,10 @@ public class Dish  implements Comparable<Dish>,Cloneable{
     public void setDishCode(int dishCode){
         this.dishCode = dishCode;
     }
-    public int getDishProductTime() { return dishProductTime; }
-    public void setDishProductTime(int dishProductTime){
-        this.dishProductTime = dishProductTime;
-    }
+//    public int getDishProductTime() { return dishProductTime; }
+//    public void setDishProductTime(int dishProductTime){
+//        this.dishProductTime = dishProductTime;
+//    }
 
 //    private void setWayToCook() {
 //        if(Objects.equals(this.dishName, "roastDuck")){
@@ -129,18 +129,22 @@ public class Dish  implements Comparable<Dish>,Cloneable{
     public boolean getIsCooked(){
         return this.cooked;
     }
-    public void setIsCooked(Boolean value){
-        this.cooked = value;
+    public void initializeIsCooked(){
+        this.cooked = false;
     }
 
-    public void cooked(){
+    public void cooked(LocalTime startCookingTime){
+//        this.order.updateStatusIfAllDishCooked();
         this.cooked = true;
+        this.cookedTime = startCookingTime.plusMinutes(this.dishProductTime);
+    }
 
+    public LocalTime getCookedTime(){
+        return this.cookedTime;
     }
 
     public LocalTime getOrderedTime(){
         return this.order.getOrderTime();
-    }
-
 }
 
+}

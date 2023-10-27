@@ -1,5 +1,4 @@
 package com.cs3343.demo.core;
-
 import java.lang.reflect.Array;
 import java.time.LocalTime;
 import java.util.AbstractMap;
@@ -32,13 +31,12 @@ public class KitchenSchedule {
         }
         return schedule;
     }
-
-    public static Map.Entry<LocalTime, Dish> selectDish(ArrayList<Order> orders, LocalTime time){
+    public static Map.Entry<LocalTime, Dish> selectDish1_2(ArrayList<Order> orders, LocalTime time){
         ArrayList<Dish> dishes_beforeTime = new ArrayList<Dish>();
         int idx_afterTime = -1;
 
         for(Order o:orders){
-            o.checkIfAllDishCooked();
+            o.updateStatusIfAllDishCooked();
             if(o.getStatus()==0 && o.getOrderTime().compareTo(time)!=1){
                 dishes_beforeTime.addAll(o.getDishes());
             }
@@ -76,7 +74,7 @@ public class KitchenSchedule {
 
         while(true){
             Cook selectedCook = Cook.selectCook(cooks);
-            Map.Entry<LocalTime, Dish> result = selectDish(orders,selectedCook.getAvailableTime());
+            Map.Entry<LocalTime, Dish> result = selectDish1_2(orders,selectedCook.getAvailableTime());
 
             if(result == null){
                 System.out.println("Done.");
@@ -87,14 +85,15 @@ public class KitchenSchedule {
             Dish selectedDish = result.getValue();
 
             selectedCook.cookFood(selectedDish.getOccupiedTime());
-            selectedDish.setIsCooked(true);
+            selectedDish.cooked(startTime);
 //            System.out.println(startTime+" "+selectedCook+" "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
             schedule.add(startTime+" "+selectedCook+" "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
         }
         return schedule;
     }
 
-    public static ArrayList<String> generateSchedule1_3(ArrayList<Order> orders,ArrayList<Cook> cooks){
+    //latest version: 1.3
+    public static void generateSchedule1_3(ArrayList<Order> orders,ArrayList<Cook> cooks){
         ArrayList<String> schedules = new ArrayList<>();
         ArrayList<Dish> uncookedDishes = new ArrayList<>();
         orders.forEach(o -> uncookedDishes.addAll(o.getDishes()));
@@ -105,6 +104,8 @@ public class KitchenSchedule {
         cooks.forEach(c -> c.initializeAvailableTime(time));
 
         LocalTime startTime = time;
+
+        ArrayList<Order> finishedOrder = new ArrayList<>();
 
         while(uncookedDishes.size()>0){
             Cook selectedCook = Cook.selectCook(cooks);
@@ -120,33 +121,32 @@ public class KitchenSchedule {
 
             if(selectedDish != null){
                 startTime = selectedCook.getAvailableTime();
-                uncookedDishes.remove(selectedDish);
-                selectedCook.cookFood(selectedDish.getOccupiedTime());
-                selectedDish.setIsCooked(true);
-
 
             }else{
                 //find the earliest arrived dish
                 selectedDish = uncookedDishes.get(0);
-                startTime = selectedDish.getOrderedTime();
-
                 for(Dish d: uncookedDishes){
                     if(d.getOrderedTime().compareTo(selectedDish.getOrderedTime())==-1) {
                         selectedDish = d;
                     }
                 }
-                uncookedDishes.remove(selectedDish);
-                selectedCook.cookFood(selectedDish.getOccupiedTime());
-                selectedDish.setIsCooked(true);
-
+                startTime = selectedDish.getOrderedTime();
             }
+            uncookedDishes.remove(selectedDish);
+            selectedCook.cookFood(selectedDish.getOccupiedTime());
+            selectedDish.cooked(startTime);
+            Order order = selectedDish.getOrder();
+            order.updateStatusIfAllDishCooked();
+            System.out.println(startTime+" "+selectedCook+" start cooking "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
+//            if(order.getStatus()==1){
+//                finishedOrder.add(order);
+////                System.out.println(order.getCookedTime()+" order"+order.getOrderCode()+" is cooked. Ready to delivery");
+//            }
 
-//            System.out.println(startTime+" "+selectedCook+" "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
-            schedules.add(startTime+" "+selectedCook+" "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
+//            schedules.add(startTime+" "+selectedCook+" "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
 
         }
-        return schedules;
-
+//        return finishedOrder;
     }
 
 }

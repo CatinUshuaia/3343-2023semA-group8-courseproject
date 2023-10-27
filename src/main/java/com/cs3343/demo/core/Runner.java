@@ -41,10 +41,7 @@ public class Runner implements CommandLineRunner {
         ArrayList<Order> order = Order.inputOrderInfo(ORDER_INPUT, dishes);
 //        System.out.println(order);
 
-        ArrayList<String> schedule = KitchenSchedule.generateSchedule1_3(order, cooks);
-        for (String s : schedule) {
-            System.out.println(s);
-        }
+        KitchenSchedule.generateSchedule1_3(order, cooks);
 
     }
 }

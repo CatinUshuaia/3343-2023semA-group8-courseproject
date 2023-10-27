@@ -17,8 +17,8 @@ public class Order {
     //2：外卖员已经送出，客人未收到
     //3：客人已收到
     //-1: 订单已取消
-
     private LocalTime orderTime;
+    private LocalTime cookedTime;
     public Order() {
     }
 
@@ -30,7 +30,7 @@ public class Order {
         this.orderTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
         this.dishes.forEach(d -> {
             d.setOrder(this);
-            d.setIsCooked(false);
+            d.initializeIsCooked();
         });
     }
 
@@ -94,21 +94,33 @@ public class Order {
 //        this.dishes.clear();
 //    }
 
-    public void checkIfAllDishCooked(){
+    public void updateStatusIfAllDishCooked(){
         boolean allCooked = true;
+        LocalTime latestTime = null;
         for (Dish dish : this.dishes) {
             if(!dish.getIsCooked()){
                 allCooked = false;
+            }else{
+                if(latestTime == null){
+                    latestTime = dish.getCookedTime();
+
+                }else if(dish.getCookedTime().compareTo(latestTime)==1){
+                    latestTime = dish.getCookedTime();
+                }
             }
         }
         if(allCooked){
             this.status = 1;
+            this.cookedTime = latestTime;
         }
+    }
+
+    public LocalTime getCookedTime() {
+        return cookedTime;
     }
 
     public int getStatus(){
         return this.status;
-    }
-
 }
 
+}

@@ -76,6 +76,7 @@ public class Cook implements Comparable<Cook> {
 
             CookEntity cookEntity = new CookEntity(name, Arrays.toString(cuisines), rank);
             cookImpl.save(cookEntity);
+            //读取input并存入database
 
         }
         return cooks;
