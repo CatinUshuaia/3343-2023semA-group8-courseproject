@@ -92,7 +92,7 @@ public class KitchenSchedule {
     }
 
     //latest version: 1.3
-    public static ArrayList<Order> generateSchedule1_3(ArrayList<Order> orders,ArrayList<Cook> cooks){
+    public static void generateSchedule1_3(ArrayList<Order> orders,ArrayList<Cook> cooks){
         ArrayList<String> schedules = new ArrayList<>();
         ArrayList<Dish> uncookedDishes = new ArrayList<>();
         orders.forEach(o -> uncookedDishes.addAll(o.getDishes()));
@@ -145,7 +145,7 @@ public class KitchenSchedule {
 //            schedules.add(startTime+" "+selectedCook+" "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
 
         }
-        return finishedOrder;
+//        return finishedOrder;
 
     }
 
