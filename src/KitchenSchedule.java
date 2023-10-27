@@ -137,10 +137,10 @@ public class KitchenSchedule {
             Order order = selectedDish.getOrder();
             order.updateStatusIfAllDishCooked();
             System.out.println(startTime+" "+selectedCook+" start cooking "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
-            if(order.getStatus()==1){
-                finishedOrder.add(order);
-//                System.out.println(order.getCookedTime()+" order"+order.getOrderCode()+" is cooked. Ready to delivery");
-            }
+//            if(order.getStatus()==1){
+//                finishedOrder.add(order);
+////                System.out.println(order.getCookedTime()+" order"+order.getOrderCode()+" is cooked. Ready to delivery");
+//            }
 
 //            schedules.add(startTime+" "+selectedCook+" "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
 
