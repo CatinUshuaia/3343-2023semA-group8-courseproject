@@ -1,11 +1,13 @@
 package com.cs3343.demo.core;
 
 import com.cs3343.demo.entity.CookEntity;
+import com.cs3343.demo.impls.CookImpl;
 import com.cs3343.demo.services.CookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import java.lang.reflect.Array;
 import java.time.LocalTime;
 import java.util.*;
 
@@ -30,6 +32,9 @@ public class Cook implements Comparable<Cook> {
     private Set<String> expertise = new HashSet<>();
     private String name;
     private int rank;
+
+    @Autowired
+    private CookImpl cookImpl;
 
 //    private CookStatus status;
 
@@ -58,7 +63,7 @@ public class Cook implements Comparable<Cook> {
         return name +" "+ expertise + " " + rank ;
     }
 
-    public static ArrayList<Cook> inputCookInfo(String filePath) throws IOException{
+    public  ArrayList<Cook> inputCookInfo(String filePath) throws IOException{
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line;
         ArrayList<Cook> cooks = new ArrayList<Cook>();
@@ -68,6 +73,10 @@ public class Cook implements Comparable<Cook> {
             String[] cuisines = splitLine[1].split(",");
             int rank = Integer.parseInt(splitLine[2]);
             cooks.add(new Cook(cuisines,name,rank));
+
+            CookEntity cookEntity = new CookEntity(name, Arrays.toString(cuisines), rank);
+            cookImpl.save(cookEntity);
+
         }
         return cooks;
     }

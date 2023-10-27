@@ -21,8 +21,8 @@ public class CookEntity {
 
     public CookEntity(){}
 
-    public CookEntity(long cookId, String cookName, String cookExpertise, int cookRank){
-        this.cookId = cookId;
+    public CookEntity(String cookName, String cookExpertise, int cookRank){
+//        this.cookId = cookId;
         this.cookName = cookName;
         this.cookExpertise = cookExpertise;
         this.cookRank = cookRank;
