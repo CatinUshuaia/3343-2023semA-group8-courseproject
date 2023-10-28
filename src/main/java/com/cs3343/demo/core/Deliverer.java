@@ -1,6 +1,7 @@
 package com.cs3343.demo.core;
 
 import com.cs3343.demo.impls.CookImpl;
+import com.cs3343.demo.impls.DelivererImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,7 @@ public class Deliverer implements Comparable<Deliverer> {
 
     private LocalTime availableTime;
     @Autowired
-    private DelivererImpl DelivererImpl;
+    private DelivererImpl delivererImpl;
     public Deliverer(){
 
     }
