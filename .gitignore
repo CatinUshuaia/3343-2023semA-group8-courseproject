@@ -1,4 +1,4 @@
 src/main/java/com/cs3343/demo/core/*.txt
 target/
 src/main/resources/application.properties
-
+.idea/
