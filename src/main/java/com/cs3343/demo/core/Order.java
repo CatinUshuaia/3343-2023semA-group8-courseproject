@@ -116,11 +116,14 @@ public class Order {
     }
 
     public LocalTime getCookedTime() {
-        return cookedTime;
+        return this.cookedTime;
     }
 
     public int getStatus(){
         return this.status;
 }
 
+    public double getDistance() {
+        return this.distance;
+    }
 }
