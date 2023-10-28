@@ -1,2 +1,2 @@
-friedMeatWithChili 10
-roastedDuck 15
+friedMeatWithChili 10 roast
+roastedDuck 15 fry
