@@ -1,2 +1,8 @@
-friedMeatWithChili 10 roast
-roastedDuck 15 fry
+FriedMeatWithChili 8 roast
+RoastedDuck 14 fry
+KungPaoChicken 8 fry
+CabbageAndPorkDumpling 8 boil
+PorkwithCornDumpling 8 boil
+Stir-friedVegetable 6 fry
+SourShreddedPotatoes 8 fry
+YangzhouFriedRice 8 fry
