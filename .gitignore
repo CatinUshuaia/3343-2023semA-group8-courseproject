@@ -2,3 +2,4 @@ dish.txt
 src/main/java/com/cs3343/demo/core/*.txt
 target/classes/com/cs3343/demo/core/*.class
 target/
+src/main/resources/application.properties
