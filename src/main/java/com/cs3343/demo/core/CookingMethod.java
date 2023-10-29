@@ -1,8 +1,9 @@
 package com.cs3343.demo.core;
 
-public enum CookingMethod {
+public enum CookingMethod implements Comparable<CookingMethod> {
     ROAST("roast", 2),
-    FRY("fry", -1);
+    FRY("fry", -1),
+    BOIL("boil", 1);
 
     private String name;
     private int operationTime;
@@ -28,6 +29,11 @@ public enum CookingMethod {
     }
     public String toString() {
         return name;
+    }
+
+    //personally I would like to make compareTo more flexible
+    public int customCompareTo(CookingMethod other) {
+        return this.operationTime - other.operationTime;
     }
 
 }

@@ -22,9 +22,9 @@ public class Runner implements CommandLineRunner {
     // instead of inputing file, randomly generate the cook info
 
     // can also be randomly generated
-    private final static String DISH_INPUT ="src/main/java/com/cs3343/demo/core/dish.txt";
+    private final static String DISH_INPUT ="src/main/java/com/cs3343/demo/core/dish_1.txt";
 
-    private final static String ORDER_INPUT = "src/main/java/com/cs3343/demo/core/order.txt";
+    private final static String ORDER_INPUT = "src/main/java/com/cs3343/demo/core/order_1.txt";
 
     @Autowired
     private Cook cook;
@@ -35,13 +35,17 @@ public class Runner implements CommandLineRunner {
 
         ArrayList<Dish> dishes = Dish.inputDishInfo(DISH_INPUT);
         ArrayList<Cook> cooks = cook.inputCookInfo(COOK_INPUT);
-        for(Cook c: cooks){
-            System.out.println(c.getInfo());
-        }
-        ArrayList<Order> order = Order.inputOrderInfo(ORDER_INPUT, dishes);
+//        for(Cook c: cooks){
+//            System.out.println(c.getInfo());
+//        }
+        ArrayList<Order> orders = Order.inputOrderInfo(ORDER_INPUT, dishes);
 //        System.out.println(order);
 
-        KitchenSchedule.generateSchedule1_3(order, cooks);
+        KitchenSchedule.generateSchedule1_3(orders, cooks);
+        System.out.println("=====================================");
+        for(Order o: orders){
+            System.out.println("order "+o.getOrderCode()+" is ordered at "+o.getOrderTime()+", is finished cooking at "+o.getCookedTime()+". ");
+        }
 
     }
 }

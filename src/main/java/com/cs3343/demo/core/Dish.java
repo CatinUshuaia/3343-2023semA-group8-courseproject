@@ -75,6 +75,9 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         }else if(wayToCook.equals("fry")){
             this.wayToCook = CookingMethod.FRY;
         }
+        else if(wayToCook.equals("boil")){
+            this.wayToCook = CookingMethod.BOIL;
+        }
     }
     @Override
     public String toString(){
@@ -104,7 +107,7 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         //above logic is ued in generateSchedule1_2
         //which can be removed later
 
-        int comparison_wayToCook = this.wayToCook.compareTo(other.wayToCook);
+        int comparison_wayToCook = this.wayToCook.customCompareTo(other.wayToCook);
         if(comparison_wayToCook!=0){
             return comparison_wayToCook;
         }
