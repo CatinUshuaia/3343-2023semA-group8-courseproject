@@ -1,5 +1,5 @@
-FriedMeatWithChili 8 roast
-RoastedDuck 14 fry
+FriedMeatWithChili 8 fry
+RoastedDuck 14 roast
 KungPaoChicken 8 fry
 CabbageAndPorkDumpling 8 boil
 PorkwithCornDumpling 8 boil
