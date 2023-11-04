@@ -52,6 +52,7 @@ public class Deliverer implements Comparable<Deliverer> {
             String name = splitLine[0];
             deliverers.add(new Deliverer(name));
         }
+        reader.close();
         return deliverers;
     }
 

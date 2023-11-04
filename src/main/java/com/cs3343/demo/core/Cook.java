@@ -75,6 +75,7 @@ public class Cook implements Comparable<Cook> {
             //读取input并存入database
 
         }
+        reader.close();
         return cooks;
     }
 

@@ -81,6 +81,7 @@ public class Order {
             Order order=new Order(++orderCode,dishes,distance,timeStr);
             orders.add(order);
         }
+        reader.close();
         return orders;
     }
     @Override
