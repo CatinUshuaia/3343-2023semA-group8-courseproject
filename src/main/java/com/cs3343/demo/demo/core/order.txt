@@ -1,0 +1,4 @@
+11:00 FriedMeatWithChili,RoastedDuck 8
+11:01 FriedMeatWithChili 6
+11:02 RoastedDuck,FriedMeatWithChili 11
+11:15 RoastedDuck 20
