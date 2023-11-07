@@ -1,2 +1,0 @@
-friedMeatWithChili 10
-roastedDuck 15
