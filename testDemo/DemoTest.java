@@ -33,8 +33,7 @@ public class DemoTest {
 	@Test
 	public void test1() throws Exception {
 		boolean result;
-		String expectedresult="11:00 0 1,11:00 0 1,11:02 0 2,11:08 0 3,11:10 0 3,11:15 0 4";
+		String expectedresult="13:00 Joy 0 1,13:10 Tom 0 2,13:30 Joy 0 3";
 		assertEquals(expectedresult, Runner.getKitchenSchedules(DISH_INPUT, COOK_INPUT, ORDER_INPUT));
 	}
-	
 }

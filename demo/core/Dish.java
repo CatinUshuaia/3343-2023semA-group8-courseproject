@@ -16,7 +16,8 @@ public class Dish  implements Comparable<Dish>,Cloneable{
     private LocalTime cookedTime;
     public Dish(){
     }
-    public Dish(String dishName, int dishProductTime,String wayToCook){
+    public Dish(int code, String dishName, int dishProductTime,String wayToCook){
+        this.dishCode = code;
         this.dishName = dishName;
 //        this.wayToCook = getWayToCook(dishName);
         this.setWayToCook(wayToCook);
@@ -24,8 +25,8 @@ public class Dish  implements Comparable<Dish>,Cloneable{
 //        this.dishCode = dishCode;
 //        this.dishProductTime=dishProductTime;
         this.order = null;
-
     }
+
 
     public void setOrder(Order order){
         assert this.order == null;
@@ -90,12 +91,12 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         ArrayList<Dish> dishes = new ArrayList<Dish>();
         while ((line = reader.readLine())!=null){
             String[] splitLine = line.split(" ");
-            dishes.add(new Dish(splitLine[0],Integer.parseInt(splitLine[1]),splitLine[2] ));
+            dishes.add(new Dish(Integer.parseInt(splitLine[0]),splitLine[1],Integer.parseInt(splitLine[2]),splitLine[3] ));
         }
-        
         reader.close();
         return dishes;
     }
+
 
     @Override
     public int compareTo(Dish other) {
@@ -106,10 +107,11 @@ public class Dish  implements Comparable<Dish>,Cloneable{
             return -1;
         }
 
-        //above logic is used in generateSchedule1_2
+        //above logic is ued in generateSchedule1_2
         //which can be removed later
 
-        int comparison_wayToCook = this.wayToCook.customCompareTo(other.wayToCook);
+//        int comparison_wayToCook = this.wayToCook.customCompareTo(other.wayToCook);
+        int comparison_wayToCook = this.wayToCook.compareTo(other.wayToCook);
         if(comparison_wayToCook!=0){
             return comparison_wayToCook;
         }

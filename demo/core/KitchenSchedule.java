@@ -47,13 +47,13 @@ public class KitchenSchedule {
                 startTime = selectedDish.getOrderedTime();
             }
             uncookedDishes.remove(selectedDish);
-            selectedCook.cookFood(selectedDish.getOccupiedTime());
+            selectedCook.cookFood(startTime.plusMinutes(selectedDish.getOccupiedTime()));
             selectedDish.cooked(startTime);
             Order order = selectedDish.getOrder();
             order.updateStatusIfAllDishCooked();
             System.out.println(startTime+" "+selectedCook+" start cooking "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
 //            System.out.println(startTime+" "+selectedDish.getDishCode()+" "+selectedDish.getOrder().getOrderCode());
-            schedules.add(startTime+" "+selectedDish.getDishCode()+" "+selectedDish.getOrder().getOrderCode());
+            schedules.add(startTime+" "+selectedCook+" "+selectedDish.getDishCode()+" "+selectedDish.getOrder().getOrderCode());
         }
         return schedules;
     }

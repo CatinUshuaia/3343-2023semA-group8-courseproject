@@ -1,10 +1,10 @@
 package demo.core;
 
 public enum CookingMethod implements Comparable<CookingMethod> {
-    ROAST("roast", 2),
-    FRY("fry", -1),
-    BOIL("boil", 1);
-
+	BOIL("boil", 1),
+	ROAST("roast", 2),
+	FRY("fry", -1);
+	
     private String name;
     private int operationTime;
 //    private int priority;
@@ -32,8 +32,9 @@ public enum CookingMethod implements Comparable<CookingMethod> {
     }
 
     //personally I would like to make compareTo more flexible
-    public int customCompareTo(CookingMethod other) {
-        return this.operationTime - other.operationTime;
-    }
-
+    //public int customCompareTo(CookingMethod other) {
+      //  return this.operationTime - other.operationTime;
+    //}
+    
+    
 }
