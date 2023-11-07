@@ -1,18 +1,10 @@
 package com.cs3343.demo.core;
 
-import com.cs3343.demo.entity.CookEntity;
-import com.cs3343.demo.impls.CookImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
-import com.cs3343.demo.core.Cook;
-
 import java.util.ArrayList;
-import java.util.List;
-
-import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
 @Component
 //@Scope(SCOPE_PROTOTYPE)
@@ -22,9 +14,9 @@ public class Runner implements CommandLineRunner {
     // instead of inputing file, randomly generate the cook info
 
     // can also be randomly generated
-    private final static String DISH_INPUT ="src/main/java/com/cs3343/demo/core/dish_1.txt";
+    private final static String DISH_INPUT ="src/main/java/com/cs3343/demo/core/dish.txt";
 
-    private final static String ORDER_INPUT = "src/main/java/com/cs3343/demo/core/order_1.txt";
+    private final static String ORDER_INPUT = "src/main/java/com/cs3343/demo/core/order.txt";
 
     @Autowired
     private Cook cook;
@@ -41,11 +33,16 @@ public class Runner implements CommandLineRunner {
         ArrayList<Order> orders = Order.inputOrderInfo(ORDER_INPUT, dishes);
 //        System.out.println(order);
 
-        KitchenSchedule.generateSchedule1_3(orders, cooks);
+        ArrayList<String> schedules = KitchenSchedule.generateSchedule1_3(orders, cooks);
+        for(String s: schedules){
+            System.out.println(s);
+        }
         System.out.println("=====================================");
         for(Order o: orders){
             System.out.println("order "+o.getOrderCode()+" is ordered at "+o.getOrderTime()+", is finished cooking at "+o.getCookedTime()+". ");
         }
 
     }
+
 }
+

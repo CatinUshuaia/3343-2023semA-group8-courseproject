@@ -93,7 +93,7 @@ public class KitchenSchedule {
     }
 
     //latest version: 1.3
-    public static void generateSchedule1_3(ArrayList<Order> orders,ArrayList<Cook> cooks){
+     public static ArrayList<String> generateSchedule1_3(ArrayList<Order> orders,ArrayList<Cook> cooks){
         ArrayList<String> schedules = new ArrayList<>();
         ArrayList<Dish> uncookedDishes = new ArrayList<>();
         orders.forEach(o -> uncookedDishes.addAll(o.getDishes()));
@@ -104,8 +104,6 @@ public class KitchenSchedule {
         cooks.forEach(c -> c.initializeAvailableTime(time));
 
         LocalTime startTime = time;
-
-        ArrayList<Order> finishedOrder = new ArrayList<>();
 
         while(uncookedDishes.size()>0){
             Cook selectedCook = Cook.selectCook(cooks);
@@ -137,10 +135,11 @@ public class KitchenSchedule {
             selectedDish.cooked(startTime);
             Order order = selectedDish.getOrder();
             order.updateStatusIfAllDishCooked();
-            System.out.println(startTime+" "+selectedCook+" start cooking "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
-
+//            System.out.println(startTime+" "+selectedCook+" start cooking "+selectedDish+" order"+selectedDish.getOrder().getOrderCode());
+//            System.out.println(startTime+" "+selectedDish.getDishCode()+" "+selectedDish.getOrder().getOrderCode());
+            schedules.add(startTime+" "+selectedDish.getDishCode()+" "+selectedDish.getOrder().getOrderCode());
         }
-
+        return schedules;
     }
 
 }
