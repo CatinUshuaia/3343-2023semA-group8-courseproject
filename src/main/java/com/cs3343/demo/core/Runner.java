@@ -41,7 +41,13 @@ public class Runner implements CommandLineRunner {
         for(Order o: orders){
             System.out.println("order "+o.getOrderCode()+" is ordered at "+o.getOrderTime()+", is finished cooking at "+o.getCookedTime()+". ");
         }
-
+ArrayList<Order> filteredOrders = new ArrayList<>();
+        for (Order order : orders) {
+            if (order.getStatus() == 1) {
+                filteredOrders.add(order);
+            }
+        }
+        Collections.sort(filteredOrders);
     }
 
 }

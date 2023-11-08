@@ -21,7 +21,7 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROT
 @Scope(SCOPE_PROTOTYPE)
 public class Deliverer implements Comparable<Deliverer> {
     private String name;
-
+private ArrayList<Order> deliverOrder;
     private LocalTime availableTime;
     @Autowired
     private DelivererImpl delivererImpl;
@@ -52,7 +52,6 @@ public class Deliverer implements Comparable<Deliverer> {
             String name = splitLine[0];
             deliverers.add(new Deliverer(name));
         }
-        reader.close();
         return deliverers;
     }
 
@@ -80,18 +79,10 @@ public class Deliverer implements Comparable<Deliverer> {
         return this.availableTime;
     }
 
-    public static String selectDeliverer(ArrayList<Deliverer> deliverers, int orderOperationTime) {
-        Collections.sort(deliverers);
-        Deliverer selectedDeliverer = deliverers.get(0);
-        LocalTime startTime = selectedDeliverer.getAvailableTime();
-        selectedDeliverer.deliverFood(orderOperationTime);
-        return startTime+" "+selectedDeliverer;
-    }
-
+    
     public static Deliverer getDeliverer(ArrayList<Deliverer> deliverers){
         Collections.sort(deliverers);
         return deliverers.get(0);
     }
 
 }
-
