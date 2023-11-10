@@ -37,7 +37,8 @@ public class Cook implements Comparable<Cook> {
 
     private LocalTime availableTime;
 
-
+    public Cook(){
+    }
     public Cook(String[] cuisines,String n, int rank,int id){
         this.name = n;
         this.rank = rank;

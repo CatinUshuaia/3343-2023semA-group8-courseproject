@@ -9,7 +9,7 @@ public enum CookingMethod implements Comparable<CookingMethod> {
     private int operationTime;
 //    private int priority;
 
-    private CookingMethod(String name, int operationTime) {
+    CookingMethod(String name, int operationTime) {
         this.name = name;
         this.operationTime = operationTime;
 //        this.priority = priority;
