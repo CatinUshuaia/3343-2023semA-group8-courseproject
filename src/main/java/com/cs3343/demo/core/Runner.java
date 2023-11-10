@@ -22,9 +22,9 @@ public class Runner implements CommandLineRunner {
     // instead of inputing file, randomly generate the cook info
 
     // can also be randomly generated
-    private final static String DISH_INPUT ="src/main/java/com/cs3343/demo/core/dish_1.txt";
+    private final static String DISH_INPUT ="src/main/java/com/cs3343/demo/core/dish.txt";
 
-    private final static String ORDER_INPUT = "src/main/java/com/cs3343/demo/core/order_1.txt";
+    private final static String ORDER_INPUT = "src/main/java/com/cs3343/demo/core/order.txt";
 
     @Autowired
     private Cook cook;

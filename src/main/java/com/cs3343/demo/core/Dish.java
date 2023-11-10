@@ -27,6 +27,7 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         this.order = null;
     }
 
+
     public void setOrder(Order order){
         assert this.order == null;
         this.order = order;
@@ -66,7 +67,7 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         return CookingMethod.FRY;
     }
 
-//    public CookingMethod getWayToCook() {
+    //    public CookingMethod getWayToCook() {
 //        return wayToCook;
 //    }
     private void setWayToCook(String wayToCook){
@@ -96,6 +97,7 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         return dishes;
     }
 
+
     @Override
     public int compareTo(Dish other) {
 
@@ -108,7 +110,8 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         //above logic is ued in generateSchedule1_2
         //which can be removed later
 
-        int comparison_wayToCook = this.wayToCook.customCompareTo(other.wayToCook);
+//        int comparison_wayToCook = this.wayToCook.customCompareTo(other.wayToCook);
+        int comparison_wayToCook = this.wayToCook.compareTo(other.wayToCook);
         if(comparison_wayToCook!=0){
             return comparison_wayToCook;
         }

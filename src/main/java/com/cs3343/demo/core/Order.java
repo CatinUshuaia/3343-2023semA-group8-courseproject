@@ -70,9 +70,13 @@ public class Order {
             ArrayList<Dish> dishes = new ArrayList<Dish>();
             String dishesStr = splitLine[1];
             String[] splitDishes = dishesStr.split(",");
-            for (String dishName : splitDishes) {
+//                for(String str: splitDishes){
+//                    System.out.println(str);
+//                }
+            for (String dishStr : splitDishes) {
                 for (Dish dish : allDishes) {
-                    if (dishName.equals(dish.getDishName())) {
+                    if(dishStr.equals(dish.getDishCode()+"")
+                            || dishStr.equals(dish.getDishName())){
                         dishes.add(dish.clone());
                     }
                 }
@@ -84,6 +88,7 @@ public class Order {
         reader.close();
         return orders;
     }
+
     @Override
     public String toString(){
         return this.orderTime+ " " + this.dishes + " ";
@@ -122,7 +127,7 @@ public class Order {
 
     public int getStatus(){
         return this.status;
-}
+    }
 
     public double getDistance() {
         return this.distance;
