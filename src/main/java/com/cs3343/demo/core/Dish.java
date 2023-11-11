@@ -132,6 +132,10 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         return Comparator.comparing(Dish::getOrderedTime);
     }
 
+    public int getDishProductTime(){
+        return this.dishProductTime;
+    }
+
     public int getOccupiedTime(){
         int operationTime = this.wayToCook.getOperationTime();
         if(operationTime==-1) {

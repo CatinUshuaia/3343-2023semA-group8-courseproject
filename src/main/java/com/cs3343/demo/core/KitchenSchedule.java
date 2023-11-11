@@ -178,7 +178,7 @@ public class KitchenSchedule {
         selectDishes(uncookedDishes,LocalTime.parse("11:02", DateTimeFormatter.ofPattern("HH:mm"))).forEach(d -> System.out.println(d+" "+d.getOrderedTime()));
     }
 
-    public static ArrayList<Dish> earliestDishes(ArrayList<Dish> uncookedDishes){
+    public static ArrayList<Dish> earliestDishes_bug(ArrayList<Dish> uncookedDishes){
         ArrayList<Dish> earliestDishes = new ArrayList<>();
 
         Collections.sort(uncookedDishes, Dish.getTimeComparator());
@@ -195,6 +195,28 @@ public class KitchenSchedule {
             }
         }
 //        earliestDishes.add(earliestDish);
+        Collections.sort(uncookedDishes); //recover the order of uncookedDishes
+        return earliestDishes;
+    }
+
+    public static ArrayList<Dish> earliestDishes(ArrayList<Dish> uncookedDishes){
+        ArrayList<Dish> earliestDishes = new ArrayList<>();
+
+        Collections.sort(uncookedDishes, Dish.getTimeComparator());
+
+        for(Dish d: uncookedDishes){
+            if(earliestDishes.size()==0){
+                earliestDishes.add(d);
+            }
+            else if(d.isOrderedSameTimeWith(earliestDishes.get(0))
+                    && d.sameDish(earliestDishes.get(0))
+                    && earliestDishes.size()<=MAXIMUM
+            ){
+                earliestDishes.add(d);
+            }else{
+                break;
+            }
+        }
         Collections.sort(uncookedDishes); //recover the order of uncookedDishes
         return earliestDishes;
     }
@@ -218,8 +240,20 @@ public class KitchenSchedule {
         }
     }
 
-    public static int cookAllTime(ArrayList<Dish> dishes){
+    public static int cookAllTime_bug(ArrayList<Dish> dishes){
         int cookAllTime = dishes.get(0).getOccupiedTime();
+        cookAllTime += ADDTIME*(dishes.size()-1);
+        return cookAllTime;
+    }
+
+    public static int operateAllTime(ArrayList<Dish> dishes){
+        int operateAllTime = dishes.get(0).getOccupiedTime();
+        operateAllTime += ADDTIME*(dishes.size()-1);
+        return operateAllTime;
+    }
+
+    public static int cookAllTime(ArrayList<Dish> dishes){
+        int cookAllTime = dishes.get(0).getDishProductTime();
         cookAllTime += ADDTIME*(dishes.size()-1);
         return cookAllTime;
     }
@@ -248,10 +282,11 @@ public class KitchenSchedule {
             }else{
                 //find the earliest arrived dish
                 selectedDishes = KitchenSchedule.earliestDishes(uncookedDishes);
+                startTime = selectedDishes.get(0).getOrderedTime();
             }
             LocalTime finishedTime = startTime.plusMinutes(cookAllTime(selectedDishes));
             //pass expected finish time
-            selectedCook.cookFood(finishedTime);
+            selectedCook.cookFood(startTime.plusMinutes(operateAllTime(selectedDishes)));
 
             ArrayList<Integer> orderCodes = new ArrayList<>();
             for(Dish d: selectedDishes){
@@ -262,7 +297,7 @@ public class KitchenSchedule {
                 orderCodes.add(order.getOrderCode());
             }
 
-            System.out.println(startTime+" "+selectedCook+" start cooking "+selectedDishes.get(0)+" order:"+orderCodes);
+            System.out.println(startTime+" "+selectedCook+" start cooking "+selectedDishes.get(0)+" order:"+orderCodes+". done at "+finishedTime);
 //            System.out.println(startTime+" "+selectedDish.getDishCode()+" "+selectedDish.getOrder().getOrderCode());
 //            schedules.add(startTime+" "+selectedCook+" "+selectedDish.getDishCode()+" "+selectedDish.getOrder().getOrderCode());
         }

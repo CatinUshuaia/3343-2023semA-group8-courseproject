@@ -27,7 +27,7 @@ public class Runner implements CommandLineRunner {
     // can also be randomly generated
     private final static String DISH_INPUT ="src/main/java/com/cs3343/demo/core/dish.txt";
 
-    private final static String ORDER_INPUT = "src/main/java/com/cs3343/demo/core/order.txt";
+    private final static String ORDER_INPUT = "src/main/java/com/cs3343/demo/core/order1.txt";
 
     @Autowired
     private Cook cook;
