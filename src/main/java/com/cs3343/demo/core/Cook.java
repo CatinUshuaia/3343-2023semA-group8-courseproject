@@ -29,6 +29,7 @@ public class Cook implements Comparable<Cook> {
     private String name;
     private int rank;
     private int cookCode;
+    private int workTime;
 
     @Autowired
     private CookImpl cookImpl;

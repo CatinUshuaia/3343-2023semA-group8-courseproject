@@ -9,7 +9,10 @@ import org.springframework.stereotype.Component;
 
 import com.cs3343.demo.core.Cook;
 
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
@@ -35,17 +38,18 @@ public class Runner implements CommandLineRunner {
 
         ArrayList<Dish> dishes = Dish.inputDishInfo(DISH_INPUT);
         ArrayList<Cook> cooks = cook.inputCookInfo(COOK_INPUT);
-//        for(Cook c: cooks){
-//            System.out.println(c.getInfo());
-//        }
-        ArrayList<Order> orders = Order.inputOrderInfo(ORDER_INPUT, dishes);
-//        System.out.println(order);
 
-        KitchenSchedule.generateSchedule1_3(orders, cooks);
+        ArrayList<Order> orders = Order.inputOrderInfo(ORDER_INPUT, dishes);
+
+//        KitchenSchedule.testEarliestDishes(orders);
+
+        KitchenSchedule.generateSchedule3_1(orders, cooks);
         System.out.println("=====================================");
         for(Order o: orders){
             System.out.println("order "+o.getOrderCode()+" is ordered at "+o.getOrderTime()+", is finished cooking at "+o.getCookedTime()+". ");
         }
+
+
 
     }
 }
