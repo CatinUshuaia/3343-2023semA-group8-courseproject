@@ -7,7 +7,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-public class Order {
+public class Order implements Comparable<Order> {
     private int orderCode;
     private ArrayList<Dish> dishes;
     private double distance;
@@ -131,5 +131,8 @@ public class Order {
 
     public double getDistance() {
         return this.distance;
+    }
+    public int compareTo(Order other) {
+        return this.getCookedTime().compareTo(other.getCookedTime());
     }
 }

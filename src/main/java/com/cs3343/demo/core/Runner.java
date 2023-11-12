@@ -28,6 +28,7 @@ public class Runner implements CommandLineRunner {
     private final static String DISH_INPUT ="src/main/java/com/cs3343/demo/core/dish.txt";
 
     private final static String ORDER_INPUT = "src/main/java/com/cs3343/demo/core/order.txt";
+    private final static String DELIVERER_INPUT = "src/main/java/com/cs3343/demo/core/deliverers.xml";
 
     @Autowired
     private Cook cook;
@@ -40,6 +41,7 @@ public class Runner implements CommandLineRunner {
         ArrayList<Cook> cooks = cook.inputCookInfo(COOK_INPUT);
 
         ArrayList<Order> orders = Order.inputOrderInfo(ORDER_INPUT, dishes);
+        
 
 //        KitchenSchedule.testEarliestDishes(orders);
 
@@ -48,7 +50,17 @@ public class Runner implements CommandLineRunner {
         for(Order o: orders){
             System.out.println("order "+o.getOrderCode()+" is ordered at "+o.getOrderTime()+", is finished cooking at "+o.getCookedTime()+". ");
         }
+      ArrayList<Order> filteredOrders = new ArrayList<>();
+        for (Order order : orders) {
+            if (order.getStatus() == 1) {
+                filteredOrders.add(order);
+            }
+        }
+        Collections.sort(filteredOrders);
 
+        for (Order order: filteredOrders){
+            PerDeliverySchedule.generateSchedule(filteredOrders,deliverers);
+        }
 
 
     }
