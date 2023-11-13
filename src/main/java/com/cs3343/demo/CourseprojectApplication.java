@@ -7,10 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication(scanBasePackages = {
-		"com.cs3343.demo.core",
-		"com.cs3343.demo.impls",
-		"com.cs3343.demo.repository",
-		"com.cs3343.demo.services"
+		"com.cs3343.demo.core"
 })
 public class CourseprojectApplication {
 //	public static void main(String[] args) {

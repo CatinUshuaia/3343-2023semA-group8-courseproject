@@ -1,9 +1,5 @@
 package com.cs3343.demo.core;
 
-import com.cs3343.demo.entity.CookEntity;
-import com.cs3343.demo.impls.CookImpl;
-import com.cs3343.demo.services.CookService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -30,9 +26,6 @@ public class Cook implements Comparable<Cook> {
     private int rank;
     private int cookCode;
     private int workTime;
-
-    @Autowired
-    private CookImpl cookImpl;
 
 //    private CookStatus status;
 

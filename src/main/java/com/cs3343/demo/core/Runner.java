@@ -1,7 +1,12 @@
 package com.cs3343.demo.core;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.shell.command.annotation.Command;
+import org.springframework.shell.command.annotation.CommandScan;
+import org.springframework.shell.standard.ShellComponent;
+import org.springframework.shell.standard.ShellMethod;
 import org.springframework.stereotype.Component;
 
 import com.cs3343.demo.core.Cook;
@@ -14,10 +19,9 @@ import java.util.List;
 
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
-@Component
-//@Scope(SCOPE_PROTOTYPE)
 
 public class Runner implements CommandLineRunner {
+
     private final static String COOK_INPUT = "src/main/java/com/cs3343/demo/core/cook.txt";
     // instead of inputing file, randomly generate the cook info
 
@@ -27,7 +31,6 @@ public class Runner implements CommandLineRunner {
     private final static String ORDER_INPUT = "src/main/java/com/cs3343/demo/core/order.txt";
     private final static String DELIVERER_INPUT = "src/main/java/com/cs3343/demo/core/deliverers.xml";
 
-    @Autowired
     private Cook cook;
 
     @Override

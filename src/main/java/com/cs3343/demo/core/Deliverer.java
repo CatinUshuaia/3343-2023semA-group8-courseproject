@@ -1,7 +1,5 @@
 package com.cs3343.demo.core;
 
-import com.cs3343.demo.impls.CookImpl;
-import com.cs3343.demo.impls.DelivererImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -21,14 +19,11 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
-@Component
-@Scope(SCOPE_PROTOTYPE)
+
 public class Deliverer implements Comparable<Deliverer> {
     private String name;
 private ArrayList<Order> deliverOrder;
     private LocalTime availableTime;
-    @Autowired
-    private DelivererImpl delivererImpl;
     public Deliverer(){
 
     }
@@ -48,16 +43,20 @@ private ArrayList<Order> deliverOrder;
     }
 
     public static ArrayList<Deliverer> inputDelivererInfo(String xmlFilePath) throws IOException{
-            try {
+        ArrayList<Deliverer> deliverers = new ArrayList<>();
+
+        try {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
                 Document document = builder.parse(xmlFilePath);
 
                 Element root = document.getDocumentElement();
                 NodeList delivererNameList = root.getElementsByTagName("delivererName");
+
+
                 if (delivererNameList.getLength() > 0) {
-                    for (int i = 0; i < delivererList.getLength(); i++) {
-                        Element delivererElement = (Element) delivererList.item(i);
+                    for (int i = 0; i < delivererNameList.getLength(); i++) {
+                        Element delivererElement = (Element) delivererNameList.item(i);
                         deliverers.add(new Deliverer(delivererElement.getElementsByTagName("delivererName").item(0).getTextContent()));
                 }
             }
