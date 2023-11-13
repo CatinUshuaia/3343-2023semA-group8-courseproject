@@ -7,9 +7,40 @@ import java.util.Collections;
 
 public class KitchenSchedule {
 
-    private static final int ADDTIME = 1;
+    private static KitchenSchedule generator;
+    private int addTime;
+    private int maximum;
 
-    private static final int MAXIMUM = 3;
+    private KitchenSchedule(){
+        this.addTime = 1;
+        this.maximum = 3;
+    }
+
+    public static KitchenSchedule getGenerator(){
+        if(generator == null){
+            generator = new KitchenSchedule();
+        }
+        return generator;
+    }
+
+    public int getAddTime(){
+        return this.addTime;
+    }
+
+    public void setAddTime(int addTime){
+        this.addTime = addTime;
+    }
+
+    public void setMaximum(int maximum){
+        this.maximum = maximum;
+    }
+
+    public int getMaximum(){
+        return this.maximum;
+    }
+//    private static final int ADDTIME = 1;
+
+//    private static final int MAXIMUM = 3;
 
 //    public static ArrayList<String> generateSchedule1_1(ArrayList<Order> orders,ArrayList<Cook> cooks){
 //        ArrayList<String> schedule = new ArrayList<String>();
@@ -99,7 +130,7 @@ public class KitchenSchedule {
     //latest version: 1.3
 
     //latest version: 1.3
-    public static ArrayList<String> generateSchedule1_3(ArrayList<Order> orders,ArrayList<Cook> cooks){
+    public ArrayList<String> generateSchedule1_3(ArrayList<Order> orders,ArrayList<Cook> cooks){
         ArrayList<String> schedules = new ArrayList<>();
         ArrayList<Dish> uncookedDishes = new ArrayList<>();
         orders.forEach(o -> uncookedDishes.addAll(o.getDishes()));
@@ -149,7 +180,7 @@ public class KitchenSchedule {
     }
 
     //find the first dishes that can be cooked by the selected cook
-    public static ArrayList<Dish> selectDishes(ArrayList<Dish> uncookedDishes, LocalTime cookTime){
+    public ArrayList<Dish> highPriorityDishes(ArrayList<Dish> uncookedDishes, LocalTime cookTime){
         ArrayList<Dish> selectedDishes = new ArrayList<>();
         for(Dish d: uncookedDishes){
             //dish is ordered before the cook is available
@@ -157,7 +188,7 @@ public class KitchenSchedule {
                 if(selectedDishes.size()==0){
                     selectedDishes.add(d);
                 }else if(d.sameDish(selectedDishes.get(0))
-                        && selectedDishes.size()<=MAXIMUM){ //pick same dish, let them be cooked at once
+                        && selectedDishes.size()<=maximum){ //pick same dish, let them be cooked at once
                     selectedDishes.add(d);
                 }else{
                     break;
@@ -167,7 +198,7 @@ public class KitchenSchedule {
         return selectedDishes;
     }
 
-    public static void testSelectedDishes(ArrayList<Order> orders){
+    public void testSelectedDishes(ArrayList<Order> orders){
         ArrayList<Dish> uncookedDishes = new ArrayList<>();
         orders.forEach(o -> uncookedDishes.addAll(o.getDishes()));
 
@@ -175,10 +206,10 @@ public class KitchenSchedule {
         uncookedDishes.remove(0);
         uncookedDishes.remove(0);
 
-        selectDishes(uncookedDishes,LocalTime.parse("11:02", DateTimeFormatter.ofPattern("HH:mm"))).forEach(d -> System.out.println(d+" "+d.getOrderedTime()));
+        highPriorityDishes(uncookedDishes,LocalTime.parse("11:02", DateTimeFormatter.ofPattern("HH:mm"))).forEach(d -> System.out.println(d+" "+d.getOrderedTime()));
     }
 
-    public static ArrayList<Dish> earliestDishes_bug(ArrayList<Dish> uncookedDishes){
+    public ArrayList<Dish> earliestDishes_bug(ArrayList<Dish> uncookedDishes){
         ArrayList<Dish> earliestDishes = new ArrayList<>();
 
         Collections.sort(uncookedDishes, Dish.getTimeComparator());
@@ -187,7 +218,7 @@ public class KitchenSchedule {
         for(Dish d: uncookedDishes){
             if(d.isOrderedSameTimeWith(earliestDishes.get(0))
                     && d.sameDish(earliestDishes.get(0))
-                    && earliestDishes.size()<=MAXIMUM
+                    && earliestDishes.size()<=maximum
             ){
                 earliestDishes.add(d);
             }else{
@@ -199,7 +230,7 @@ public class KitchenSchedule {
         return earliestDishes;
     }
 
-    public static ArrayList<Dish> earliestDishes(ArrayList<Dish> uncookedDishes){
+    public ArrayList<Dish> earliestDishes(ArrayList<Dish> uncookedDishes){
         ArrayList<Dish> earliestDishes = new ArrayList<>();
 
         Collections.sort(uncookedDishes, Dish.getTimeComparator());
@@ -210,7 +241,7 @@ public class KitchenSchedule {
             }
             else if(d.isOrderedSameTimeWith(earliestDishes.get(0))
                     && d.sameDish(earliestDishes.get(0))
-                    && earliestDishes.size()<=MAXIMUM
+                    && earliestDishes.size()<=maximum
             ){
                 earliestDishes.add(d);
             }else{
@@ -221,17 +252,17 @@ public class KitchenSchedule {
         return earliestDishes;
     }
 
-    public static void testDishesTimeComparator(ArrayList<Order> orders){
+    public void testDishesTimeComparator(ArrayList<Order> orders){
         ArrayList<Dish> uncookedDishes = new ArrayList<>();
         orders.forEach(o -> uncookedDishes.addAll(o.getDishes()));
-//        selectDishes(uncookedDishes,LocalTime.parse("11:02", DateTimeFormatter.ofPattern("HH:mm"))).forEach(d -> System.out.println(d+" "+d.getOrderedTime()));
+//        highPriorityDishes(uncookedDishes,LocalTime.parse("11:02", DateTimeFormatter.ofPattern("HH:mm"))).forEach(d -> System.out.println(d+" "+d.getOrderedTime()));
         Collections.sort(uncookedDishes, Dish.getTimeComparator());
         for(Dish d: uncookedDishes){
             System.out.println(d.getOrderedTime()+" "+d);
         }
     }
 
-    public static void testEarliestDishes(ArrayList<Order> orders){
+    public void testEarliestDishes(ArrayList<Order> orders){
         ArrayList<Dish> uncookedDishes = new ArrayList<>();
         orders.forEach(o -> uncookedDishes.addAll(o.getDishes()));
         ArrayList<Dish> earliestDishes = earliestDishes(uncookedDishes);
@@ -240,26 +271,26 @@ public class KitchenSchedule {
         }
     }
 
-    public static int cookAllTime_bug(ArrayList<Dish> dishes){
+    public int cookAllTime_bug(ArrayList<Dish> dishes){
         int cookAllTime = dishes.get(0).getOccupiedTime();
-        cookAllTime += ADDTIME*(dishes.size()-1);
+        cookAllTime += addTime*(dishes.size()-1);
         return cookAllTime;
     }
 
-    public static int operateAllTime(ArrayList<Dish> dishes){
+    public int operateAllTime(ArrayList<Dish> dishes){
         int operateAllTime = dishes.get(0).getOccupiedTime();
-        operateAllTime += ADDTIME*(dishes.size()-1);
+        operateAllTime += addTime*(dishes.size()-1);
         return operateAllTime;
     }
 
-    public static int cookAllTime(ArrayList<Dish> dishes){
+    public int cookAllTime(ArrayList<Dish> dishes){
         int cookAllTime = dishes.get(0).getDishProductTime();
-        cookAllTime += ADDTIME*(dishes.size()-1);
+        cookAllTime += addTime*(dishes.size()-1);
         return cookAllTime;
     }
 
     //latest version: 3.1
-    public static ArrayList<String> generateSchedule3_1(ArrayList<Order> orders,ArrayList<Cook> cooks){
+    public ArrayList<String> generateSchedule3_1(ArrayList<Order> orders,ArrayList<Cook> cooks){
         ArrayList<String> schedules = new ArrayList<>();
         ArrayList<Dish> uncookedDishes = new ArrayList<>();
         orders.forEach(o -> uncookedDishes.addAll(o.getDishes()));
@@ -274,14 +305,14 @@ public class KitchenSchedule {
         while(uncookedDishes.size()>0){
             Cook selectedCook = Cook.selectCook(cooks);
 
-            ArrayList<Dish> selectedDishes = selectDishes(uncookedDishes,selectedCook.getAvailableTime());
+            ArrayList<Dish> selectedDishes = highPriorityDishes(uncookedDishes,selectedCook.getAvailableTime());
 
             if(selectedDishes.size() != 0){
                 startTime = selectedCook.getAvailableTime();
 
             }else{
                 //find the earliest arrived dish
-                selectedDishes = KitchenSchedule.earliestDishes(uncookedDishes);
+                selectedDishes = this.earliestDishes(uncookedDishes);
                 startTime = selectedDishes.get(0).getOrderedTime();
             }
             LocalTime finishedTime = startTime.plusMinutes(cookAllTime(selectedDishes));
