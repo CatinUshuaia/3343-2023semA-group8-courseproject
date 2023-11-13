@@ -14,7 +14,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
-
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
 @Component
@@ -43,15 +47,23 @@ private ArrayList<Order> deliverOrder;
         return name +" ";
     }
 
-    public static ArrayList<Deliverer> inputDelivererInfo(String filePath) throws IOException{
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        String line;
-        ArrayList<Deliverer> deliverers = new ArrayList<Deliverer>();
-        while ((line = reader.readLine())!=null){
-            String[] splitLine = line.split(" ");
-            String name = splitLine[0];
-            deliverers.add(new Deliverer(name));
-        }
+    public static ArrayList<Deliverer> inputDelivererInfo(String xmlFilePath) throws IOException{
+            try {
+                DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+                DocumentBuilder builder = factory.newDocumentBuilder();
+                Document document = builder.parse(xmlFilePath);
+
+                Element root = document.getDocumentElement();
+                NodeList delivererNameList = root.getElementsByTagName("delivererName");
+                if (delivererNameList.getLength() > 0) {
+                    for (int i = 0; i < delivererList.getLength(); i++) {
+                        Element delivererElement = (Element) delivererList.item(i);
+                        deliverers.add(new Deliverer(delivererElement.getElementsByTagName("delivererName").item(0).getTextContent()));
+                }
+            }
+        }catch (Exception e) {
+                e.printStackTrace();
+            }
         return deliverers;
     }
 
@@ -62,12 +74,8 @@ private ArrayList<Order> deliverOrder;
     }
 
     public void deliverFood(int distance) {
-//        assert this.status == CookStatus.READY;
-//        this.status = CookStatus.BUSY;
-//        System.out.println("Before "+ this.availableTime.toString());
         int orderOperationTime = distance*2;
         this.availableTime = this.availableTime.plusMinutes(orderOperationTime);
-//        System.out.println("After "+this.availableTime);
     }
 
     public void initializeAvailableTime(LocalTime time) {
@@ -79,7 +87,8 @@ private ArrayList<Order> deliverOrder;
         return this.availableTime;
     }
 
-    
+
+
     public static Deliverer getDeliverer(ArrayList<Deliverer> deliverers){
         Collections.sort(deliverers);
         return deliverers.get(0);

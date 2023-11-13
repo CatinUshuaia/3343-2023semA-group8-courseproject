@@ -28,6 +28,8 @@ public class Cook implements Comparable<Cook> {
     private Set<String> expertise = new HashSet<>();
     private String name;
     private int rank;
+    private int cookCode;
+    private int workTime;
 
     @Autowired
     private CookImpl cookImpl;
@@ -38,17 +40,17 @@ public class Cook implements Comparable<Cook> {
 
     public Cook(){
     }
-
-
-    public Cook(String[] cuisines,String n, int rank){
+    public Cook(String[] cuisines,String n, int rank,int id){
         this.name = n;
         this.rank = rank;
         for(String c : cuisines) {
             expertise.add(c);
         }
+        this.cookCode = id;
 //        this.status = CookStatus.READY;
 //        this.cookingDish = null;
     }
+
 
     @Override
     public String toString(){
@@ -59,40 +61,44 @@ public class Cook implements Comparable<Cook> {
         return name +" "+ expertise + " " + rank ;
     }
 
-    public  ArrayList<Cook> inputCookInfo(String filePath) throws IOException{
+    public static ArrayList<Cook> inputCookInfo(String filePath) throws IOException{
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line;
         ArrayList<Cook> cooks = new ArrayList<Cook>();
+        int id =1;
         while ((line = reader.readLine())!=null){
             String[] splitLine = line.split(" ");
             String name = splitLine[0];
             String[] cuisines = splitLine[1].split(",");
             int rank = Integer.parseInt(splitLine[2]);
-            cooks.add(new Cook(cuisines,name,rank));
-
-            CookEntity cookEntity = new CookEntity(name, Arrays.toString(cuisines), rank);
-            cookImpl.save(cookEntity);
+            cooks.add(new Cook(cuisines,name,rank,id));
+            id+=1;
+            //CookEntity cookEntity = new CookEntity(name, Arrays.toString(cuisines), rank);
+            //cookImpl.save(cookEntity);
             //读取input并存入database
 
         }
+
         reader.close();
         return cooks;
     }
-
     @Override
     //Used to sort cooks
     //以后的算法可能跟复杂，考虑的不仅仅是availableTime
     public int compareTo(Cook o) {
 
-        return this.availableTime.compareTo(o.availableTime);
+//        return this.availableTime.compareTo(o.availableTime);
+        int comparisionTime = this.availableTime.compareTo(o.availableTime);
+        if (comparisionTime!=0){
+            return comparisionTime;
+        }else{
+            return Integer.compare(this.cookCode, o.cookCode);
+        }
     }
 
-    public void cookFood(int dishOperationTime) {
-//        assert this.status == CookStatus.READY;
-//        this.status = CookStatus.BUSY;
-//        System.out.println("Before "+ this.availableTime.toString());
-        this.availableTime = this.availableTime.plusMinutes(dishOperationTime);
-//        System.out.println("After "+this.availableTime);
+    public void cookFood(LocalTime expectedFinish) {
+        this.availableTime = expectedFinish;
+
     }
 
     public void initializeAvailableTime(LocalTime time) {
@@ -104,13 +110,13 @@ public class Cook implements Comparable<Cook> {
         return this.availableTime;
     }
 
-    public static String selectCook(ArrayList<Cook> cooks,int dishOperationTime) {
-        Collections.sort(cooks);
-        Cook selectedCook = cooks.get(0);
-        LocalTime startTime = selectedCook.getAvailableTime();
-        selectedCook.cookFood(dishOperationTime);
-        return startTime+" "+selectedCook;
-    }
+    //public static String selectCook(ArrayList<Cook> cooks,int dishOperationTime) {
+    //Collections.sort(cooks);
+    //Cook selectedCook = cooks.get(0);
+    //LocalTime startTime = selectedCook.getAvailableTime();
+    //selectedCook.cookFood(dishOperationTime);
+    //return startTime+" "+selectedCook;
+    //}
 
     public static Cook selectCook(ArrayList<Cook> cooks){
         Collections.sort(cooks);

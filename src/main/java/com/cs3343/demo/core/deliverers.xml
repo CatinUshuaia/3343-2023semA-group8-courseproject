@@ -1,0 +1,10 @@
+<deliverers>
+    <deliver>
+        <delivererName>Alice</delivererName>
+        <availableTime></availableTime>
+    </deliver>
+    <deliver>
+        <delivererName>Deliver 2</delivererName>
+        <availableTime></availableTime>
+    </deliver>
+</deliverers>

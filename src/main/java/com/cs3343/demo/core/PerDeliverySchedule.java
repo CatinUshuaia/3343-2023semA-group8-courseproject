@@ -1,89 +1,59 @@
 package com.cs3343.demo.core;
 
-import com.cs3343.demo.impls.CookImpl;
-import com.cs3343.demo.impls.DelivererImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.time.Duration;
 import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 
-import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
+public class PerDeliverySchedule{
+    private Deliverer deliverer;
+    private ArrayList<Order> orders;
+    private LocalTime deliverTime;
+    private LocalTime finishTime;
 
-@Component
-@Scope(SCOPE_PROTOTYPE)
-public class Deliverer implements Comparable<Deliverer> {
-    private String name;
-private ArrayList<Order> deliverOrder;
-    private LocalTime availableTime;
-    @Autowired
-    private DelivererImpl delivererImpl;
-    public Deliverer(){
+    public static PerDeliverySchedule generateSchedule(ArrayList<Order> sortedOrders,ArrayList<Deliverer> deliverers){
+        PerDeliverySchedule deliverSchedule=new PerDeliverySchedule();
+        LocalTime lastOrderFinished;
+        for (int i = 0; i < sortedOrders.size() - 2; i++) {
+            Order order1 = sortedOrders.get(i);
+            Order order2 = sortedOrders.get(i + 1);
+            Order order3 = sortedOrders.get(i + 2);
 
-    }
-    public Deliverer(String name){
-        this.name = name;
-//        this.status = CookStatus.READY;
-//        this.cookingDish = null;
-    }
+            // 计算相邻三个元素的finishedTime之差的绝对值之和
+            long timeDiffSum = Duration.between(order1.getCookedTime(),order2.getCookedTime()).toMinutes()+Duration.between(order3.getCookedTime(),order3.getCookedTime()).toMinutes();
 
-    @Override
-    public String toString(){
-        return name;
-    }
+            // 计算相邻三个元素的距离差的绝对值之和
+            int distanceDiffSum = (int) (Math.abs(order1.getDistance() - order2.getDistance()) +
+                                Math.abs(order2.getDistance() - order3.getDistance()));
 
-    public String getInfo(){
-        return name +" ";
-    }
+            // 检查绝对值之和是否在50以内，如果是则将三个元素添加到提取列表中
+            if ((timeDiffSum + distanceDiffSum* 2L) <= 50) {
+                this.orders.add(order1);
+                this.orders.add(order2);
+                this.orders.add(order2);
+                //找到availableTime和Order的finish time 最近的deliverer，把这三个order加给这个deliverer
+                Order maxCookedTimeOrder = Collections.max(orders);
+                LocalTime maxTime=maxCookedTimeOrder.getCookedTime();
+                Deliverer closestDeliverer = null;
+                LocalTime minTimeDifference = LocalTime.MAX_VALUE;
 
-    public static ArrayList<Deliverer> inputDelivererInfo(String filePath) throws IOException{
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        String line;
-        ArrayList<Deliverer> deliverers = new ArrayList<Deliverer>();
-        while ((line = reader.readLine())!=null){
-            String[] splitLine = line.split(" ");
-            String name = splitLine[0];
-            deliverers.add(new Deliverer(name));
+                for (Deliverer deliverer : deliverers) {
+                    long timeDifference = Duration.between(deliverer.getAvailableTime() , givenTime);
+                    if (timeDifference < minTimeDifference) {
+                        minTimeDifference = timeDifference;
+                        closestDeliverer = deliverer;
+                    }
+                }
+
+            }
         }
-        return deliverers;
+        return deliverSchedule;
     }
-
-    @Override
-    //Used to sort cooks
-    public int compareTo(Deliverer o) {
-        return this.availableTime.compareTo(o.availableTime);
-    }
-
-    public void deliverFood(int distance) {
-//        assert this.status == CookStatus.READY;
-//        this.status = CookStatus.BUSY;
-//        System.out.println("Before "+ this.availableTime.toString());
-        int orderOperationTime = distance*2;
-        this.availableTime = this.availableTime.plusMinutes(orderOperationTime);
-//        System.out.println("After "+this.availableTime);
-    }
-
-    public void initializeAvailableTime(LocalTime time) {
-        assert this.availableTime == null;
-        this.availableTime = time;
-    }
-
-    public LocalTime getAvailableTime() {
-        return this.availableTime;
-    }
-
-    
-    public static Deliverer getDeliverer(ArrayList<Deliverer> deliverers){
+    public static void deliver(ArrayList<Deliverer> deliverers, int orderOperationTime) {
         Collections.sort(deliverers);
-        return deliverers.get(0);
+        Deliverer selectedDeliverer = deliverers.get(0);
+        LocalTime startTime = selectedDeliverer.getAvailableTime();
+        selectedDeliverer.deliverFood(orderOperationTime);
+//            return startTime+" "+selectedDeliverer;
     }
-
 }
-
