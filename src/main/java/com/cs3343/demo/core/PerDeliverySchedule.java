@@ -11,7 +11,7 @@ public class PerDeliverySchedule{
     private LocalTime deliverTime;
     private LocalTime finishTime;
 
-    public static PerDeliverySchedule generateSchedule(ArrayList<Order> sortedOrders,ArrayList<Deliverer> deliverers){
+    public PerDeliverySchedule generateSchedule(ArrayList<Order> sortedOrders, ArrayList<Deliverer> deliverers){
         PerDeliverySchedule deliverSchedule=new PerDeliverySchedule();
         LocalTime lastOrderFinished;
         for (int i = 0; i < sortedOrders.size() - 2; i++) {
@@ -35,15 +35,15 @@ public class PerDeliverySchedule{
                 Order maxCookedTimeOrder = Collections.max(orders);
                 LocalTime maxTime=maxCookedTimeOrder.getCookedTime();
                 Deliverer closestDeliverer = null;
-                LocalTime minTimeDifference = LocalTime.MAX_VALUE;
+//                LocalTime minTimeDifference = LocalTime.MAX_VALUE;
 
-                for (Deliverer deliverer : deliverers) {
-                    long timeDifference = Duration.between(deliverer.getAvailableTime() , givenTime);
-                    if (timeDifference < minTimeDifference) {
-                        minTimeDifference = timeDifference;
-                        closestDeliverer = deliverer;
-                    }
-                }
+//                for (Deliverer deliverer : deliverers) {
+//                    long timeDifference = Duration.between(deliverer.getAvailableTime() , givenTime);
+//                    if (timeDifference < minTimeDifference) {
+//                        minTimeDifference = timeDifference;
+//                        closestDeliverer = deliverer;
+//                    }
+//                }
 
             }
         }

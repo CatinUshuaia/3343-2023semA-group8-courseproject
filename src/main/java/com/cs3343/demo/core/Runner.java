@@ -7,6 +7,7 @@ import org.springframework.shell.command.annotation.Command;
 import org.springframework.shell.command.annotation.CommandScan;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
+import org.springframework.shell.standard.ShellOption;
 import org.springframework.stereotype.Component;
 
 import com.cs3343.demo.core.Cook;
@@ -19,7 +20,7 @@ import java.util.List;
 
 import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
-
+@ShellComponent
 public class Runner implements CommandLineRunner {
 
     private final static String COOK_INPUT = "src/main/java/com/cs3343/demo/core/cook.txt";
@@ -33,8 +34,11 @@ public class Runner implements CommandLineRunner {
 
     private Cook cook;
 
+    @ShellMethod(value = "Run main", key = "run")
     @Override
-    public void run(String... args) throws Exception {
+    public void run(
+            @ShellOption(defaultValue = "1") String... args
+    ) throws Exception {
         int totalOrder = 0;
 
         ArrayList<Dish> dishes = Dish.inputDishInfo(DISH_INPUT);
@@ -59,7 +63,7 @@ public class Runner implements CommandLineRunner {
         Collections.sort(filteredOrders);
 
         for (Order order: filteredOrders){
-            PerDeliverySchedule.generateSchedule(filteredOrders,deliverers);
+//            PerDeliverySchedule.generateSchedule(filteredOrders,deliverers);
         }
 
 
