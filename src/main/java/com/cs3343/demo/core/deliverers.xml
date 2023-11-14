@@ -1,10 +1,8 @@
 <deliverers>
-    <deliver>
-        <delivererName>Alice</delivererName>
-        <availableTime></availableTime>
-    </deliver>
-    <deliver>
-        <delivererName>Deliver 2</delivererName>
-        <availableTime></availableTime>
-    </deliver>
+        <deliverer>
+                <delivererName>Alice</delivererName>
+        </deliverer>
+        <deliverer>
+                <delivererName>Bob</delivererName>
+        </deliverer>
 </deliverers>

@@ -45,6 +45,7 @@ public class Runner implements CommandLineRunner {
         ArrayList<Cook> cooks = cook.inputCookInfo(COOK_INPUT);
 
         ArrayList<Order> orders = Order.inputOrderInfo(ORDER_INPUT, dishes);
+        Deliverer.inputDelivererInfo(DELIVERER_INPUT);
 
 
 //        KitchenSchedule.testEarliestDishes(orders);
@@ -55,15 +56,11 @@ public class Runner implements CommandLineRunner {
             System.out.println("order "+o.getOrderCode()+" is ordered at "+o.getOrderTime()+", is finished cooking at "+o.getCookedTime()+". ");
         }
       ArrayList<Order> filteredOrders = new ArrayList<>();
-        for (Order order : orders) {
-            if (order.getStatus() == 1) {
-                filteredOrders.add(order);
-            }
-        }
         Collections.sort(filteredOrders);
-
+//
         for (Order order: filteredOrders){
-//            PerDeliverySchedule.generateSchedule(filteredOrders,deliverers);
+            PerDeliverySchedule newSchedule= new PerDeliverySchedule();
+//            newSchedule.generateSchedule(filteredOrders,deliverers);
         }
 
 

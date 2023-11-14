@@ -35,15 +35,14 @@ public class PerDeliverySchedule{
                 Order maxCookedTimeOrder = Collections.max(orders);
                 LocalTime maxTime=maxCookedTimeOrder.getCookedTime();
                 Deliverer closestDeliverer = null;
-//                LocalTime minTimeDifference = LocalTime.MAX_VALUE;
-
-//                for (Deliverer deliverer : deliverers) {
-//                    long timeDifference = Duration.between(deliverer.getAvailableTime() , givenTime);
-//                    if (timeDifference < minTimeDifference) {
-//                        minTimeDifference = timeDifference;
-//                        closestDeliverer = deliverer;
-//                    }
-//                }
+                 Duration minTimeDifference = Duration.ofSeconds(Long.MAX_VALUE);
+                for (Deliverer deliverer : deliverers) {
+                    Duration timeDifference = Duration.between(deliverer.getAvailableTime() , maxTime);
+                    if (timeDifference.compareTo(minTimeDifference)<0) {
+                        minTimeDifference = timeDifference;
+                        closestDeliverer = deliverer;
+                    }
+                }
 
             }
         }

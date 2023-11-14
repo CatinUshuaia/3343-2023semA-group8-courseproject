@@ -49,16 +49,15 @@ private ArrayList<Order> deliverOrder;
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
                 Document document = builder.parse(xmlFilePath);
-
                 Element root = document.getDocumentElement();
-                NodeList delivererNameList = root.getElementsByTagName("delivererName");
+                NodeList delivererList = root.getElementsByTagName("deliverer");
 
-
-                if (delivererNameList.getLength() > 0) {
-                    for (int i = 0; i < delivererNameList.getLength(); i++) {
-                        Element delivererElement = (Element) delivererNameList.item(i);
-                        deliverers.add(new Deliverer(delivererElement.getElementsByTagName("delivererName").item(0).getTextContent()));
-                }
+                if (delivererList.getLength() > 0) {
+//                    for (int i = 0; i < delivererList.getLength(); i++) {
+                        Element delivererElement = (Element) delivererList.item(0);
+                        System.out.println(delivererElement.getElementsByTagName("delivererName").item(0).getTextContent());
+//                        deliverers.add(new Deliverer(delivererElement.getElementsByTagName("delivererName").item(i).getTextContent()));
+//                }
             }
         }catch (Exception e) {
                 e.printStackTrace();
