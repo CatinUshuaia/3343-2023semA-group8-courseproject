@@ -1,0 +1,8 @@
+<deliverers>
+        <deliverer>
+                <delivererName>Alice</delivererName>
+        </deliverer>
+        <deliverer>
+                <delivererName>Bob</delivererName>
+        </deliverer>
+</deliverers>
