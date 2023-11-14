@@ -1,3 +1,5 @@
+src/main/java/com/cs3343/demo/core/cook.txt
+src/main/java/com/cs3343/demo/core/order.txt
 target/
 src/main/resources/application.properties
 .idea/
