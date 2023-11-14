@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 15:49 RoastedDuck,RoastedDuck 5
 15:51 FriedMeatWithChili,RoastedDuck 10
 15:55 PorkwithCornDumpling 14
-=======
-15:49 RoastedDuck,RoastedDuck 5
-15:51 FriedMeatWithChili,RoastedDuck 10
-15:55 PorkwithCornDumpling 14
->>>>>>> 257fc59363ee443e7695637afa5b1e3ad09a33c0
 15:59 RoastedDuck 20

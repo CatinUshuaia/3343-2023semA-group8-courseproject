@@ -1,6 +1,2 @@
-<<<<<<< HEAD
 Joy Hunan 1
-=======
-Joy Hunan 1
->>>>>>> 257fc59363ee443e7695637afa5b1e3ad09a33c0
 Tom Cantonese 1
