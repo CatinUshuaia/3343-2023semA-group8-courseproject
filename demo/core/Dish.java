@@ -9,7 +9,7 @@ import java.util.Collections;
 public class Dish  implements Comparable<Dish>,Cloneable{
     private String dishName;
     private int dishCode;
-    private int dishProductTime; //count by second
+    private int dishProductTime;
     private CookingMethod wayToCook;
     private Order order;
     private Boolean cooked;
@@ -42,6 +42,10 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         return this.dishName == other.dishName;
     }
     public int getDishCode(){ return dishCode; }
+
+    public boolean sameDish(Dish other){
+        return this.dishCode==other.dishCode;
+    }
     public void setDishCode(int dishCode){
         this.dishCode = dishCode;
     }
@@ -67,7 +71,7 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         return CookingMethod.FRY;
     }
 
-//    public CookingMethod getWayToCook() {
+    //    public CookingMethod getWayToCook() {
 //        return wayToCook;
 //    }
     private void setWayToCook(String wayToCook){
@@ -120,6 +124,15 @@ public class Dish  implements Comparable<Dish>,Cloneable{
                 .compareTo(other.order.getOrderTime());
     }
 
+    // Sort based on the second criteria using a lambda expression
+    public static Comparator<Dish> getTimeComparator() {
+        return Comparator.comparing(Dish::getOrderedTime);
+    }
+
+    public int getDishProductTime(){
+        return this.dishProductTime;
+    }
+
     public int getOccupiedTime(){
         int operationTime = this.wayToCook.getOperationTime();
         if(operationTime==-1) {
@@ -151,10 +164,10 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         this.cooked = false;
     }
 
-    public void cooked(LocalTime startCookingTime){
+    public void cooked(LocalTime expectedFinishedTime){
 //        this.order.updateStatusIfAllDishCooked();
         this.cooked = true;
-        this.cookedTime = startCookingTime.plusMinutes(this.dishProductTime);
+        this.cookedTime = expectedFinishedTime;
     }
 
     public LocalTime getCookedTime(){
@@ -164,9 +177,24 @@ public class Dish  implements Comparable<Dish>,Cloneable{
     public LocalTime getOrderedTime(){
         return this.order.getOrderTime();
     }
-    public boolean isOrderedLaterThan(LocalTime time){
-        return this.getOrderedTime().compareTo(time)==1;
+    public boolean isNOTEarlierThan(LocalTime time){
+        return this.getOrderedTime().compareTo(time)<1;
     }
+
+    public boolean isOrderedSameTimeWith(Dish other){
+        return this.getOrderedTime().compareTo(other.getOrderedTime())==0;
+    }
+//    public static ArrayList<Dish> cloneArray(ArrayList<Dish> dishes){
+//        ArrayList<Dish> clonedDishes = new ArrayList<Dish>();
+//        for(Dish dish: dishes){
+//            try {
+//                clonedDishes.add(dish.clone());
+//            } catch (CloneNotSupportedException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//        return clonedDishes;
+//    }
 
 
 
