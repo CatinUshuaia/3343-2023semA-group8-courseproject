@@ -27,4 +27,8 @@ public class Runner {
         String result = String.join(delimiter, KitchenSchedule.generateSchedule3_1(orders, cooks));
         return result;
     }
+
+    public static void main(String[] args){
+        getKitchenSchedules(DISH_INPUT, COOK_INPUT, ORDER_INPUT);
+    }
 }

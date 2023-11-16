@@ -110,4 +110,8 @@ public class Cook implements Comparable<Cook> {
         return cooks.get(0);
     }
 
+    public boolean goodAt(Dish d){
+        return true;
+    }
+
 }
