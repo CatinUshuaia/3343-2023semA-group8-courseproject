@@ -35,7 +35,7 @@ public class PerDeliverySchedule{
                 Order maxCookedTimeOrder = Collections.max(orders);
                 LocalTime maxTime=maxCookedTimeOrder.getCookedTime();
                 Deliverer closestDeliverer = null;
-                 Duration minTimeDifference = Duration.ofSeconds(Long.MAX_VALUE);
+                Duration minTimeDifference = Duration.ofSeconds(Long.MAX_VALUE);
                 for (Deliverer deliverer : deliverers) {
                     Duration timeDifference = Duration.between(deliverer.getAvailableTime() , maxTime);
                     if (timeDifference.compareTo(minTimeDifference)<0) {
