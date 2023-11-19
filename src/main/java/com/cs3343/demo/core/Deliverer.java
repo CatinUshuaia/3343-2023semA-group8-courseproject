@@ -29,8 +29,7 @@ private ArrayList<Order> deliverOrder;
     }
     public Deliverer(String name){
         this.name = name;
-//        this.status = CookStatus.READY;
-//        this.cookingDish = null;
+
     }
 
     @Override
@@ -53,11 +52,12 @@ private ArrayList<Order> deliverOrder;
                 NodeList delivererList = root.getElementsByTagName("deliverer");
 
                 if (delivererList.getLength() > 0) {
-//                    for (int i = 0; i < delivererList.getLength(); i++) {
-                        Element delivererElement = (Element) delivererList.item(0);
-                        System.out.println(delivererElement.getElementsByTagName("delivererName").item(0).getTextContent());
-//                        deliverers.add(new Deliverer(delivererElement.getElementsByTagName("delivererName").item(i).getTextContent()));
-//                }
+                    for (int i = 0; i < delivererList.getLength(); i++) {
+                        Element delivererElement = (Element) delivererList.item(i);
+String delivererName=delivererElement.getElementsByTagName("name").item(0).getTextContent();
+                        System.out.println(delivererName);
+                        deliverers.add(new Deliverer(delivererName));
+                }
             }
         }catch (Exception e) {
                 e.printStackTrace();
@@ -71,9 +71,9 @@ private ArrayList<Order> deliverOrder;
         return this.availableTime.compareTo(o.availableTime);
     }
 
-    public void deliverFood(int distance) {
-        int orderOperationTime = distance*2;
-        this.availableTime = this.availableTime.plusMinutes(orderOperationTime);
+    public void deliverFood(double distance) {
+        double orderOperationTime = distance * 2;
+        this.availableTime = this.availableTime.plusMinutes((int)orderOperationTime);
     }
 
     public void initializeAvailableTime(LocalTime time) {
@@ -85,11 +85,5 @@ private ArrayList<Order> deliverOrder;
         return this.availableTime;
     }
 
-
-
-    public static Deliverer getDeliverer(ArrayList<Deliverer> deliverers){
-        Collections.sort(deliverers);
-        return deliverers.get(0);
-    }
 
 }

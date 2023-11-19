@@ -1,8 +1,10 @@
 <deliverers>
         <deliverer>
-                <delivererName>Alice</delivererName>
+                <name>Alice</name>
         </deliverer>
         <deliverer>
-                <delivererName>Bob</delivererName>
+                <name>Bob</name>
         </deliverer>
 </deliverers>
+
+

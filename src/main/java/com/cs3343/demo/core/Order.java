@@ -12,6 +12,8 @@ public class Order implements Comparable<Order> {
     private int orderCode;
     private ArrayList<Dish> dishes;
     private double distance;
+
+    // TODO: should use ENUM class to represent status
     private int status;
     //0: 已下单
     //1: 所有菜品已做好，未送出
@@ -94,12 +96,6 @@ public class Order implements Comparable<Order> {
     public String toString(){
         return this.orderTime+ " " + this.dishes + " ";
     }
-//    public void deleteDishes(Dish dish){
-//        this.dishes.remove(dish);
-//    }
-//    public void cancelOrder(){
-//        this.dishes.clear();
-//    }
 
     public void updateStatusIfAllDishCooked(){
         boolean allCooked = true;
@@ -132,6 +128,9 @@ public class Order implements Comparable<Order> {
 
     public double getDistance() {
         return this.distance;
+    }
+    public void UpdateStatus2InDelivering(){
+        this.status=2;
     }
     public int compareTo(Order other) {
         return this.getCookedTime().compareTo(other.getCookedTime());

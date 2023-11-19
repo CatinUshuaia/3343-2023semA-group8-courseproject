@@ -1,24 +1,14 @@
 package com.cs3343.demo.core;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.shell.command.annotation.Command;
-import org.springframework.shell.command.annotation.CommandScan;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
-import org.springframework.stereotype.Component;
 
-import com.cs3343.demo.core.Cook;
-
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-
-import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
 @ShellComponent
 public class Runner implements CommandLineRunner {
@@ -45,8 +35,8 @@ public class Runner implements CommandLineRunner {
         ArrayList<Cook> cooks = cook.inputCookInfo(COOK_INPUT);
 
         ArrayList<Order> orders = Order.inputOrderInfo(ORDER_INPUT, dishes);
-        Deliverer.inputDelivererInfo(DELIVERER_INPUT);
 
+        ArrayList<Deliverer> deliverers=Deliverer.inputDelivererInfo(DELIVERER_INPUT);
 
 //        KitchenSchedule.testEarliestDishes(orders);
 
@@ -55,15 +45,12 @@ public class Runner implements CommandLineRunner {
         for(Order o: orders){
             System.out.println("order "+o.getOrderCode()+" is ordered at "+o.getOrderTime()+", is finished cooking at "+o.getCookedTime()+". ");
         }
-      ArrayList<Order> filteredOrders = new ArrayList<>();
-        Collections.sort(filteredOrders);
-//
-        for (Order order: filteredOrders){
-            PerDeliverySchedule newSchedule= new PerDeliverySchedule();
-//            newSchedule.generateSchedule(filteredOrders,deliverers);
-        }
 
+        var sortedOrders = new ArrayList<>(orders.stream().sorted((o1, o2) -> o1.compareTo(o2)).toList());
 
+        // When
+        var assignmentManager = new DeliveryAssignmentManager();
+        assignmentManager.GenerateOrderAssignment(sortedOrders, deliverers);
     }
 }
 
