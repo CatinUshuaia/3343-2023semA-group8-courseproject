@@ -1,5 +1,6 @@
 package com.cs3343.demo.core;
 
+import org.springframework.cglib.core.Local;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -32,13 +33,23 @@ public class Cook implements Comparable<Cook> {
     private LocalTime availableTime;
 
     public Cook(){
+        expertise.add("NA");
     }
+    //just for testing
+    public void makeTestedCook(LocalTime l,String[] cuisines){
+        this.availableTime = l;
+        for(String c : cuisines) {
+            expertise.add(c);
+        }
+    }
+
     public Cook(String[] cuisines,String n, int rank,int id){
         this.name = n;
         this.rank = rank;
         for(String c : cuisines) {
             expertise.add(c);
         }
+        expertise.add("NA");
         this.cookCode = id;
 //        this.status = CookStatus.READY;
 //        this.cookingDish = null;
@@ -114,6 +125,10 @@ public class Cook implements Comparable<Cook> {
     public static Cook selectCook(ArrayList<Cook> cooks){
         Collections.sort(cooks);
         return cooks.get(0);
+    }
+
+    public boolean goodAt(Dish d){
+        return expertise.contains(d.getCuisine());
     }
 
 }

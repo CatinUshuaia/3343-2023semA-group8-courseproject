@@ -1,0 +1,62 @@
+Assume Cook1 is available at 11:10, cook1 is good at Hunnan
+Assume time constraint is 5min
+
+case1 (same operation priority):
+11:05 FriedMeatWithChili (Hunan)
+11:07 KungPaoChicken (Sichuan)
+expected: FriedMeatWithChili
+
+=============
+
+case2 (same operation priority):
+11:05 KungPaoChicken
+11:07 FriedMeatWithChili
+
+depends on cook2's availability, if cook2 is available before/at 11:05+5min (11:10)
+//note. cook2 is assumed available after/at cook1.availableTime
+then cook1 is allowed to cook KungPaoChicken
+
+expected:
+cook2 is available at 11:10, then cook1 is allowed to cook FriedMeatWithChili
+cook2 is available after 11:10, then cook1 should cook KungPaoChicken
+
+===============
+
+case3 (different operation priority):
+
+//dishes is sorted based on operation priority & cookTime
+11:07 RoastedDuck (Beijing)
+11:05 FriedMeatWithChili (Hunan)
+
+depends on cook2's availability, if cook2 is available before/at 11:05+5min (11:10)
+//note. cook2 is assumed available after/at cook1.availableTime
+then cook1 is allowed to cook KungPaoChicken
+
+expected:
+cook2 is available at 11:10, then cook1 is allowed to cook FriedMeatWithChili
+cook2 is available after 11:10, then cook1 should cook KungPaoChicken
+
+=====================
+case4 (multiple dishes in the same order):
+
+order.txt
+11:05 KungPaoChicken,RoastedDuck
+11:07 FriedMeatWithChili
+
+dishList
+11:05 RoastedDuck (Beijing)
+11:05 KungPaoChicken (Sichuan)
+11:07 FriedMeatWithChili (Hunan)
+
+cook2 is available at 11:10, then cook1 is allowed to cook FriedMeatWithChili
+cook2 is available after 11:10, then cook1 should cook RoastedDuck
+
+====================
+case5 the cook works continuously, next time still cook1 works, cook2 is avilable at 11:13
+
+11:08 RoastedDuck (Beijing)
+11:08 KungPaoChicken (Sichuan)
+11:09 SteamedFishHeadwithChoppedPepper (Hunan)
+
+11:10 cook1 SteamedFishHeadwithChoppedPepper
+11:12 cook1 RoastedDuck

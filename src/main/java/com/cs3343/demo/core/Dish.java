@@ -17,17 +17,19 @@ public class Dish  implements Comparable<Dish>,Cloneable{
     private Order order;
     private Boolean cooked;
     private LocalTime cookedTime;
+    private String cuisine;
     public Dish(){
     }
-    public Dish(int code, String dishName, int dishProductTime,String wayToCook){
+    public Dish(int code, String dishName, int dishProductTime,String wayToCook, String cuisine){
         this.dishCode = code;
         this.dishName = dishName;
 //        this.wayToCook = getWayToCook(dishName);
-        this.setWayToCook(wayToCook);
+        this.wayToCook = CookingMethod.getWayToCook(wayToCook);
         this.dishProductTime = dishProductTime;
 //        this.dishCode = dishCode;
 //        this.dishProductTime=dishProductTime;
         this.order = null;
+        this.cuisine = cuisine;
     }
 
 
@@ -57,13 +59,6 @@ public class Dish  implements Comparable<Dish>,Cloneable{
 //        this.dishProductTime = dishProductTime;
 //    }
 
-//    private void setWayToCook() {
-//        if(Objects.equals(this.dishName, "roastDuck")){
-//            this.wayToCook="roast";
-//        }else if(Objects.equals(this.dishName, "friedMeatWithChili")){
-//            this.wayToCook="fry";
-//        }
-//    }
 
     private static CookingMethod getWayToCook(String dishName) {
         if(dishName.equals("roastedDuck")){
@@ -77,16 +72,16 @@ public class Dish  implements Comparable<Dish>,Cloneable{
     //    public CookingMethod getWayToCook() {
 //        return wayToCook;
 //    }
-    private void setWayToCook(String wayToCook){
-        if(wayToCook.equals("roast")){
-            this.wayToCook = CookingMethod.ROAST;
-        }else if(wayToCook.equals("fry")){
-            this.wayToCook = CookingMethod.FRY;
-        }
-        else if(wayToCook.equals("boil")){
-            this.wayToCook = CookingMethod.BOIL;
-        }
-    }
+//    private void setWayToCook(String wayToCook){
+//        if(wayToCook.equals("roast")){
+//            this.wayToCook = CookingMethod.ROAST;
+//        }else if(wayToCook.equals("fry")){
+//            this.wayToCook = CookingMethod.FRY;
+//        }
+//        else if(wayToCook.equals("boil")){
+//            this.wayToCook = CookingMethod.BOIL;
+//        }
+//    }
     @Override
     public String toString(){
         return dishName;
@@ -98,7 +93,7 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         ArrayList<Dish> dishes = new ArrayList<Dish>();
         while ((line = reader.readLine())!=null){
             String[] splitLine = line.split(" ");
-            dishes.add(new Dish(Integer.parseInt(splitLine[0]),splitLine[1],Integer.parseInt(splitLine[2]),splitLine[3] ));
+            dishes.add(new Dish(Integer.parseInt(splitLine[0]),splitLine[1],Integer.parseInt(splitLine[2]),splitLine[3],splitLine[4] ));
         }
         reader.close();
         return dishes;
@@ -117,8 +112,8 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         //above logic is ued in generateSchedule1_2
         //which can be removed later
 
-//        int comparison_wayToCook = this.wayToCook.customCompareTo(other.wayToCook);
-        int comparison_wayToCook = this.wayToCook.compareTo(other.wayToCook);
+        int comparison_wayToCook = this.wayToCook.customCompareTo(other.wayToCook);
+//        int comparison_wayToCook = this.wayToCook.compareTo(other.wayToCook);
         if(comparison_wayToCook!=0){
             return comparison_wayToCook;
         }
@@ -187,6 +182,10 @@ public class Dish  implements Comparable<Dish>,Cloneable{
     public boolean isOrderedSameTimeWith(Dish other){
         return this.getOrderedTime().compareTo(other.getOrderedTime())==0;
     }
+
+    public String getCuisine(){
+        return this.cuisine;
+    }
 //    public static ArrayList<Dish> cloneArray(ArrayList<Dish> dishes){
 //        ArrayList<Dish> clonedDishes = new ArrayList<Dish>();
 //        for(Dish dish: dishes){
@@ -198,7 +197,7 @@ public class Dish  implements Comparable<Dish>,Cloneable{
 //        }
 //        return clonedDishes;
 //    }
-
-
-
+    public String getWayToCookStr(){
+        return this.wayToCook.getName();
+    }
 }

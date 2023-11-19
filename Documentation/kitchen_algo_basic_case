@@ -1,0 +1,25 @@
+Assume Cook1 is available at 11:10, cook1 is good at Hunnan
+assume waiting constraint is >5 mins
+
+case1 (same operation priority, cook is good at the second dish, violate waiting time constraint):
+11:04 FriedMeatWithChili
+11:07 KungPaoChicken
+expected: FriedMeatWithChili
+
+case2: (different operation priority)
+11:04 FriedMeatWithChili (violate waiting time constraint)
+11:07 RoastedDuck
+
+if cooking FriedMeatWithChili first
+11:10-11:18 FriedMeatWithChili
+
+if only one cook (extreme case）
+11:18-11:20-11:32 starts roastedDuck
+
+-----------
+if cooking RoastedDuck first
+11:10-11:12-11:24 RoastedDuck
+
+if only one cook (extreme case)
+11:12-11:20 FriedMeatWithChili
+

@@ -29,7 +29,7 @@ public class Runner implements CommandLineRunner {
     // can also be randomly generated
     private final static String DISH_INPUT ="src/main/java/com/cs3343/demo/core/dish.txt";
 
-    private final static String ORDER_INPUT = "src/main/java/com/cs3343/demo/core/order.txt";
+    private final static String ORDER_INPUT = "src/main/java/com/cs3343/demo/core/testSelectDish_2.txt";
     private final static String DELIVERER_INPUT = "src/main/java/com/cs3343/demo/core/deliverers.xml";
 
     private Cook cook;
@@ -39,7 +39,6 @@ public class Runner implements CommandLineRunner {
     public void run(
             @ShellOption(defaultValue = "1") String... args
     ) throws Exception {
-        int totalOrder = 0;
 
         ArrayList<Dish> dishes = Dish.inputDishInfo(DISH_INPUT);
         ArrayList<Cook> cooks = cook.inputCookInfo(COOK_INPUT);
@@ -47,10 +46,21 @@ public class Runner implements CommandLineRunner {
         ArrayList<Order> orders = Order.inputOrderInfo(ORDER_INPUT, dishes);
         Deliverer.inputDelivererInfo(DELIVERER_INPUT);
 
+//        for(Order o: orders){
+//            System.out.println("order "+o.getOrderCode()+" is ordered at "+o.getOrderTime());
+//        }
+
+
 
 //        KitchenSchedule.testEarliestDishes(orders);
+//        KitchenSchedule.test_removeAll();
 
-        KitchenSchedule.generateSchedule3_1(orders, cooks);
+//        KitchenSchedule.test_get2DDishList_sort(orders);
+
+//        KitchenSchedule.test_get2DDishList_sort_cookabledish(orders);
+        KitchenSchedule.test_selectDishes3_2(orders);
+        System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
+        KitchenSchedule.generateSchedule_3_2(orders, cooks);
         System.out.println("=====================================");
         for(Order o: orders){
             System.out.println("order "+o.getOrderCode()+" is ordered at "+o.getOrderTime()+", is finished cooking at "+o.getCookedTime()+". ");

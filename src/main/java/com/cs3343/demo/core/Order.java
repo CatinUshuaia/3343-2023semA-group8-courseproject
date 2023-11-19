@@ -59,6 +59,13 @@ public class Order implements Comparable<Order> {
 //        this.dishes.add(dish);
 //    }
 
+    static class timeComparator implements Comparator<Order>{
+        @Override
+        public int compare(Order o1, Order o2) {
+            return o1.getOrderTime().compareTo(o2.getOrderTime());
+        }
+
+    }
 
     public static ArrayList<Order> inputOrderInfo(String filePath, ArrayList<Dish> allDishes) throws IOException, CloneNotSupportedException {
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -87,6 +94,8 @@ public class Order implements Comparable<Order> {
             orders.add(order);
         }
         reader.close();
+        //sort orders by time
+        Collections.sort(orders, new timeComparator());
         return orders;
     }
 
@@ -133,7 +142,17 @@ public class Order implements Comparable<Order> {
     public double getDistance() {
         return this.distance;
     }
+
+    public int getCookTimeConstraint(){
+//        int max = KitchenSchedule.getWaitingCook();
+//        return (int)Math.round(0.6*this.distance);
+        return 5;
+    }
+
+
+    @Override
     public int compareTo(Order other) {
         return this.getCookedTime().compareTo(other.getCookedTime());
     }
+
 }
