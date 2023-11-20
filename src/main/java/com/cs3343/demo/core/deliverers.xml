@@ -5,6 +5,9 @@
         <deliverer>
                 <name>Bob</name>
         </deliverer>
+        <deliverer>
+                <name>Kitty</name>
+        </deliverer>
 </deliverers>
 
 

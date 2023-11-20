@@ -22,14 +22,14 @@ import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROT
 
 public class Deliverer implements Comparable<Deliverer> {
     private String name;
-private ArrayList<Order> deliverOrder;
+    private ArrayList<Order> deliverOrder;
     private LocalTime availableTime;
     public Deliverer(){
 
     }
     public Deliverer(String name){
         this.name = name;
-
+        this.availableTime=LocalTime.now();
     }
 
     @Override
@@ -76,14 +76,8 @@ String delivererName=delivererElement.getElementsByTagName("name").item(0).getTe
         this.availableTime = this.availableTime.plusMinutes((int)orderOperationTime);
     }
 
-    public void initializeAvailableTime(LocalTime time) {
-        assert this.availableTime == null;
-        this.availableTime = time;
-    }
-
     public LocalTime getAvailableTime() {
         return this.availableTime;
     }
-
 
 }
