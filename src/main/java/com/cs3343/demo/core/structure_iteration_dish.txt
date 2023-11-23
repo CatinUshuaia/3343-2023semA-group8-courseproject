@@ -67,7 +67,7 @@ choice1:
 
 11:02 Tom FriedMeatWithChili
 
-choice2:
+choice2:🐾
 11:00 Tom RoastedDuck
 
 11:00 Joy FriedMeatWithChili
@@ -80,6 +80,16 @@ choice3:
 11:00 Joy FriedMeatWithChili
 
 11:08 Tom RoastedDuck
+
+==========================
+
+12:00 FriedMeatWithChili (8 fry)
+12:01 TwiceCookedPork (10 fry), MapoTofu (6 stew)
+
+Tom Sichuan 1
+Joy Hunan 1
+
+Assume all cooks are available after 12:01
 
 
 
