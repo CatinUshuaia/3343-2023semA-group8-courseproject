@@ -13,6 +13,8 @@ public class Order implements Comparable<Order> {
     private ArrayList<Dish> dishes;
     private double distance;
 
+    private Location location;
+
     // TODO: should use ENUM class to represent status
     private int status;
     //0: 已下单
@@ -25,10 +27,10 @@ public class Order implements Comparable<Order> {
     public Order() {
     }
 
-    public Order(int orderCode, ArrayList<Dish> dishes, double distance, String time) {
+    public Order(int orderCode, ArrayList<Dish> dishes, Location location, String time) {
         this.orderCode = orderCode;
         this.dishes = dishes;
-        this.distance = distance;
+        this.location = location;
         this.status = 0;
         this.orderTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
         this.dishes.forEach(d -> {
@@ -84,8 +86,9 @@ public class Order implements Comparable<Order> {
                     }
                 }
             }
-            int distance = Integer.parseInt(splitLine[2]);
-            Order order=new Order(++orderCode,dishes,distance,timeStr);
+            int xCoordinate = Integer.parseInt(splitLine[2]);
+            int yCoordinate = Integer.parseInt(splitLine[3]);
+            Order order=new Order(++orderCode,dishes,new Location(xCoordinate,yCoordinate),timeStr);
             orders.add(order);
         }
         reader.close();
@@ -129,10 +132,18 @@ public class Order implements Comparable<Order> {
     public double getDistance() {
         return this.distance;
     }
+
     public void UpdateStatus2InDelivering(){
         this.status=2;
     }
+
     public int compareTo(Order other) {
         return this.getCookedTime().compareTo(other.getCookedTime());
     }
+
+    public Location getLocation() {
+        return location;
+    }
 }
+
+

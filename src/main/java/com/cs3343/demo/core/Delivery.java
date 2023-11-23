@@ -2,10 +2,9 @@ package com.cs3343.demo.core;
 
 import java.time.LocalTime;
 import java.util.*;
-import java.time.Duration;
 
 
-public class DeliveryAssignment {
+public class Delivery {
 
     private Deliverer deliverer;
     private ArrayList<Order> orders;
@@ -13,7 +12,7 @@ public class DeliveryAssignment {
     private LocalTime deliverTime;
     private LocalTime finishTime;
 
-    public DeliveryAssignment(Deliverer deliverer, ArrayList<Order> orders) {
+    public Delivery(Deliverer deliverer, ArrayList<Order> orders) {
         this.deliverer = deliverer;
         this.orders = orders;
         // TODO: calculate deliverTime and finishTime
@@ -29,7 +28,9 @@ public class DeliveryAssignment {
         }else{
             this.deliverTime=cookedTime;
         }
-
+        for(Order order : orders){
+            order.UpdateStatus2InDelivering();
+        }
     }
     public Deliverer getDeliverer() {
         return deliverer;
@@ -40,11 +41,11 @@ public class DeliveryAssignment {
     public void SetFinishTime(double distance) {
         double orderOperationTime = distance * 2;
         this.finishTime = this.deliverTime.plusMinutes((int)orderOperationTime);
-
     }
+
     @Override
     public String toString() {
-        return "delivery:"+this.orders.toString()+this.deliverer.toString()+this.deliverTime.toString();
+        return "delivery:"+this.orders.toString()+this.deliverer.toString()+" "+this.deliverTime.toString();
     }
 
 }

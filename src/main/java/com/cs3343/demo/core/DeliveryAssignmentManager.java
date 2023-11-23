@@ -5,22 +5,24 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class DeliveryAssignmentManager {
-    public DeliveryAssignment GenerateOrderAssignment(ArrayList<Order> sortedOrders, ArrayList<Deliverer> deliverers) {
+    public Delivery GenerateDeliveryAssignment(ArrayList<Order> sortedOrders, ArrayList<Deliverer> deliverers) {
         // 1. Find a group of available orders
-        var currentItem = sortedOrders.get(0);
-        var currentItemCookedTime = currentItem.getCookedTime();
-        var currentItemDistance = currentItem.getDistance();
         var ordersToBeDeliveredTogether = new ArrayList<Order>();
-        for (int i = 1; i < sortedOrders.size() && ordersToBeDeliveredTogether.size() <= 3; ++i) {
+        ordersToBeDeliveredTogether.add(sortedOrders.get(0));
+        for (int i = 1; i < sortedOrders.size() && ordersToBeDeliveredTogether.size() < 3; ++i) {
             var nextItem = sortedOrders.get(i);
-            var timeDiff = Duration.between(currentItemCookedTime, nextItem.getCookedTime()).toMinutes();
-            var distanceDiff = Math.abs(currentItemDistance - nextItem.getDistance());
-            if (timeDiff < 30 && distanceDiff < 10) {
-                ordersToBeDeliveredTogether.add(nextItem);
-                nextItem.UpdateStatus2InDelivering();
+            for(int j=0;j<ordersToBeDeliveredTogether.size();j++){
+                var currentItem =ordersToBeDeliveredTogether.get(j) ;
+                var currentItemCookedTime = currentItem.getCookedTime();
+                var timeDiff = Duration.between(currentItemCookedTime, nextItem.getCookedTime()).toMinutes();
+                var distance=currentItem.getLocation().DistanceWithAnotherOrder(nextItem.getLocation());
+                if (timeDiff < 15 && distance < 10) {
+                    ordersToBeDeliveredTogether.add(nextItem);
+                    nextItem.UpdateStatus2InDelivering();
+                    break;
+                }
             }
         }
-
         // 2. Find a deliverer
         var firstAvailableDeliverer = deliverers.stream()
                 .sorted(Comparator.comparing(Deliverer::getAvailableTime))
@@ -28,9 +30,16 @@ public class DeliveryAssignmentManager {
                 .get(0);
 
         var maxDistance = ordersToBeDeliveredTogether.stream().mapToDouble(Order::getDistance).max().getAsDouble();
-        firstAvailableDeliverer.deliverFood(maxDistance);
 
         // 3. build a new assignment;
-        return new DeliveryAssignment(firstAvailableDeliverer, ordersToBeDeliveredTogether);
+        var newDelivery=new Delivery(firstAvailableDeliverer, ordersToBeDeliveredTogether);
+        firstAvailableDeliverer.AssignDelivery(newDelivery);
+        //update time status for deliverers and deliveryAssignments
+
+        firstAvailableDeliverer.deliverFood(maxDistance);
+        newDelivery.SetFinishTime(maxDistance);
+
+
+        return newDelivery;
     }
 }

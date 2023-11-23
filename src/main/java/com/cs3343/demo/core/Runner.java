@@ -9,6 +9,7 @@ import org.springframework.shell.standard.ShellOption;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 @ShellComponent
 public class Runner implements CommandLineRunner {
@@ -37,7 +38,7 @@ public class Runner implements CommandLineRunner {
         ArrayList<Order> orders = Order.inputOrderInfo(ORDER_INPUT, dishes);
 
         ArrayList<Deliverer> deliverers=Deliverer.inputDelivererInfo(DELIVERER_INPUT);
-
+        ArrayList<Order> filteredOrders=new ArrayList<Order>();
 //        KitchenSchedule.testEarliestDishes(orders);
 
         KitchenSchedule.generateSchedule3_1(orders, cooks);
@@ -45,12 +46,15 @@ public class Runner implements CommandLineRunner {
         for(Order o: orders){
             System.out.println("order "+o.getOrderCode()+" is ordered at "+o.getOrderTime()+", is finished cooking at "+o.getCookedTime()+". ");
         }
+        filteredOrders=orders.stream().filter(order -> order.getStatus()==1).collect(Collectors.toCollection(ArrayList::new));
+        while(!filteredOrders.isEmpty()){
 
-        var sortedOrders = new ArrayList<>(orders.stream().sorted((o1, o2) -> o1.compareTo(o2)).toList());
+            var sortedOrders = new ArrayList<>(filteredOrders.stream().sorted((o1, o2) -> o1.compareTo(o2)).toList());
+            var assignmentManager = new DeliveryAssignmentManager();
+            System.out.println(assignmentManager.GenerateDeliveryAssignment(sortedOrders, deliverers));
+            filteredOrders=filteredOrders.stream().filter(order -> order.getStatus()==1).collect(Collectors.toCollection(ArrayList::new));
+        }
 
-        // When
-        var assignmentManager = new DeliveryAssignmentManager();
-        assignmentManager.GenerateOrderAssignment(sortedOrders, deliverers);
     }
 }
 

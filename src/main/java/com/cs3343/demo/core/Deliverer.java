@@ -1,35 +1,27 @@
 package com.cs3343.demo.core;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
 
 public class Deliverer implements Comparable<Deliverer> {
     private String name;
-    private ArrayList<Order> deliverOrder;
+    private Delivery delivery;
     private LocalTime availableTime;
     public Deliverer(){
 
     }
+
+
     public Deliverer(String name){
         this.name = name;
-        this.availableTime=LocalTime.now();
+        this.availableTime=LocalTime.MIN;
     }
 
     @Override
@@ -73,11 +65,14 @@ String delivererName=delivererElement.getElementsByTagName("name").item(0).getTe
 
     public void deliverFood(double distance) {
         double orderOperationTime = distance * 2;
-        this.availableTime = this.availableTime.plusMinutes((int)orderOperationTime);
+        this.availableTime = this.delivery.getDeliverTime().plusMinutes((int)orderOperationTime);
+
     }
 
     public LocalTime getAvailableTime() {
         return this.availableTime;
     }
-
+    public void AssignDelivery(Delivery assignment){
+        this.delivery =assignment;
+    }
 }

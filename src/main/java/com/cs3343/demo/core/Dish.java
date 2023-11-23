@@ -187,17 +187,7 @@ public class Dish  implements Comparable<Dish>,Cloneable{
     public boolean isOrderedSameTimeWith(Dish other){
         return this.getOrderedTime().compareTo(other.getOrderedTime())==0;
     }
-//    public static ArrayList<Dish> cloneArray(ArrayList<Dish> dishes){
-//        ArrayList<Dish> clonedDishes = new ArrayList<Dish>();
-//        for(Dish dish: dishes){
-//            try {
-//                clonedDishes.add(dish.clone());
-//            } catch (CloneNotSupportedException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        return clonedDishes;
-//    }
+
 
 
 
