@@ -122,7 +122,7 @@ public class Cook implements Comparable<Cook> {
     //return startTime+" "+selectedCook;
     //}
 
-    public static Cook selectCook(ArrayList<Cook> cooks){
+    public static Cook selectCook_before_4(ArrayList<Cook> cooks){
         Collections.sort(cooks);
         return cooks.get(0);
     }
@@ -131,4 +131,8 @@ public class Cook implements Comparable<Cook> {
         return expertise.contains(d.getCuisine());
     }
 
+    public static LocalTime getEarliestLocalTime(ArrayList<Cook> cooks){
+        Collections.sort(cooks);
+        return cooks.get(0).getAvailableTime();
+    }
 }

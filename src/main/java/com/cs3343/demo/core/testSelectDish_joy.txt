@@ -1,3 +1,4 @@
+Below is for kitchen algo 3_2
 Assume Cook1 is available at 11:10, cook1 is good at Hunnan
 Assume time constraint is 5min
 

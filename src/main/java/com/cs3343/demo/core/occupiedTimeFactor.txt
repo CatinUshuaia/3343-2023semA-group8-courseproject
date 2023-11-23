@@ -1,0 +1,71 @@
+this txt is to discuss the effect of occupied time factor
+
+only consider occupied time factor, discuss is it necessary to consider this factor
+
+12:00 TwiceCookedPork (10 fry)
+12:00 FriedMeatWithChili (8 fry)
+12:00 MapoTofu (6 stew)
+
+
+Tom Sichuan 1
+Joy Hunan 1
+
+choice1 follows the order:
+12:00-12:10 Tom TwiceCookedPork
+12:00-12:08 Joy FriedMeatWithChili
+12:08-12:14 Joy MapoTofu
+
+
+choice2 
+12:00-12:06 Tom MapoTofu
+12:00-12:08 Joy FriedMeatWithChili
+12:06-12:16 Tom TwiceCookedPork
+
+choice3:
+12:00-12:06 Tom MapoTofu
+12:00-12:10 Joy TwiceCookedPork
+12:06-12:14 Tom FriedMeatWithChili
+
+in this case, at least one dish needs to wait for cooking
+If we would like to minimize the customer's waiting time in general, the dish takes longer time should be done first.
+conclusion:
+dishes of high occupied time should be cooked first
+=====================
+
+considering occupied time and order time, which factor should be more prioritized?
+
+12:00 FriedMeatWithChili (8 fry)
+12:01 TwiceCookedPork (10 fry), MapoTofu (6 stew)
+
+Tom Sichuan 1
+Joy Hunan 1
+
+Assume two cooks are available at 12:01
+
+case1: orderedTime first
+12:00 Tom FriedMeatWithChili
+
+
+
+===================================
+12:00 TwiceCookedPork (10 fry Sicuan)
+12:00 MapoTofu (6 stew Sichuan)
+12:00 FriedMeatWithChili (8 fry Hunan)
+
+Joy Hunan 1
+Tom Sichuan 1
+
+
+choice1:
+
+sorting:
+12:00 TwiceCookedPork
+12:00 FriedMeatWithChili
+12:00 MapoTofu
+ 
+12:00-12:08 FriedMeatWithChili Joy
+12:00-12:10 TwiceCookedPork Tom
+12:08-12:14 MapoTofu Joy
+
+assume FriedMeatWithChili takes 5 mins
+

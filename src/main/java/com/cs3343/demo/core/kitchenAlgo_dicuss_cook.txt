@@ -1,0 +1,43 @@
+order.txt
+
+11:00 KungPaoChicken,FriedMeatWithChili,RoastedDuck
+
+cook.txt
+Tom Sichuan
+Joy Hunan
+
+
+-------------
+List Dish
+
+11:00 RoastedDuck
+
+11:00 KungPaoChicken
+
+11:00 FriedMeatWithChili
+
+--------
+
+choice1:
+11:00 Tom RoastedDuck
+
+11:00 Joy KungPaoChicken 
+
+11:02 Tom FriedMeatWithChili
+
+choice2:🐾 (select this one)
+11:00 Tom RoastedDuck
+
+11:00 Joy FriedMeatWithChili
+
+11:02 Tom KungPaoChicken
+
+choice3:
+11:00 Tom KungPaoChicken
+
+11:00 Joy FriedMeatWithChili
+
+11:08 Tom RoastedDuck
+
+
+

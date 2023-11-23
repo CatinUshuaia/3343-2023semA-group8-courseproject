@@ -1,2 +1,85 @@
+below discusses about the solution provided by lmy
+
 case1
+
+11:00 FriedMeatWithChili
+11:01 RoastedDuck
+11:03 FriedMeatWithChili
+11:20 RoastedDuck
+
+-------
+RoastedDuck 11:01
+RoastedDuck 11:20
+
+FriedMeatWithChili 11:00 
+FriedMeatWithChili 11:03
+
+
+====================================
+case1:
+consider good at dishes
+
+cook.txt
+Joy Hunan
+Tom Sichuan
+
+
+11:00 KungPaoChicken
+11:02 FriedMeatWithChili
+
+expected 11:00 Tom KungPaoChicken
+11:02 Joy FriedMeatWithChili 
+------------
+find the available cook good at KungPaoChicken, 
+relaxation: if not, decide if wait for that cook, according to its available time
+no waiting, just do
+------
+logic is more natural to understand
+need more care to handle time 
+==================================
+case2:
+
+order.txt
+
+11:00 KungPaoChicken,FriedMeatWithChili,RoastedDuck
+
+cook.txt
+Tom Sichuan
+Joy Hunan
+
+
+-------------
+List Dish
+
+11:00 RoastedDuck
+
+11:00 KungPaoChicken
+
+11:00 FriedMeatWithChili
+
+--------
+if operation priority and first order time are the same, sort dish2D by getCookableDishes
+
+choice1:
+11:00 Tom RoastedDuck
+
+11:00 Joy KungPaoChicken 
+
+11:02 Tom FriedMeatWithChili
+
+choice2:
+11:00 Tom RoastedDuck
+
+11:00 Joy FriedMeatWithChili
+
+11:02 Tom KungPaoChicken
+
+choice3:
+11:00 Tom KungPaoChicken
+
+11:00 Joy FriedMeatWithChili
+
+11:08 Tom RoastedDuck
+
+
 

@@ -36,7 +36,7 @@ public class KitchenSchedule {
 //            Collections.sort(dishes);
 //            for(Dish selectedDish: dishes){
 //                Collections.sort(cooks);
-//                String result = Cook.selectCook(cooks,selectedDish.getOccupiedTime());
+//                String result = Cook.selectCook_before_4(cooks,selectedDish.getOccupiedTime());
 //                schedule.add(result+" "+selectedDish);
 //                System.out.println(result+" "+selectedDish);
 //
@@ -88,7 +88,7 @@ public class KitchenSchedule {
 //        cooks.forEach(c -> c.initializeAvailableTime(time));
 //
 //        while(true){
-//            Cook selectedCook = Cook.selectCook(cooks);
+//            Cook selectedCook = Cook.selectCook_before_4(cooks);
 //            Map.Entry<LocalTime, Dish> result = selectDish1_2(orders,selectedCook.getAvailableTime());
 //
 //            if(result == null){
@@ -123,7 +123,7 @@ public class KitchenSchedule {
         LocalTime startTime = time;
 
         while(uncookedDishes.size()>0){
-            Cook selectedCook = Cook.selectCook(cooks);
+            Cook selectedCook = Cook.selectCook_before_4(cooks);
 
             Dish selectedDish = null;
             //find the first dish that can be cooked by the selected cook
@@ -282,7 +282,7 @@ public class KitchenSchedule {
         LocalTime startTime = time;
 
         while(uncookedDishes.size()>0){
-            Cook selectedCook = Cook.selectCook(cooks);
+            Cook selectedCook = Cook.selectCook_before_4(cooks);
 
             ArrayList<Dish> selectedDishes = selectDishes3_1(uncookedDishes,selectedCook.getAvailableTime());
 
@@ -364,31 +364,35 @@ public class KitchenSchedule {
             //no dish is good at, so select the dish with the highest priority
             return getCookableDishes(candidateSub, cookTime);
         }else{
-            // the dish cook good at is not the one with the highest priority
-            // check if the dish can be cooked at first
+            
 
-            ArrayList<Dish> cookableSelected = getCookableDishes(selectedSub, cookTime);
 
-            //get the next available time of the cook
-            //the next time maybe the selectedCook works, maybe the next cook works
-            LocalTime thisCook_nextAval = cookTime.plusMinutes(operateAllTime(cookableSelected));
-            LocalTime nextAval;
-            if(nextCook_Time==null || nextCook_Time.isAfter(thisCook_nextAval)){
-                nextAval = thisCook_nextAval;
-            }else{
-                nextAval = nextCook_Time;
-            }
 
-            //if the next availiable time doesn't satisfy the constraint of the dish with the highest priority
-            Duration duration = Duration.between(nextAval, candidateSub.get(0).getOrderedTime());
-            long timeDiff = Math.abs(duration.toMinutes());
-            int waitingConstraint = candidateSub.get(0).getOrder().getCookTimeConstraint();
-            if(timeDiff>waitingConstraint){
-                //the dish with the highest priority cannot be cooked
-                return getCookableDishes(candidateSub, cookTime);
-            }else{
-                return cookableSelected;
-            }
+            // // the dish cook good at is not the one with the highest priority
+            // // check if the dish can be cooked at first
+
+            // ArrayList<Dish> cookableSelected = getCookableDishes(selectedSub, cookTime);
+
+            // //get the next available time of the cook
+            // //the next time maybe the selectedCook works, maybe the next cook works
+            // LocalTime thisCook_nextAval = cookTime.plusMinutes(operateAllTime(cookableSelected));
+            // LocalTime nextAval;
+            // if(nextCook_Time==null || nextCook_Time.isAfter(thisCook_nextAval)){
+            //     nextAval = thisCook_nextAval;
+            // }else{
+            //     nextAval = nextCook_Time;
+            // }
+
+            // //if the next availiable time doesn't satisfy the constraint of the dish with the highest priority
+            // Duration duration = Duration.between(nextAval, candidateSub.get(0).getOrderedTime());
+            // long timeDiff = Math.abs(duration.toMinutes());
+            // int waitingConstraint = candidateSub.get(0).getOrder().getCookTimeConstraint();
+            // if(timeDiff>waitingConstraint){
+            //     //the dish with the highest priority cannot be cooked
+            //     return getCookableDishes(candidateSub, cookTime);
+            // }else{
+            //     return cookableSelected;
+            // }
         }
     }
 
@@ -509,7 +513,7 @@ public class KitchenSchedule {
         LocalTime startTime = time;
 
         while(uncookedDishes.size()>0){
-            Cook selectedCook = Cook.selectCook(cooks);
+            Cook selectedCook = Cook.selectCook_before_4(cooks);
 
             LocalTime nextAvailableTime = null;
             if(cooks.size()>=2){
@@ -555,7 +559,5 @@ public class KitchenSchedule {
         }
         return schedules;
     }
-
-
 
 }

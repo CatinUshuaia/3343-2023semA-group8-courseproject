@@ -3,9 +3,9 @@
 3 KungPaoChicken 8 fry Sichuan
 4 CabbageAndPorkDumpling 8 boil NA
 5 PorkwithCornDumpling 8 boil NA
-6 Stir-friedVegetable 6 fry NA
+6 Stir-friedVegetable 5 fry NA
 7 SourShreddedPotatoes 8 fry Northern
 8 YangzhouFriedRice 8 fry Zhejiang
 9 SteamedFishHeadwithChoppedPepper 16 steam Hunan
 10 MapoTofu 6 stew Sichuan
-11 TwiceCookedPork 7 fry Sicuan
+11 TwiceCookedPork 10 fry Sichuan
