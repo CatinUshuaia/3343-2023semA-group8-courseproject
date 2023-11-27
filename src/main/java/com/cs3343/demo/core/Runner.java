@@ -48,7 +48,7 @@ public class Runner implements CommandLineRunner {
 
             orders.add(Order.newOrder(orders.size()+1, orderLine, dishes));
 
-            KitchenSchedule.generateSchedule3_1(orders, cooks);
+            KitchenSchedule.generateSchedule(orders, cooks);
             System.out.println("=====================================");
             for(Order o: orders){
                 System.out.println("order "+o.getOrderCode()+" is ordered at "+o.getOrderTime()+", is finished cooking at "+o.getCookedTime()+". ");
