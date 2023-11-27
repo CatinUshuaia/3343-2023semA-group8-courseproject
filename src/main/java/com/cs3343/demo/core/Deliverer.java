@@ -47,7 +47,7 @@ public class Deliverer implements Comparable<Deliverer> {
                     for (int i = 0; i < delivererList.getLength(); i++) {
                         Element delivererElement = (Element) delivererList.item(i);
 String delivererName=delivererElement.getElementsByTagName("name").item(0).getTextContent();
-                        System.out.println(delivererName);
+//                        System.out.println(delivererName);
                         deliverers.add(new Deliverer(delivererName));
                 }
             }
