@@ -10,6 +10,7 @@ import org.springframework.shell.standard.ShellOption;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.stream.Collectors;
+import java.util.Scanner;
 
 @ShellComponent
 public class Runner implements CommandLineRunner {
@@ -30,30 +31,40 @@ public class Runner implements CommandLineRunner {
     public void run(
             @ShellOption(defaultValue = "1") String... args
     ) throws Exception {
-        int totalOrder = 0;
+        Scanner scanner = new Scanner(System.in);
 
         ArrayList<Dish> dishes = Dish.inputDishInfo(DISH_INPUT);
         ArrayList<Cook> cooks = cook.inputCookInfo(COOK_INPUT);
-
-        ArrayList<Order> orders = Order.inputOrderInfo(ORDER_INPUT, dishes);
-
         ArrayList<Deliverer> deliverers=Deliverer.inputDelivererInfo(DELIVERER_INPUT);
-        ArrayList<Order> filteredOrders=new ArrayList<Order>();
-//        KitchenSchedule.testEarliestDishes(orders);
 
-        KitchenSchedule.generateSchedule3_1(orders, cooks);
-        System.out.println("=====================================");
-        for(Order o: orders){
-            System.out.println("order "+o.getOrderCode()+" is ordered at "+o.getOrderTime()+", is finished cooking at "+o.getCookedTime()+". ");
-        }
-        filteredOrders=orders.stream().filter(order -> order.getStatus()==1).collect(Collectors.toCollection(ArrayList::new));
-        while(!filteredOrders.isEmpty()){
+        // ArrayList<Order> orders = Order.inputOrderInfo(ORDER_INPUT, dishes);
+        ArrayList<Order> orders = new ArrayList<Order>();
+        System.out.println("please input order time, dishes, and location. Input 'exit' to leave.");
+        while (true){
+            String orderLine = scanner.nextLine(); 
+            if(orderLine.equals("exit")){
+                break;
+            }
 
-            var sortedOrders = new ArrayList<>(filteredOrders.stream().sorted((o1, o2) -> o1.compareTo(o2)).toList());
-            var assignmentManager = new DeliveryAssignmentManager();
-            System.out.println(assignmentManager.GenerateDeliveryAssignment(sortedOrders, deliverers));
-            filteredOrders=filteredOrders.stream().filter(order -> order.getStatus()==1).collect(Collectors.toCollection(ArrayList::new));
+            orders.add(Order.newOrder(orders.size()+1, orderLine, dishes));
+
+            KitchenSchedule.generateSchedule3_1(orders, cooks);
+            System.out.println("=====================================");
+            for(Order o: orders){
+                System.out.println("order "+o.getOrderCode()+" is ordered at "+o.getOrderTime()+", is finished cooking at "+o.getCookedTime()+". ");
+            }
+
+            ArrayList<Order> filteredOrders=new ArrayList<Order>();
+            filteredOrders=orders.stream().filter(order -> order.getStatus()==1).collect(Collectors.toCollection(ArrayList::new));
+            while(!filteredOrders.isEmpty()){
+
+                var sortedOrders = new ArrayList<>(filteredOrders.stream().sorted((o1, o2) -> o1.compareTo(o2)).toList());
+                var assignmentManager = new DeliveryAssignmentManager();
+                System.out.println(assignmentManager.GenerateDeliveryAssignment(sortedOrders, deliverers));
+                filteredOrders=filteredOrders.stream().filter(order -> order.getStatus()==1).collect(Collectors.toCollection(ArrayList::new));
+            }
         }
+        // scanner.close();
 
     }
 }

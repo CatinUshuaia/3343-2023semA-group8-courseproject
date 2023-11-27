@@ -63,21 +63,12 @@ public class Order implements Comparable<Order> {
 //        this.dishes.add(dish);
 //    }
 
-
-    public static ArrayList<Order> inputOrderInfo(String filePath, ArrayList<Dish> allDishes) throws IOException, CloneNotSupportedException {
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        String line;
-        int orderCode=0;
-        ArrayList<Order> orders = new ArrayList<Order>();
-        while ((line = reader.readLine()) != null) {
-            String[] splitLine = line.split(" ");
+    public static Order newOrder(int orderCode, String line, ArrayList<Dish> allDishes) throws IOException, CloneNotSupportedException {
+        String[] splitLine = line.split(" ");
             String timeStr = splitLine[0];
             ArrayList<Dish> dishes = new ArrayList<Dish>();
             String dishesStr = splitLine[1];
             String[] splitDishes = dishesStr.split(",");
-//                for(String str: splitDishes){
-//                    System.out.println(str);
-//                }
             for (String dishStr : splitDishes) {
                 for (Dish dish : allDishes) {
                     if(dishStr.equals(dish.getDishCode()+"")
@@ -88,8 +79,17 @@ public class Order implements Comparable<Order> {
             }
             int xCoordinate = Integer.parseInt(splitLine[2]);
             int yCoordinate = Integer.parseInt(splitLine[3]);
-            Order order=new Order(++orderCode,dishes,new Location(xCoordinate,yCoordinate),timeStr);
-            orders.add(order);
+            return new Order(orderCode,dishes,new Location(xCoordinate,yCoordinate),timeStr);
+    }
+
+
+    public static ArrayList<Order> inputOrderInfo(String filePath, ArrayList<Dish> allDishes) throws IOException, CloneNotSupportedException {
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        String line;
+        int orderCode=0;
+        ArrayList<Order> orders = new ArrayList<Order>();
+        while ((line = reader.readLine()) != null) {
+            orders.add(newOrder(orderCode,line,allDishes));
         }
         reader.close();
         return orders;
