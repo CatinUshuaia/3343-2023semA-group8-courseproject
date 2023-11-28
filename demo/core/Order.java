@@ -7,10 +7,14 @@ import java.lang.reflect.Array;
 import java.util.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-public class Order {
+public class Order implements Comparable<Order> {
     private int orderCode;
     private ArrayList<Dish> dishes;
     private double distance;
+
+    private Location location;
+
+    // TODO: should use ENUM class to represent status
     private int status;
     //0: 已下单
     //1: 所有菜品已做好，未送出
@@ -22,10 +26,10 @@ public class Order {
     public Order() {
     }
 
-    public Order(int orderCode, ArrayList<Dish> dishes, double distance, String time) {
+    public Order(int orderCode, ArrayList<Dish> dishes, Location location, String time) {
         this.orderCode = orderCode;
         this.dishes = dishes;
-        this.distance = distance;
+        this.location = location;
         this.status = 0;
         this.orderTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
         this.dishes.forEach(d -> {
@@ -58,21 +62,12 @@ public class Order {
 //        this.dishes.add(dish);
 //    }
 
-
-    public static ArrayList<Order> inputOrderInfo(String filePath, ArrayList<Dish> allDishes) throws IOException, CloneNotSupportedException {
-        BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        String line;
-        int orderCode=0;
-        ArrayList<Order> orders = new ArrayList<Order>();
-        while ((line = reader.readLine()) != null) {
-            String[] splitLine = line.split(" ");
+    public static Order newOrder(int orderCode, String line, ArrayList<Dish> allDishes) throws IOException, CloneNotSupportedException {
+        String[] splitLine = line.split(" ");
             String timeStr = splitLine[0];
             ArrayList<Dish> dishes = new ArrayList<Dish>();
             String dishesStr = splitLine[1];
             String[] splitDishes = dishesStr.split(",");
-//                for(String str: splitDishes){
-//                    System.out.println(str);
-//                }
             for (String dishStr : splitDishes) {
                 for (Dish dish : allDishes) {
                     if(dishStr.equals(dish.getDishCode()+"")
@@ -81,24 +76,28 @@ public class Order {
                     }
                 }
             }
-            int distance = Integer.parseInt(splitLine[2]);
-            Order order=new Order(++orderCode,dishes,distance,timeStr);
-            orders.add(order);
+            int xCoordinate = Integer.parseInt(splitLine[2]);
+            int yCoordinate = Integer.parseInt(splitLine[3]);
+            return new Order(orderCode,dishes,new Location(xCoordinate,yCoordinate),timeStr);
+    }
+
+
+    public static ArrayList<Order> inputOrderInfo(String filePath, ArrayList<Dish> allDishes) throws IOException, CloneNotSupportedException {
+        BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        String line;
+        int orderCode=0;
+        ArrayList<Order> orders = new ArrayList<Order>();
+        while ((line = reader.readLine()) != null) {
+            orders.add(newOrder(orderCode,line,allDishes));
         }
         reader.close();
         return orders;
     }
-        
+
     @Override
     public String toString(){
         return this.orderTime+ " " + this.dishes + " ";
     }
-//    public void deleteDishes(Dish dish){
-//        this.dishes.remove(dish);
-//    }
-//    public void cancelOrder(){
-//        this.dishes.clear();
-//    }
 
     public void updateStatusIfAllDishCooked(){
         boolean allCooked = true;
@@ -127,9 +126,22 @@ public class Order {
 
     public int getStatus(){
         return this.status;
-}
+    }
 
     public double getDistance() {
         return this.distance;
     }
+
+    public void UpdateStatus2InDelivering(){
+        this.status=2;
+    }
+
+    public int compareTo(Order other) {
+        return this.getCookedTime().compareTo(other.getCookedTime());
+    }
+
+    public Location getLocation() {
+        return location;
+    }
 }
+
