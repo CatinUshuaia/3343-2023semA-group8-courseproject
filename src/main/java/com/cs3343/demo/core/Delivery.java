@@ -10,7 +10,13 @@ public class Delivery {
     private ArrayList<Order> orders;
 
     private LocalTime deliverTime;
+
+    public LocalTime getFinishTime() {
+        return finishTime;
+    }
+
     private LocalTime finishTime;
+
 
     public Delivery(Deliverer deliverer, ArrayList<Order> orders) {
         this.deliverer = deliverer;
@@ -18,7 +24,7 @@ public class Delivery {
         // TODO: calculate deliverTime and finishTime
 
         var cookedTime= orders.stream()
-                    .sorted(Comparator.comparing(Order::getCookedTime))
+                    .sorted(Comparator.comparing(Order::getCookedTime).reversed())
                     .toList()
                     .get(0).getCookedTime();
         var availableTime=deliverer.getAvailableTime();
@@ -28,9 +34,8 @@ public class Delivery {
         }else{
             this.deliverTime=cookedTime;
         }
-        for(Order order : orders){
-            order.UpdateStatus2InDelivering();
-        }
+        this.UpdateStatus2InDelivering();
+
     }
     public Deliverer getDeliverer() {
         return deliverer;
@@ -42,10 +47,19 @@ public class Delivery {
         double orderOperationTime = distance * 2;
         this.finishTime = this.deliverTime.plusMinutes((int)orderOperationTime);
     }
-
+    public void UpdateStatus2InDelivering(){
+        for(Order order:this.orders){
+            order.UpdateStatus2InDelivering();
+        }
+    }
+    public void UpdateStatus3Delivered(){
+        for(Order order:this.orders){
+            order.UpdateStatus3Delivered();
+        }
+    }
     @Override
     public String toString() {
-        return "delivery:"+this.orders.toString()+this.deliverer.toString()+" "+this.deliverTime.toString();
+        return "delivery:"+this.orders.toString()+this.deliverer.toString()+" "+this.deliverTime.toString()+" deliverer available time: "+this.deliverer.getAvailableTime()+" delivered time:"+this.getFinishTime();
     }
 
 }

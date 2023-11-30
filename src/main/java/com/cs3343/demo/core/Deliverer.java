@@ -18,7 +18,6 @@ public class Deliverer implements Comparable<Deliverer> {
 
     }
 
-
     public Deliverer(String name){
         this.name = name;
         this.availableTime=LocalTime.MIN;
@@ -35,7 +34,6 @@ public class Deliverer implements Comparable<Deliverer> {
 
     public static ArrayList<Deliverer> inputDelivererInfo(String xmlFilePath) throws IOException{
         ArrayList<Deliverer> deliverers = new ArrayList<>();
-
         try {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
                 DocumentBuilder builder = factory.newDocumentBuilder();
@@ -66,7 +64,6 @@ String delivererName=delivererElement.getElementsByTagName("name").item(0).getTe
     public void deliverFood(double distance) {
         double orderOperationTime = distance * 2;
         this.availableTime = this.delivery.getDeliverTime().plusMinutes((int)orderOperationTime);
-
     }
 
     public LocalTime getAvailableTime() {
