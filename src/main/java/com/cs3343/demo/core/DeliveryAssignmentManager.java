@@ -49,7 +49,8 @@ public class DeliveryAssignmentManager {
                 .get(0);
         var newDelivery = new Delivery(firstAvailableDeliverer, ordersToBeDeliveredTogether);
         firstAvailableDeliverer.AssignDelivery(newDelivery);
-
+        maxDistance = ordersToBeDeliveredTogether.stream().mapToDouble(Order::getDistance).max().getAsDouble();
+        firstAvailableDeliverer.deliverFood(maxDistance);
         // 3. build a new assignment;
 
         return newDelivery;
@@ -57,8 +58,7 @@ public class DeliveryAssignmentManager {
 
 
     public void deliverInDeed(Delivery newDelivery) {
-        maxDistance = ordersToBeDeliveredTogether.stream().mapToDouble(Order::getDistance).max().getAsDouble();
-        firstAvailableDeliverer.deliverFood(maxDistance);
+
         //update time status for deliverers and deliveryAssignments
         newDelivery.SetFinishTime(maxDistance);
         newDelivery.UpdateStatus3Delivered();

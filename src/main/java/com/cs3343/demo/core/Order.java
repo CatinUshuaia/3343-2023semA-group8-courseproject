@@ -97,7 +97,7 @@ public class Order implements Comparable<Order> {
 
     @Override
     public String toString(){
-        return this.orderTime+ " " + this.dishes + " ";
+        return this.dishes + " ";
     }
 
     public void updateStatusIfAllDishCooked(){

@@ -59,7 +59,7 @@ public class Delivery {
     }
     @Override
     public String toString() {
-        return "delivery:"+this.orders.toString()+this.deliverer.toString()+" "+this.deliverTime.toString()+" deliverer available time: "+this.deliverer.getAvailableTime()+" delivered time:"+this.getFinishTime();
+        return "delivery:"+this.orders.toString()+" deliverer: "+this.deliverer.toString()+" scheduled deliver time: "+this.deliverTime.toString();
     }
 
 }
