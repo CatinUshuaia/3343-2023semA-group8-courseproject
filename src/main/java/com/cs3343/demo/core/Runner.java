@@ -7,6 +7,7 @@ import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 import org.springframework.shell.standard.ShellOption;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.stream.Collectors;
@@ -37,7 +38,24 @@ public class Runner implements CommandLineRunner {
         ArrayList<Cook> cooks = cook.inputCookInfo(COOK_INPUT);
         ArrayList<Deliverer> deliverers=Deliverer.inputDelivererInfo(DELIVERER_INPUT);
         ArrayList<Order> orders = new ArrayList<Order>();
-
+        
+        System.out.println("Welcome to the restaurant managment system!");
+        // System.out.println("Use default input files (cooks, dishes, deliverers)? (y/n)");
+        // String defaultInput = scanner.nextLine();
+        // if(defaultInput.equals("n")){
+        //     System.out.println("Please input the path of the cook file.");
+        //     String cookInput = scanner.nextLine();
+        //     System.out.println("Please input the path of the dish file.");
+        //     String dishInput = scanner.nextLine();
+        //     System.out.println("Please input the path of the deliverer file.");
+        //     String delivererInput = scanner.nextLine();
+        //     System.out.println("Please input the path of the order file.");
+        //     String orderInput = scanner.nextLine();
+        //     cooks = cook.inputCookInfo(cookInput);
+        //     dishes = Dish.inputDishInfo(dishInput);
+        //     deliverers = Deliverer.inputDelivererInfo(delivererInput);
+        //     orders = Order.inputOrderInfo(orderInput, dishes);
+        // }
 
         System.out.println("please input order time, dishes, and location. Input 'exit' to leave.");
         DeliveryAssignmentManager NewAssignmentManager = new DeliveryAssignmentManager();
