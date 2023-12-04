@@ -59,7 +59,6 @@ public class Runner implements CommandLineRunner {
 
 
             var currentTime = newAddedOrder.getOrderTime();
-
             for(var d :ds) {
                 if(currentTime.isAfter(d.getDeliverTime())) {
                     NewAssignmentManager.deliverInDeed(d);
@@ -81,9 +80,6 @@ public class Runner implements CommandLineRunner {
                         .collect(Collectors.toCollection(ArrayList::new));
 
             }
-//            for(Delivery d: ds){
-//
-//            }
         }
         // scanner.close();
 

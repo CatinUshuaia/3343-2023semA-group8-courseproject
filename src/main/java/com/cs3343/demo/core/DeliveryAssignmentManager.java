@@ -58,7 +58,6 @@ public class DeliveryAssignmentManager {
 
 
     public void deliverInDeed(Delivery newDelivery) {
-
         //update time status for deliverers and deliveryAssignments
         newDelivery.SetFinishTime(maxDistance);
         newDelivery.UpdateStatus3Delivered();
