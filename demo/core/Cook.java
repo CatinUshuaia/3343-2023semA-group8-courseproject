@@ -19,16 +19,15 @@ public class Cook implements Comparable<Cook> {
     private String name;
     private int rank;
     private int cookCode;
-    
+    private int workTime;
+
 //    private CookStatus status;
 
     private LocalTime availableTime;
 
     public Cook(){
     }
-
-
-public Cook(String[] cuisines,String n, int rank,int id){
+    public Cook(String[] cuisines,String n, int rank,int id){
         this.name = n;
         this.rank = rank;
         for(String c : cuisines) {
@@ -66,7 +65,7 @@ public Cook(String[] cuisines,String n, int rank,int id){
             //读取input并存入database
 
         }
-        
+
         reader.close();
         return cooks;
     }
@@ -80,7 +79,7 @@ public Cook(String[] cuisines,String n, int rank,int id){
         if (comparisionTime!=0){
             return comparisionTime;
         }else{
-        	return Integer.compare(this.cookCode, o.cookCode);
+            return Integer.compare(this.cookCode, o.cookCode);
         }
     }
 
@@ -99,13 +98,13 @@ public Cook(String[] cuisines,String n, int rank,int id){
     }
 
     //public static String selectCook(ArrayList<Cook> cooks,int dishOperationTime) {
-        //Collections.sort(cooks);
-        //Cook selectedCook = cooks.get(0);
-        //LocalTime startTime = selectedCook.getAvailableTime();
-        //selectedCook.cookFood(dishOperationTime);
-        //return startTime+" "+selectedCook;    		
+    //Collections.sort(cooks);
+    //Cook selectedCook = cooks.get(0);
+    //LocalTime startTime = selectedCook.getAvailableTime();
+    //selectedCook.cookFood(dishOperationTime);
+    //return startTime+" "+selectedCook;
     //}
-    
+
     public static Cook selectCook(ArrayList<Cook> cooks){
         Collections.sort(cooks);
         return cooks.get(0);
