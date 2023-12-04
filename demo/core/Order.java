@@ -64,21 +64,21 @@ public class Order implements Comparable<Order> {
 
     public static Order newOrder(int orderCode, String line, ArrayList<Dish> allDishes) throws IOException, CloneNotSupportedException {
         String[] splitLine = line.split(" ");
-            String timeStr = splitLine[0];
-            ArrayList<Dish> dishes = new ArrayList<Dish>();
-            String dishesStr = splitLine[1];
-            String[] splitDishes = dishesStr.split(",");
-            for (String dishStr : splitDishes) {
-                for (Dish dish : allDishes) {
-                    if(dishStr.equals(dish.getDishCode()+"")
-                            || dishStr.equals(dish.getDishName())){
-                        dishes.add(dish.clone());
-                    }
+        String timeStr = splitLine[0];
+        ArrayList<Dish> dishes = new ArrayList<Dish>();
+        String dishesStr = splitLine[1];
+        String[] splitDishes = dishesStr.split(",");
+        for (String dishStr : splitDishes) {
+            for (Dish dish : allDishes) {
+                if(dishStr.equals(dish.getDishCode()+"")
+                        || dishStr.equals(dish.getDishName())){
+                    dishes.add(dish.clone());
                 }
             }
-            int xCoordinate = Integer.parseInt(splitLine[2]);
-            int yCoordinate = Integer.parseInt(splitLine[3]);
-            return new Order(orderCode,dishes,new Location(xCoordinate,yCoordinate),timeStr);
+        }
+        int xCoordinate = Integer.parseInt(splitLine[2]);
+        int yCoordinate = Integer.parseInt(splitLine[3]);
+        return new Order(orderCode,dishes,new Location(xCoordinate,yCoordinate),timeStr);
     }
 
 
@@ -144,4 +144,3 @@ public class Order implements Comparable<Order> {
         return location;
     }
 }
-

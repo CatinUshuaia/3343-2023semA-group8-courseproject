@@ -208,7 +208,7 @@ public class KitchenSchedule {
             }
 
             System.out.println(startTime+" "+selectedCook+" start cooking "+selectedDishes.get(0)+" order:"+orderCodes+". Expected Finish at "+finishedTime);
-    //            System.out.println(startTime+" "+selectedDish.getDishCode()+" "+selectedDish.getOrder().getOrderCode());
+            //            System.out.println(startTime+" "+selectedDish.getDishCode()+" "+selectedDish.getOrder().getOrderCode());
             schedules.add(startTime+" "+selectedCook+" "+selectedDish.getDishCode()+" "+selectedDish.getOrder().getOrderCode());
         }
         return schedules;

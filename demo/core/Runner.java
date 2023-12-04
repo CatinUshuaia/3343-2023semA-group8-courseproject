@@ -24,7 +24,7 @@ public class Runner {
         ArrayList<Cook> cooks = Cook.inputCookInfo(cook_path);
         ArrayList<Order> orders = Order.inputOrderInfo(order_path, dishes);
         String delimiter = ",";
-        String result = String.join(delimiter, KitchenSchedule.generateSchedule1_3(orders, cooks));
+        String result = String.join(delimiter, KitchenSchedule.generateSchedule(orders, cooks));
         return result;
     }
 }
