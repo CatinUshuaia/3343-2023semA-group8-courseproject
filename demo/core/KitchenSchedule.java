@@ -217,7 +217,7 @@ public class KitchenSchedule {
                     + orderCodes + ". Expected finish at " + finishedTime);
             // System.out.println(startTime+" "+selectedDish.getDishCode()+"
             // "+selectedDish.getOrder().getOrderCode());
-             schedules.add(startTime+" "+selectedCook+" "+selectedDishes.get(0).getDishCode()+" "+ orderCodes);
+            schedules.add(startTime+" "+selectedCook+" "+selectedDishes.get(0).getDishCode()+" "+ orderCodes);
         }
         return schedules;
     }
