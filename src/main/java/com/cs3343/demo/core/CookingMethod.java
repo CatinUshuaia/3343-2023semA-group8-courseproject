@@ -61,6 +61,11 @@ public enum CookingMethod {
         }
     }
 
+    public void setOperationTime(int operationTime) {
+        this.operationTime = operationTime;
+    }
+
+
     // public static void testCompareTo(){
     //     System.out.println(Integer.MAX_VALUE - Integer.MAX_VALUE);
     //     System.out.println(Integer.MAX_VALUE - 1);

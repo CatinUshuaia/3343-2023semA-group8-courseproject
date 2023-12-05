@@ -63,6 +63,9 @@ public class Runner implements CommandLineRunner {
         ArrayList<Delivery> ds = new ArrayList<>();
 
         while (true){
+            //TODO: exception handling: check input
+            //example: 15:49 RoastedDuck,RoastedDuck 5 4
+            //check time format, whether dish exists, whether location_x and location_y are numbers
             String orderLine = scanner.nextLine();
             if(orderLine.equals("exit")){
                 break;

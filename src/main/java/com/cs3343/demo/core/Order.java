@@ -15,7 +15,6 @@ public class Order implements Comparable<Order> {
 
     private Location location;
 
-    // TODO: should use ENUM class to represent status
     private int status;
     //0: 已下单
     //1: 所有菜品已做好，未送出

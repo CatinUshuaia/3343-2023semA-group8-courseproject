@@ -7,10 +7,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class KitchenSchedule {
+    //TODO: make it as singleton
+    //TODO: allow user to change MAXIMUM
 
-    private static final int ADDTIME = 1;
-
+    //一次最多可以炒几道菜
     private static final int MAXIMUM = 3;
+
+    private static final int ADDTIME = 1;//NOTE: this is fixed, and cannot be changed by users
+
 
     // public static ArrayList<String> generateSchedule1_1(ArrayList<Order>
     // orders,ArrayList<Cook> cooks){
