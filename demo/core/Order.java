@@ -135,7 +135,10 @@ public class Order implements Comparable<Order> {
     public void UpdateStatus2InDelivering(){
         this.status=2;
     }
-
+    
+public void UpdateStatus3Delivered(){
+        this.status=3;
+}
     public int compareTo(Order other) {
         return this.getCookedTime().compareTo(other.getCookedTime());
     }
