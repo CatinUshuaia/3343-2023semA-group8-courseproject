@@ -26,7 +26,7 @@ public class Runner implements CommandLineRunner {
     private final static String DELIVERER_INPUT = "src/main/java/com/cs3343/demo/core/deliverers.xml";
 
     private Cook cook;
-    Boolean firstInput=true;
+    Boolean firstInput = true;
     @ShellMethod(value = "Run main", key = "run")
     @Override
     public void run(
@@ -51,6 +51,7 @@ public class Runner implements CommandLineRunner {
         //     String delivererInput = scanner.nextLine();
         //     System.out.println("Please input the path of the order file.");
         //     String orderInput = scanner.nextLine();
+
         //     cooks = cook.inputCookInfo(cookInput);
         //     dishes = Dish.inputDishInfo(dishInput);
         //     deliverers = Deliverer.inputDelivererInfo(delivererInput);
@@ -63,11 +64,20 @@ public class Runner implements CommandLineRunner {
         ArrayList<Delivery> ds = new ArrayList<>();
 
         while (true){
-            String orderLine = scanner.nextLine();
-            if(orderLine.equals("exit")){
-                break;
-            }
-            Order newAddedOrder=Order.newOrder(orders.size()+1, orderLine, dishes);
+            System.out.println("Please input the order time. (hh:mm)");
+            String timeStr = scanner.nextLine();
+
+            System.out.println("Please input the dishes. ('RoastedDuck', 'FriedMeatWithChili')");
+            String dishStr = scanner.nextLine();
+
+            System.out.println("Please input the location. (x y)");
+            String location = scanner.nextLine();
+            int x = Integer.parseInt(location.split(" ")[0]);
+            int y = Integer.parseInt(location.split(" ")[1]);
+
+//            Order newAddedOrder=Order.newOrder(orders.size()+1, orderLine, dishes);
+            Order newAddedOrder = Order.newOrder(orders.size()+1, timeStr, dishes, dishStr, x, y);
+
             orders.add(newAddedOrder);
             KitchenSchedule.generateSchedule(orders, cooks);
             System.out.println("=====================================");
@@ -102,6 +112,12 @@ public class Runner implements CommandLineRunner {
 //            for(Delivery d: ds){
 //
 //            }
+
+            System.out.println("Exists? If yes, type 'exit'");
+            String isExist = scanner.nextLine();
+            if(isExist.equals("exit")){
+                break;
+            }
         }
         // scanner.close();
 
