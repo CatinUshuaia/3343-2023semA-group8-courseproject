@@ -7,6 +7,9 @@ import java.util.Collections;
 import java.util.Map;
 
 public class KitchenSchedule {
+    private static final int MAXIMUM = 3;
+
+    private static final int ADDTIME = 1;
 
     //version: 1.3
     public static ArrayList<String> generateSchedule1_3(ArrayList<Order> orders,ArrayList<Cook> cooks){
