@@ -67,7 +67,7 @@ public class Runner implements CommandLineRunner {
             System.out.println("Please input the order time. (hh:mm)");
             String timeStr = scanner.nextLine();
 
-            System.out.println("Please input the dishes. ('RoastedDuck', 'FriedMeatWithChili')");
+            System.out.println("Please input the dish name or dish code. (name1,name2,name3,...)/(code1,code2,code3,...)");
             String dishStr = scanner.nextLine();
 
             System.out.println("Please input the location. (x y)");
@@ -109,9 +109,6 @@ public class Runner implements CommandLineRunner {
                         .collect(Collectors.toCollection(ArrayList::new));
 
             }
-//            for(Delivery d: ds){
-//
-//            }
 
             System.out.println("Exists? If yes, type 'exit'");
             String isExist = scanner.nextLine();
