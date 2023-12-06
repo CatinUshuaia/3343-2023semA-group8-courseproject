@@ -82,6 +82,27 @@ public class Order implements Comparable<Order> {
             return new Order(orderCode,dishes,new Location(xCoordinate,yCoordinate),timeStr);
     }
 
+    public static Order newOrder(
+            int orderCode,
+            String timeStr,
+            ArrayList<Dish> allDishes,
+            String dishesStr,
+            int xCoordinate,
+            int yCoordinate)
+            throws CloneNotSupportedException {
+        String[] splitDishes = dishesStr.split(",");
+        ArrayList<Dish> dishes = new ArrayList<Dish>();
+        for (String dishStr : splitDishes) {
+            for (Dish dish : allDishes) {
+                if(dishStr.equals(dish.getDishCode()+"")
+                        || dishStr.equals(dish.getDishName())){
+                    dishes.add(dish.clone());
+                }
+            }
+        }
+        return new Order(orderCode,dishes,new Location(xCoordinate,yCoordinate),timeStr);
+    }
+
 
     public static ArrayList<Order> inputOrderInfo(String filePath, ArrayList<Dish> allDishes) throws IOException, CloneNotSupportedException {
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
