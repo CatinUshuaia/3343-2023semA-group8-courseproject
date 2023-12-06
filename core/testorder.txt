@@ -1,0 +1,136 @@
+cook 1：
+
+（单订单单菜品，厨师未占用，无临界情况）
+1.
+13：00 roastedDuck
+13：10 friedMeatWithChili
+13：30 roastedDuck
+
+（单订单多菜品，厨师被占用，无临界情况）
+2.
+9：00 roastedDuck,roastedDuck 
+9：01 friedMeatWithChili,friedMeatWithChili 
+9：02 friedMeatWithChili，roastedDuck 
+9：03 roastedDuck,friedMeatWithChili
+
+（单订单单个或多菜品，厨师有被占用，无临界情况）
+3.
+0：00 friedMeatWithChili,friedMeatWithChili，roastedDuck
+0：03 roastedDuck 
+0：30 roastedDuck, friedMeatWithChili
+0：31 friedMeatWithChili
+
+（订单隔天情况）
+4.
+11:36 friedMeatWithChili,friedMeatWithChili
+11:58 roastedDuck 
+0:02  roastedDuck 
+0:04  roastedDuck 
+
+（单订单单菜品，包含占用和未占用）
+5.
+11:00 roastedDuck 
+11:01 friedMeatWithChili
+11:02 roastedDuck 
+11:03 friedMeatWithChili
+11:04 roastedDuck 
+11:05 friedMeatWithChili
+
+（单订单单菜品，包含占用和未占用）
+6.
+11:00 friedMeatWithChili
+11:01 roastedDuck 
+11:02 friedMeatWithChili
+11:03 roastedDuck 
+11:04 friedMeatWithChili
+11:05 roastedDuck 
+
+（时间错误）
+7.
+23：59 friedMeatWithChili
+25：01 roastedDuck
+
+（菜品不存在）
+8.
+15：00 roastedDuck 
+15：02 Buddha Jumping Over the Wall
+15：15 friedMeatWithChili
+
+（菜品拼写不对）
+9.
+17：00 roasteduc
+18：00 roastedDuck 
+
+（测试临界情况） 
+10.
+11:00 friedMeatWithChili,roastedDuck
+11:01 friedMeatWithChili
+11:02 roastedDuck,friedMeatWithChili
+11:15 roastedDuck
+
+多种菜品（包含FriedMeatWithChili【roast】 RoastedDuck【fry】 PorkwithCornDumpling【boil】）
+1.（单订单单菜品，厨师未占用，无临界情况）
+14：00 friedMeatWithChili
+14：02 PorkwithCornDumpling
+16：00 roastedDuck
+
+（单订单多菜品，厨师被占用，无临界情况）
+2.
+16:28 PorkwithCornDumpling,roastedDuck,FriedMeatWithChili
+16:34 FriedMeatWithChili,roastedDuck,roastedDuck
+16:38 PorkwithCornDumpling,FriedMeatWithChili
+
+(测试临界情况)
+3.
+15:49 roastedDuck,roastedDuck,
+15:51 FriedMeatWithChili,roastedDuck
+15:55 PorkwithCornDumpling
+15:59 roastedDuck
+
+
+4.（同一时间多个订单，单个订单单个菜品）
+13:10 roastedDuck 
+13:12 friedMeatWithChili
+13:15 roastedDuck
+13:15 PorkwithCornDumpling
+13:15 roastedDuck 
+13:15 PorkwithCornDumpling
+
+5.（同一时间多个订单，单个订单多个菜品）
+13:10 roastedDuck 
+13:12 friedMeatWithChili，FriedMeatWithChili，PorkwithCornDumpling
+13:15 roastedDuck，PorkwithCornDumpling，roastedDuck
+13:15 friedMeatWithChili，PorkwithCornDumpling
+13:15 roastedDuck，PorkwithCornDumpling
+13:15 friedMeatWithChili，roastedDuck
+
+多菜品+多个厨师（Joy Cantonese 3 Tom Zhejiang,Shandong 2 Jerry Sichuan,Sichuan 1）
+
+1.（单订单单菜品）
+08：00 roastedDuck
+08：10 friedMeatWithChili
+08：30 PorkwithCornDumpling
+
+2.（单订单多菜品）
+21:29 PorkwithCornDumpling,PorkwithCornDumpling,FriedMeatWithChili，roastedDuck
+21:34 FriedMeatWithChili,roastedDuck,PorkwithCornDumpling，roastedDuck
+21:35 roastedDuck,FriedMeatWithChili，PorkwithCornDumpling，roastedDuck
+
+3.（时间顺序不对）
+13:10 roastedDuck 
+13:12 friedMeatWithChili
+13:09 PorkwithCornDumpling
+
+4.（一般情况测试）
+17：05 PorkwithCornDumpling，PorkwithCornDumpling，PorkwithCornDumpling
+17：07 roastedDuck，FriedMeatWithChili
+17：19 roastedDuck
+17：19 roastedDuck，PorkwithCornDumpling
+17：21 PorkwithCornDumpling
+
+5.（一般情况测试）
+19：01 PorkwithCornDumpling
+19：30 FriedMeatWithChili
+19：31 roastedDuck，PorkwithCornDumpling
+20：01 FriedMeatWithChili
+20：07 PorkwithCornDumpling，roastedDuck

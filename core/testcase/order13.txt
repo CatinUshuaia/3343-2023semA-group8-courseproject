@@ -1,0 +1,3 @@
+21:29 PorkwithCornDumpling,PorkwithCornDumpling,FriedMeatWithChili,RoastedDuck 2 4
+21:34 FriedMeatWithChili,RoastedDuck,PorkwithCornDumpling,RoastedDuck 4 2
+21:35 RoastedDuck,FriedMeatWithChili,PorkwithCornDumpling,RoastedDuck 3 3
