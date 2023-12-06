@@ -92,6 +92,12 @@ public class Order implements Comparable<Order> {
             orders.add(newOrder(orderCode,line,allDishes));
         }
         reader.close();
+        Collections.sort(orders, new Comparator<Order>() {
+            @Override
+            public int compare(Order o1, Order o2) {
+                return o1.getOrderTime().compareTo(o2.getOrderTime());
+            }
+        });
         return orders;
     }
 
