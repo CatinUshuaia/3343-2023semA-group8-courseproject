@@ -24,3 +24,12 @@
 1701327986408:run
 1701328489578:15:50 RoastedDuck,RoastedDuck 5 4
 1701328491585:run
+1701885160934:help
+1701885204567:new-order -t 15:49 -d RoastedDuck -x 5 -y 4
+1701885213194:q
+1701885215488:help
+1701885676466:run
+1701885679781:help
+1701885740108:new-order --timeStr 15:49 --dishStr RoastedDuck --xLocation 5 --yLocation 4
+1701885821776:help
+1701885848479:new-order --time 15:49 --dish RoastedDuck --xLocation 5 --yLocation 4

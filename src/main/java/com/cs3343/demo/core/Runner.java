@@ -32,92 +32,83 @@ public class Runner implements CommandLineRunner {
     public void run(
             @ShellOption(defaultValue = "1") String... args
     ) throws Exception {
-        Scanner scanner = new Scanner(System.in);
 
-        ArrayList<Dish> dishes = Dish.inputDishInfo(DISH_INPUT);
-        ArrayList<Cook> cooks = cook.inputCookInfo(COOK_INPUT);
-        ArrayList<Deliverer> deliverers=Deliverer.inputDelivererInfo(DELIVERER_INPUT);
-        ArrayList<Order> orders = new ArrayList<Order>();
         
         System.out.println("Welcome to the restaurant managment system!");
-        // System.out.println("Use default input files (cooks, dishes, deliverers)? (y/n)");
-        // String defaultInput = scanner.nextLine();
-        // if(defaultInput.equals("n")){
-        //     System.out.println("Please input the path of the cook file.");
-        //     String cookInput = scanner.nextLine();
-        //     System.out.println("Please input the path of the dish file.");
-        //     String dishInput = scanner.nextLine();
-        //     System.out.println("Please input the path of the deliverer file.");
-        //     String delivererInput = scanner.nextLine();
-        //     System.out.println("Please input the path of the order file.");
-        //     String orderInput = scanner.nextLine();
-
-        //     cooks = cook.inputCookInfo(cookInput);
-        //     dishes = Dish.inputDishInfo(dishInput);
-        //     deliverers = Deliverer.inputDelivererInfo(delivererInput);
-        //     orders = Order.inputOrderInfo(orderInput, dishes);
-        // }
 
         System.out.println("please input order time, dishes, and location. Input 'exit' to leave.");
         DeliveryAssignmentManager NewAssignmentManager = new DeliveryAssignmentManager();
 
         ArrayList<Delivery> ds = new ArrayList<>();
 
-        while (true){
-            System.out.println("Please input the order time. (hh:mm)");
-            String timeStr = scanner.nextLine();
+    }
 
-            System.out.println("Please input the dish name or dish code. (name1,name2,name3,...)/(code1,code2,code3,...)");
-            String dishStr = scanner.nextLine();
+    @ShellMethod(value = "Add new order", key = "new-order")
+    public void newOrder(
+            @ShellOption(value = {"-t","--time"}) String timeStr,
+            @ShellOption(value = {"-d", "--dish"}) String dishStr,
+            @ShellOption(value = {"-x", "--xLocation"}) int xLocation,
+            @ShellOption(value = {"-y", "--yLocation"}) int yLocation
+    ) throws Exception {
 
-            System.out.println("Please input the location. (x y)");
-            String location = scanner.nextLine();
-            int x = Integer.parseInt(location.split(" ")[0]);
-            int y = Integer.parseInt(location.split(" ")[1]);
+        ArrayList<Dish> dishes = Dish.inputDishInfo(DISH_INPUT);
+        ArrayList<Cook> cooks = cook.inputCookInfo(COOK_INPUT);
+        ArrayList<Deliverer> deliverers=Deliverer.inputDelivererInfo(DELIVERER_INPUT);
+        ArrayList<Order> orders = new ArrayList<Order>();
+        ArrayList<Order> ordersInList;
 
-//            Order newAddedOrder=Order.newOrder(orders.size()+1, orderLine, dishes);
-            Order newAddedOrder = Order.newOrder(orders.size()+1, timeStr, dishes, dishStr, x, y);
+        DeliveryAssignmentManager NewAssignmentManager = new DeliveryAssignmentManager();
 
-            orders.add(newAddedOrder);
-            KitchenSchedule.generateSchedule(orders, cooks);
-            System.out.println("=====================================");
-            for(Order o: orders){
-                System.out.println("order "+o.getOrderCode()+" is ordered at "+o.getOrderTime()+", is finished cooking at "+o.getCookedTime()+". ");
+        ArrayList<Delivery> ds = new ArrayList<>();
+
+        Order newAddedOrder = Order.newOrder(orders.size()+1, timeStr, dishes, dishStr, xLocation, yLocation);
+
+        orders.add(newAddedOrder);
+        KitchenSchedule.generateSchedule(orders, cooks);
+        System.out.println("=====================================");
+        for(Order o: orders){
+            System.out.println("order "+o.getOrderCode()+" is ordered at "+o.getOrderTime()+", is finished cooking at "+o.getCookedTime()+". ");
+        }
+
+
+        var currentTime = newAddedOrder.getOrderTime();
+
+        for(var d :ds) {
+            if(currentTime.isAfter(d.getDeliverTime())) {
+                NewAssignmentManager.deliverInDeed(d);
             }
+        }
 
+        ArrayList<Order> ordersToBeDelivered = orders.stream()
+                .filter(order -> (order.getStatus()==1))
+                .sorted((o1, o2) -> o1.compareTo(o2))
+                .collect(Collectors.toCollection(ArrayList::new));
 
-            var currentTime = newAddedOrder.getOrderTime();
-
-            for(var d :ds) {
-                if(currentTime.isAfter(d.getDeliverTime())) {
-                    NewAssignmentManager.deliverInDeed(d);
-                }
-            }
-
-            ArrayList<Order> ordersToBeDelivered = orders.stream()
-                    .filter(order -> (order.getStatus()==1))
+        while(!ordersToBeDelivered.isEmpty()){
+            var newDelivery = NewAssignmentManager.GenerateDeliveryAssignment(ordersToBeDelivered, deliverers);
+            ds.add(newDelivery);
+            System.out.println(newDelivery);
+            ordersToBeDelivered = ordersToBeDelivered.stream()
+                    .filter(order -> order.getStatus()==1)
                     .sorted((o1, o2) -> o1.compareTo(o2))
                     .collect(Collectors.toCollection(ArrayList::new));
 
-            while(!ordersToBeDelivered.isEmpty()){
-                var newDelivery = NewAssignmentManager.GenerateDeliveryAssignment(ordersToBeDelivered, deliverers);
-                ds.add(newDelivery);
-                System.out.println(newDelivery);
-                ordersToBeDelivered = ordersToBeDelivered.stream()
-                        .filter(order -> order.getStatus()==1)
-                        .sorted((o1, o2) -> o1.compareTo(o2))
-                        .collect(Collectors.toCollection(ArrayList::new));
-
-            }
-
-            System.out.println("Exists? If yes, type 'exit'");
-            String isExist = scanner.nextLine();
-            if(isExist.equals("exit")){
-                break;
-            }
         }
-        // scanner.close();
+    }
+
+    @ShellMethod(value = "Add batch orders", key = "batch-order")
+    public void batchOrder(
+            @ShellOption(value = "-f") String filepath
+    ) throws Exception{
 
     }
+
+    @ShellMethod(value = "Change the maximum number of dishes per order", key = "max-dish")
+    public void maxDish(
+            @ShellOption(value = {"-n", "--max-number"}) int maxNumber
+    ) throws Exception{
+
+    }
+
 }
 
