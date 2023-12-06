@@ -113,6 +113,12 @@ public class Order implements Comparable<Order> {
             orders.add(newOrder(orderCode,line,allDishes));
         }
         reader.close();
+        Collections.sort(orders, new Comparator<Order>() {
+            @Override
+            public int compare(Order o1, Order o2) {
+                return o1.getOrderTime().compareTo(o2.getOrderTime());
+            }
+        });
         return orders;
     }
 
@@ -157,9 +163,11 @@ public class Order implements Comparable<Order> {
     public void UpdateStatus2InDelivering(){
         this.status=2;
     }
-public void UpdateStatus3Delivered(){
-        this.status=3;
-}
+
+    public void UpdateStatus3Delivered(){
+            this.status=3;
+    }
+
     public int compareTo(Order other) {
         return this.getCookedTime().compareTo(other.getCookedTime());
     }
