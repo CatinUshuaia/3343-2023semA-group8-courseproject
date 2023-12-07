@@ -49,7 +49,7 @@ public class Runner implements CommandLineRunner {
             @ShellOption(value = {"-d", "--dish"}) String dishStr,
             @ShellOption(value = {"-x", "--xLocation"}) int xLocation,
             @ShellOption(value = {"-y", "--yLocation"}) int yLocation
-    ) throws Exception {
+    ) throws Exception, ExceptionHandling, ExceptionExceedMaximum, ExceptionInvalidDate, ExceptionInsufficientCommand, ExceptionInvalidParam {
 
         ArrayList<Dish> dishes = Dish.inputDishInfo(DISH_INPUT);
         ArrayList<Cook> cooks = cook.inputCookInfo(COOK_INPUT);
@@ -99,14 +99,14 @@ public class Runner implements CommandLineRunner {
     @ShellMethod(value = "Add batch orders", key = "batch-order")
     public void batchOrder(
             @ShellOption(value = "-f") String filepath
-    ) throws Exception{
+    ) throws Exception, ExceptionHandling, ExceptionInsufficientCommand, ExceptionInvalidParam {
 
     }
 
     @ShellMethod(value = "Change the maximum number of dishes per order", key = "max-dish")
     public void maxDish(
             @ShellOption(value = {"-n", "--max-number"}) int maxNumber
-    ) throws Exception{
+    ) throws Exception, ExceptionHandling, ExceptionInsufficientCommand, ExceptionInvalidParam {
 
     }
 

@@ -1,6 +1,13 @@
 package com.cs3343.demo.core;
 
-public class ExceptionHandling {
+public class ExceptionHandling extends Exception {
+    public ExceptionHandling() {
+        super("");
+    }
+
+    public ExceptionHandling(String msg) {
+        super(msg);
+    }
 }
 
 class ExceptionUnknownCommand extends Exception{
@@ -33,3 +40,22 @@ class ExceptionInvalidDate extends Exception{
     }
 }
 
+class ExceptionExceedMaximum extends Exception {
+    public ExceptionExceedMaximum() {
+        super("");
+    }
+
+    public ExceptionExceedMaximum(String msg) {
+        super(msg);
+    }
+}
+
+class ExceptionInvalidParam extends Exception {
+    public ExceptionInvalidParam() {
+        super("");
+    }
+
+    public ExceptionInvalidParam(String msg) {
+        super(msg);
+    }
+}
