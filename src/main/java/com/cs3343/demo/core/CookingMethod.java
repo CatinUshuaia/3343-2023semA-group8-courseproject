@@ -10,27 +10,25 @@ public enum CookingMethod {
     STEW("stew", Integer.MAX_VALUE),
     FRY("fry", Integer.MAX_VALUE);
 
-
     private String name;
     private int operationTime;
-//    private int priority;
 
     CookingMethod(String name, int operationTime) {
         this.name = name;
         this.operationTime = operationTime;
-//        this.priority = priority;
-        //烤的食物只需要放入烤箱，不需要人工操作，所以operationTime为1
-        //炒的食物需要人工全程操作，所以operationTime为-1，即需要一个人全程操作
     }
 
-    public static CookingMethod getWayToCook(String wayToCook) {
-        Map<String, CookingMethod> cookingMethodMap = new HashMap<>();
+    private static final Map<String, CookingMethod> cookingMethodMap = new HashMap<>();
+
+    static {
         cookingMethodMap.put("boil", CookingMethod.BOIL);
         cookingMethodMap.put("roast", CookingMethod.ROAST);
         cookingMethodMap.put("steam", CookingMethod.STEAM);
         cookingMethodMap.put("fry", CookingMethod.FRY);
         cookingMethodMap.put("stew", CookingMethod.STEW);
+    }
 
+    public static CookingMethod getWayToCook(String wayToCook) {
         return cookingMethodMap.getOrDefault(wayToCook, null);
     }
 
