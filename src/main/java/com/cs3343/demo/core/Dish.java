@@ -41,51 +41,27 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         return this.order;
     }
     public String getDishName() { return dishName; }
-    public boolean isSameDish(Dish other){
-        return this.dishName == other.dishName;
-    }
+//    public boolean isSameDish(Dish other){
+//        return this.dishName == other.dishName;
+//    }
     public int getDishCode(){ return dishCode; }
 
     public boolean sameDish(Dish other){
         return this.dishCode==other.dishCode;
     }
-    public void setDishCode(int dishCode){
-        this.dishCode = dishCode;
-    }
+
 //    public int getDishProductTime() { return dishProductTime; }
 //    public void setDishProductTime(int dishProductTime){
 //        this.dishProductTime = dishProductTime;
 //    }
 
-//    private void setWayToCook() {
-//        if(Objects.equals(this.dishName, "roastDuck")){
-//            this.wayToCook="roast";
-//        }else if(Objects.equals(this.dishName, "friedMeatWithChili")){
-//            this.wayToCook="fry";
-//        }
-//    }
 
-    private static CookingMethod getWayToCook(String dishName) {
-        if(dishName.equals("roastedDuck")){
-            return CookingMethod.ROAST;
-        }else if(dishName.equals("friedMeatWithChili")){
-            return CookingMethod.FRY;
-        }
-        return CookingMethod.FRY;
-    }
 
     //    public CookingMethod getWayToCook() {
 //        return wayToCook;
 //    }
     private void setWayToCook(String wayToCook){
-        if(wayToCook.equals("roast")){
-            this.wayToCook = CookingMethod.ROAST;
-        }else if(wayToCook.equals("fry")){
-            this.wayToCook = CookingMethod.FRY;
-        }
-        else if(wayToCook.equals("boil")){
-            this.wayToCook = CookingMethod.BOIL;
-        }
+        this.wayToCook = CookingMethod.getWayToCook(wayToCook);
     }
     @Override
     public String toString(){
@@ -108,14 +84,14 @@ public class Dish  implements Comparable<Dish>,Cloneable{
     @Override
     public int compareTo(Dish other) {
 
-        if(this.cooked){
-            return 1;
-        }else if(other.cooked){
-            return -1;
-        }
-
-        //above logic is ued in generateSchedule1_2
-        //which can be removed later
+//        if(this.cooked){
+//            return 1;
+//        }else if(other.cooked){
+//            return -1;
+//        }
+//
+//        //above logic is ued in generateSchedule1_2
+//        //which can be removed later
 
         int comparison_wayToCook = this.wayToCook.customCompareTo(other.wayToCook);
         // int comparison_wayToCook = this.wayToCook.compareTo(other.wayToCook);

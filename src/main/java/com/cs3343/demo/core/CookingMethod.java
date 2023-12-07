@@ -34,14 +34,6 @@ public enum CookingMethod {
         return cookingMethodMap.getOrDefault(wayToCook, null);
     }
 
-
-    public String getName() {
-        return name;
-    }
-
-    //    public int getPriority() {
-//        return priority;
-//    }
     public int getOperationTime() {
         return operationTime;
     }
@@ -61,9 +53,9 @@ public enum CookingMethod {
         }
     }
 
-    public void setOperationTime(int operationTime) {
-        this.operationTime = operationTime;
-    }
+//    public void setOperationTime(int operationTime) {
+//        this.operationTime = operationTime;
+//    }
 
 
     // public static void testCompareTo(){

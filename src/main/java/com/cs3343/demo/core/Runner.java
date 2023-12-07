@@ -34,13 +34,12 @@ public class Runner implements CommandLineRunner {
     ) throws Exception {
 
 
-        System.out.println("Welcome to the restaurant managment system!");
+        System.out.println("Welcome to the restaurant management system!");
 
         System.out.println("please input order time, dishes, and location. Input 'exit' to leave.");
         DeliveryAssignmentManager NewAssignmentManager = new DeliveryAssignmentManager();
 
         ArrayList<Delivery> ds = new ArrayList<>();
-
     }
 
     @ShellMethod(value = "Add new order", key = "new-order")
