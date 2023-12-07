@@ -88,6 +88,7 @@ public class Order implements Comparable<Order> {
         int orderCode=0;
         ArrayList<Order> orders = new ArrayList<Order>();
         while ((line = reader.readLine()) != null) {
+            orderCode += 1;
             orders.add(newOrder(orderCode,line,allDishes));
         }
         reader.close();

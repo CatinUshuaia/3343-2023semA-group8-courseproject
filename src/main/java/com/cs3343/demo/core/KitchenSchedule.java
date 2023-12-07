@@ -311,13 +311,11 @@ public class KitchenSchedule {
                 order.updateStatusIfAllDishCooked();
                 orderCodes.add(order.getOrderCode());
             }
-
             System.out.println(startTime + " " + selectedCook + "should start cooking " + selectedDishes.get(0) + " order:"
                     + orderCodes + ". Expected finish at " + finishedTime);
             // System.out.println(startTime+" "+selectedDish.getDishCode()+"
             // "+selectedDish.getOrder().getOrderCode());
-            // schedules.add(startTime+" "+selectedCook+" "+selectedDish.getDishCode()+"
-            // "+selectedDish.getOrder().getOrderCode());
+            schedules.add(startTime+" "+selectedCook+" "+selectedDishes.get(0).getDishCode()+" "+ orderCodes);
         }
         return schedules;
     }
