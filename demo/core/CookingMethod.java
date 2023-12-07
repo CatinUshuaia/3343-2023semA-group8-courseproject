@@ -1,5 +1,4 @@
 package demo.core;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -10,38 +9,28 @@ public enum CookingMethod {
     STEW("stew", Integer.MAX_VALUE),
     FRY("fry", Integer.MAX_VALUE);
 
-
     private String name;
     private int operationTime;
-//    private int priority;
 
     CookingMethod(String name, int operationTime) {
         this.name = name;
         this.operationTime = operationTime;
-//        this.priority = priority;
-        //烤的食物只需要放入烤箱，不需要人工操作，所以operationTime为1
-        //炒的食物需要人工全程操作，所以operationTime为-1，即需要一个人全程操作
     }
 
-    public static CookingMethod getWayToCook(String wayToCook) {
-        Map<String, CookingMethod> cookingMethodMap = new HashMap<>();
+    private static final Map<String, CookingMethod> cookingMethodMap = new HashMap<>();
+
+    static {
         cookingMethodMap.put("boil", CookingMethod.BOIL);
         cookingMethodMap.put("roast", CookingMethod.ROAST);
         cookingMethodMap.put("steam", CookingMethod.STEAM);
         cookingMethodMap.put("fry", CookingMethod.FRY);
         cookingMethodMap.put("stew", CookingMethod.STEW);
+    }
 
+    public static CookingMethod getWayToCook(String wayToCook) {
         return cookingMethodMap.getOrDefault(wayToCook, null);
     }
 
-
-    public String getName() {
-        return name;
-    }
-
-    //    public int getPriority() {
-//        return priority;
-//    }
     public int getOperationTime() {
         return operationTime;
     }
@@ -60,6 +49,11 @@ public enum CookingMethod {
             return -1;
         }
     }
+
+//    public void setOperationTime(int operationTime) {
+//        this.operationTime = operationTime;
+//    }
+
 
     // public static void testCompareTo(){
     //     System.out.println(Integer.MAX_VALUE - Integer.MAX_VALUE);
