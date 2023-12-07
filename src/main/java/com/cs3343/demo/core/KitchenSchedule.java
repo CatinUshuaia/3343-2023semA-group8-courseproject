@@ -311,7 +311,8 @@ public class KitchenSchedule {
                 order.updateStatusIfAllDishCooked();
                 orderCodes.add(order.getOrderCode());
             }
-            System.out.println(startTime + " " + selectedCook + "should start cooking " + selectedDishes.get(0) + " order:"
+
+            System.out.println(startTime + " " + selectedCook + " should start cooking " + selectedDishes.get(0) + " order:"
                     + orderCodes + ". Expected finish at " + finishedTime);
             // System.out.println(startTime+" "+selectedDish.getDishCode()+"
             // "+selectedDish.getOrder().getOrderCode());

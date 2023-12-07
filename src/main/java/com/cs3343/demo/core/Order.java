@@ -81,6 +81,27 @@ public class Order implements Comparable<Order> {
             return new Order(orderCode,dishes,new Location(xCoordinate,yCoordinate),timeStr);
     }
 
+    public static Order newOrder(
+            int orderCode,
+            String timeStr,
+            ArrayList<Dish> allDishes,
+            String dishesStr,
+            int xCoordinate,
+            int yCoordinate)
+            throws CloneNotSupportedException {
+        String[] splitDishes = dishesStr.split(",");
+        ArrayList<Dish> dishes = new ArrayList<Dish>();
+        for (String dishStr : splitDishes) {
+            for (Dish dish : allDishes) {
+                if(dishStr.equals(dish.getDishCode()+"")
+                        || dishStr.equals(dish.getDishName())){
+                    dishes.add(dish.clone());
+                }
+            }
+        }
+        return new Order(orderCode,dishes,new Location(xCoordinate,yCoordinate),timeStr);
+    }
+
 
     public static ArrayList<Order> inputOrderInfo(String filePath, ArrayList<Dish> allDishes) throws IOException, CloneNotSupportedException {
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -92,6 +113,12 @@ public class Order implements Comparable<Order> {
             orders.add(newOrder(orderCode,line,allDishes));
         }
         reader.close();
+        Collections.sort(orders, new Comparator<Order>() {
+            @Override
+            public int compare(Order o1, Order o2) {
+                return o1.getOrderTime().compareTo(o2.getOrderTime());
+            }
+        });
         return orders;
     }
 
@@ -136,9 +163,11 @@ public class Order implements Comparable<Order> {
     public void UpdateStatus2InDelivering(){
         this.status=2;
     }
-public void UpdateStatus3Delivered(){
-        this.status=3;
-}
+
+    public void UpdateStatus3Delivered(){
+            this.status=3;
+    }
+
     public int compareTo(Order other) {
         return this.getCookedTime().compareTo(other.getCookedTime());
     }
