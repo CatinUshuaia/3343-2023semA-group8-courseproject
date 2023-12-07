@@ -1,8 +1,5 @@
 package com.cs3343.demo.core;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
 import java.lang.reflect.Array;
 import java.time.LocalTime;
 import java.util.*;
@@ -10,7 +7,6 @@ import java.util.*;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,8 +14,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-@Component
-@Scope(SCOPE_PROTOTYPE)
 public class Cook implements Comparable<Cook> {
     private Set<String> expertise = new HashSet<>();
     private String name;
