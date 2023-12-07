@@ -3,10 +3,10 @@ package demo.core;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
 public class Order implements Comparable<Order> {
     private int orderCode;
     private ArrayList<Dish> dishes;
@@ -22,8 +22,6 @@ public class Order implements Comparable<Order> {
     //-1: 订单已取消
     private LocalTime orderTime;
     private LocalTime cookedTime;
-    public Order() {
-    }
 
     public Order(int orderCode, ArrayList<Dish> dishes, Location location, String time) {
         this.orderCode = orderCode;
@@ -41,25 +39,16 @@ public class Order implements Comparable<Order> {
         return orderCode;
     }
 
-    public void setOrderCode(int orderCode) {
-        this.orderCode = orderCode;
-    }
 
     public ArrayList<Dish> getDishes() {
         return dishes;
     }
 
-//    public void setDishes(ArrayList<Dish> dishes) {
-//        this.dishes = dishes;
-//    }
 
     public LocalTime getOrderTime() {
         return orderTime;
     }
 
-//    public void addDishes(Dish dish) {
-//        this.dishes.add(dish);
-//    }
 
     public static Order newOrder(int orderCode, String line, ArrayList<Dish> allDishes) throws IOException, CloneNotSupportedException {
         String[] splitLine = line.split(" ");
