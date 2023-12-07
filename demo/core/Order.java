@@ -14,7 +14,6 @@ public class Order implements Comparable<Order> {
 
     private Location location;
 
-    // TODO: should use ENUM class to represent status
     private int status;
     //0: 已下单
     //1: 所有菜品已做好，未送出
@@ -64,10 +63,33 @@ public class Order implements Comparable<Order> {
 
     public static Order newOrder(int orderCode, String line, ArrayList<Dish> allDishes) throws IOException, CloneNotSupportedException {
         String[] splitLine = line.split(" ");
-        String timeStr = splitLine[0];
-        ArrayList<Dish> dishes = new ArrayList<Dish>();
-        String dishesStr = splitLine[1];
+            String timeStr = splitLine[0];
+            ArrayList<Dish> dishes = new ArrayList<Dish>();
+            String dishesStr = splitLine[1];
+            String[] splitDishes = dishesStr.split(",");
+            for (String dishStr : splitDishes) {
+                for (Dish dish : allDishes) {
+                    if(dishStr.equals(dish.getDishCode()+"")
+                            || dishStr.equals(dish.getDishName())){
+                        dishes.add(dish.clone());
+                    }
+                }
+            }
+            int xCoordinate = Integer.parseInt(splitLine[2]);
+            int yCoordinate = Integer.parseInt(splitLine[3]);
+            return new Order(orderCode,dishes,new Location(xCoordinate,yCoordinate),timeStr);
+    }
+
+    public static Order newOrder(
+            int orderCode,
+            String timeStr,
+            ArrayList<Dish> allDishes,
+            String dishesStr,
+            int xCoordinate,
+            int yCoordinate)
+            throws CloneNotSupportedException {
         String[] splitDishes = dishesStr.split(",");
+        ArrayList<Dish> dishes = new ArrayList<Dish>();
         for (String dishStr : splitDishes) {
             for (Dish dish : allDishes) {
                 if(dishStr.equals(dish.getDishCode()+"")
@@ -76,8 +98,6 @@ public class Order implements Comparable<Order> {
                 }
             }
         }
-        int xCoordinate = Integer.parseInt(splitLine[2]);
-        int yCoordinate = Integer.parseInt(splitLine[3]);
         return new Order(orderCode,dishes,new Location(xCoordinate,yCoordinate),timeStr);
     }
 
@@ -103,7 +123,7 @@ public class Order implements Comparable<Order> {
 
     @Override
     public String toString(){
-        return this.orderTime+ " " + this.dishes + " ";
+        return this.dishes + " ";
     }
 
     public void updateStatusIfAllDishCooked(){
@@ -142,10 +162,11 @@ public class Order implements Comparable<Order> {
     public void UpdateStatus2InDelivering(){
         this.status=2;
     }
-    
-public void UpdateStatus3Delivered(){
-        this.status=3;
-}
+
+    public void UpdateStatus3Delivered(){
+            this.status=3;
+    }
+
     public int compareTo(Order other) {
         return this.getCookedTime().compareTo(other.getCookedTime());
     }
