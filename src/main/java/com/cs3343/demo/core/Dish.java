@@ -187,8 +187,4 @@ public class Dish  implements Comparable<Dish>,Cloneable{
     public boolean isOrderedSameTimeWith(Dish other){
         return this.getOrderedTime().compareTo(other.getOrderedTime())==0;
     }
-
-
-
-
 }
