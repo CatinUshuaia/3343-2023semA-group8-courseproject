@@ -61,7 +61,7 @@ public class KitchenSchedule {
         return schedules;
     }
 
-    // find the first dishes that can be cooked by the selected cook
+// find the first dishes that can be cooked by the selected cook
     public static ArrayList<Dish> selectDishes(ArrayList<Dish> uncookedDishes, LocalTime cookTime) {
         ArrayList<Dish> selectedDishes = new ArrayList<>();
         for (Dish d : uncookedDishes) {
@@ -213,7 +213,7 @@ public class KitchenSchedule {
                 orderCodes.add(order.getOrderCode());
             }
 
-            System.out.println(startTime + " " + selectedCook + "should start cooking " + selectedDishes.get(0) + " order:"
+            System.out.println(startTime + " " + selectedCook + " should start cooking " + selectedDishes.get(0) + " order:"
                     + orderCodes + ". Expected finish at " + finishedTime);
             // System.out.println(startTime+" "+selectedDish.getDishCode()+"
             // "+selectedDish.getOrder().getOrderCode());
