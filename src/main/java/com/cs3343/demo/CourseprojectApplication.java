@@ -24,7 +24,7 @@ public class CourseprojectApplication {
             SpringApplication.run(CourseprojectApplication.class, args);
 
         } catch (Exception ex) {
-
+			System.out.println(ex);
         }
 		logger.info("APPLICATION FINISHED");
 	}

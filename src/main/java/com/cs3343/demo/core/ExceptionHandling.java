@@ -32,7 +32,7 @@ class ExceptionInsufficientCommand extends Exception{
 
 class ExceptionInvalidDate extends Exception{
     public ExceptionInvalidDate(){
-        super("");
+        super("Invalid Date, please input with 'hh:mm'");
     }
 
     public ExceptionInvalidDate(String msg){
@@ -42,7 +42,7 @@ class ExceptionInvalidDate extends Exception{
 
 class ExceptionExceedMaximum extends Exception {
     public ExceptionExceedMaximum() {
-        super("");
+        super("Input quantity exceeds the maximum value.");
     }
 
     public ExceptionExceedMaximum(String msg) {
@@ -52,7 +52,7 @@ class ExceptionExceedMaximum extends Exception {
 
 class ExceptionInvalidParam extends Exception {
     public ExceptionInvalidParam() {
-        super("");
+        super("Input invalid parameter, please refer to the help to restart the command.");
     }
 
     public ExceptionInvalidParam(String msg) {

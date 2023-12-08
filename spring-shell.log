@@ -33,3 +33,22 @@
 1701885740108:new-order --timeStr 15:49 --dishStr RoastedDuck --xLocation 5 --yLocation 4
 1701885821776:help
 1701885848479:new-order --time 15:49 --dish RoastedDuck --xLocation 5 --yLocation 4
+1701961851154:e
+1701962685561:help
+1701962730027:new-order -t 15:59 -d RoastedDuck -x 5 -y 4
+1701962778648:new-order -t 15:49 -d RoastedDuck -x 5 -y 4
+1701962977688:help
+1701962983528:new-order -er
+1701963046792:new-order -t 15:49 -d RoastedDuck -x sdf -y ajef
+1701964367382:help
+1701964436612:new-order -t 15:49 -d RoastedDuck -x 5 -y 4
+1701964463457:new-order -t 15:49 -d RoastedDuck,RoastedDuck -x 5 -y 4
+1701964484569:new-order -t 15:49 -d RoastedDuck -x 5 -y 4
+1701964725433:new-order
+1701964746001:new-order -t 15:49 -d RoastedDuck -x 5 -y 4
+1701964856309:new-order -t 125:49 -d RoastedDuck -x 5 -y 4
+1701965065520:help
+1701965090346:batch-order -f src/main/java/com/cs3343/demo/core/order.txt
+1701965122937:batch-order -f src/main/java/com/cs3343/demo/order.txt
+1701965282626:new-order -t 125:49 -d RoastedDuck -x 5 -y 4
+1701965291879:new-order -t 15:49 -d RoastedDuck -x 5 -y 4
