@@ -51,6 +51,10 @@ public enum CookingMethod {
         }
     }
 
+    public boolean noSavedTimeOperation(){
+        return this.operationTime == Integer.MAX_VALUE;
+    }
+
 //    public void setOperationTime(int operationTime) {
 //        this.operationTime = operationTime;
 //    }

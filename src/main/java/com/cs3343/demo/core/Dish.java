@@ -111,12 +111,20 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         return this.dishProductTime;
     }
 
-    public int getOccupiedTime(){
+    public int getOccupiedTime_bug(){
         int operationTime = this.wayToCook.getOperationTime();
         if(operationTime==-1) {
             return this.dishProductTime;
         }else{
             return operationTime;
+        }
+    }
+
+    public int getOccupiedTime(){
+        if(this.wayToCook.noSavedTimeOperation()) {
+            return this.dishProductTime;
+        }else{
+            return this.wayToCook.getOperationTime();
         }
     }
 
