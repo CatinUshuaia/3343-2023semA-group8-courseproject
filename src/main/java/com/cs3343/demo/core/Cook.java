@@ -1,16 +1,10 @@
 package com.cs3343.demo.core;
 
-import org.springframework.context.annotation.Scope;
-import org.springframework.stereotype.Component;
-
-import java.lang.reflect.Array;
 import java.time.LocalTime;
-import java.util.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import static org.springframework.beans.factory.config.BeanDefinition.SCOPE_PROTOTYPE;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,21 +12,15 @@ import java.util.HashSet;
 import java.util.Set;
 
 
-@Component
-@Scope(SCOPE_PROTOTYPE)
 public class Cook implements Comparable<Cook> {
     private Set<String> expertise = new HashSet<>();
     private String name;
     private int rank;
     private int cookCode;
-    private int workTime;
-
-//    private CookStatus status;
 
     private LocalTime availableTime;
 
-    public Cook(){
-    }
+
     public Cook(String[] cuisines,String n, int rank,int id){
         this.name = n;
         this.rank = rank;
@@ -40,8 +28,6 @@ public class Cook implements Comparable<Cook> {
             expertise.add(c);
         }
         this.cookCode = id;
-//        this.status = CookStatus.READY;
-//        this.cookingDish = null;
     }
 
 
@@ -50,9 +36,6 @@ public class Cook implements Comparable<Cook> {
         return name;
     }
 
-    public String getInfo(){
-        return name +" "+ expertise + " " + rank ;
-    }
 
     public static ArrayList<Cook> inputCookInfo(String filePath) throws IOException{
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -77,7 +60,6 @@ public class Cook implements Comparable<Cook> {
     }
     @Override
     //Used to sort cooks
-    //以后的算法可能跟复杂，考虑的不仅仅是availableTime
     public int compareTo(Cook o) {
 
 //        return this.availableTime.compareTo(o.availableTime);
