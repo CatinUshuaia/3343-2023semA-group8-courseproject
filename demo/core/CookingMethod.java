@@ -1,4 +1,5 @@
 package demo.core;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +49,10 @@ public enum CookingMethod {
         }else{
             return -1;
         }
+    }
+
+    public boolean noSavedTimeOperation(){
+        return this.operationTime == Integer.MAX_VALUE;
     }
 
 //    public void setOperationTime(int operationTime) {
