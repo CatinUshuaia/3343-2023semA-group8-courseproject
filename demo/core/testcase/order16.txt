@@ -1,5 +1,0 @@
-19:01 PorkwithCornDumpling 4 8
-19:30 FriedMeatWithChili 4 4
-19:31 RoastedDuck,PorkwithCornDumpling 5 9
-20:01 FriedMeatWithChili 5 12
-20:07 PorkwithCornDumpling,RoastedDuck 12 5
