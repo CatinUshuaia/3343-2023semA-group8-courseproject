@@ -20,24 +20,22 @@ public class Runner implements CommandLineRunner {
     // instead of inputing file, randomly generate the cook info
 
     // can also be randomly generated
-    private final static String DISH_INPUT ="src/main/java/com/cs3343/demo/core/dish.txt";
+    private final static String DISH_INPUT = "src/main/java/com/cs3343/demo/core/dish.txt";
 
     private final static String ORDER_INPUT = "src/main/java/com/cs3343/demo/core/order.txt";
     private final static String DELIVERER_INPUT = "src/main/java/com/cs3343/demo/core/deliverers.xml";
 
-    private Cook cook;
-    Boolean firstInput = true;
-
     private final ArrayList<Dish> dishes = Dish.inputDishInfo(DISH_INPUT);
-    private final ArrayList<Cook> cooks = cook.inputCookInfo(COOK_INPUT);
+    private final ArrayList<Cook> cooks = Cook.inputCookInfo(COOK_INPUT);
     private final ArrayList<Deliverer> deliverers = Deliverer.inputDelivererInfo(DELIVERER_INPUT);
     private final ArrayList<Order> orders = new ArrayList<>();
     private final ArrayList<Delivery> ds = new ArrayList<>();
-    private int maximumOrders = 1;
 
 
     public Runner() throws IOException {
+        System.out.println("Welcome to the restaurant management system!");
 
+        System.out.println("This programme has started successfully, please enter 'help' for more information.");
     }
 
     private static boolean isValidFormat(String value) {
@@ -59,9 +57,6 @@ public class Runner implements CommandLineRunner {
     public void run(
             @ShellOption(defaultValue = "1") String... args
     ) throws Exception {
-        System.out.println("Welcome to the restaurant management system!");
-
-        System.out.println("This programme has started successfully, please enter 'help' for more information.");
     }
 
     @ShellMethod(value = "Add new order", key = "new-order")
@@ -75,6 +70,7 @@ public class Runner implements CommandLineRunner {
         ArrayList<Order> ordersInList;
         ArrayList<String> dishList = new ArrayList<>(Arrays.asList(dishStr.split(",")));
 
+        int maximumOrders = 5;
         if (dishList.size() > maximumOrders){
             throw new ExceptionExceedMaximum();
         }
@@ -121,7 +117,7 @@ public class Runner implements CommandLineRunner {
     @ShellMethod(value = "Add batch orders", key = "batch-order")
     public void batchOrder(
             @ShellOption(value = {"-f", "--filepath"}) String filepath
-    ) throws Exception, ExceptionHandling {
+    ) throws Exception {
 
         File orderList = new File(filepath);
         Scanner reader = new Scanner(orderList);
@@ -136,19 +132,45 @@ public class Runner implements CommandLineRunner {
 
     }
 
-
-    @ShellMethod(value = "Change the maximum number of dishes per order (default 1)", key = "max-dish")
-    public void maxDish(
-            @ShellOption(value = {"-m", "--max-number"}) int maxNumber
-    ) throws Exception {
-        if (maxNumber < 1){
-            throw new ExceptionInvalidParam("Maximum dish number cannot smaller than 1.");
-        }
-        if (maximumOrders == maxNumber){
-            throw new ExceptionInvalidParam("Maximum number of dish unchanged.");
-        }
-
-        maximumOrders = maxNumber;
+    @ShellMethod(value = "Add batch cooks", key = "batch-cook")
+    public void batchCook(
+            @ShellOption(value = {"-f", "--filepath"}) String filepath
+    )throws Exception{
+        cooks.addAll(Cook.inputCookInfo(filepath));
     }
+
+    @ShellMethod(value = "Add batch dishes", key = "batch-dish")
+    public void batchDish(
+            @ShellOption(value = {"-f", "--filepath"}) String filepath
+    )throws Exception{
+        dishes.addAll(Dish.inputDishInfo(filepath));
+    }
+
+    @ShellMethod(value = "Add batch deliverers", key = "batch-deliverer")
+    public void batchDeliverer(
+            @ShellOption(value = {"-f", "--filepath"}) String filepath
+    )throws Exception{
+        deliverers.addAll(Deliverer.inputDelivererInfo(filepath));
+    }
+
+    @ShellMethod(value = "Print all cooks.", key = "print-cook")
+    public void printAllCook() throws Exception{
+        for(Cook c: cooks){
+            System.out.println(c.toString());
+        }
+    }
+    @ShellMethod(value = "Print all dishes.", key = "print-dish")
+    public void printAllDish() throws Exception{
+        for(Dish d: dishes){
+            System.out.println(d.toString());
+        }
+    }
+    @ShellMethod(value = "Print all deliverers.", key = "print-deliverer")
+    public void printAllDeliverer() throws Exception{
+        for (Deliverer d: deliverers){
+            System.out.println(d.toString());
+        }
+    }
+
 
 }

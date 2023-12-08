@@ -42,7 +42,7 @@ class ExceptionInvalidDate extends Exception{
 
 class ExceptionExceedMaximum extends Exception {
     public ExceptionExceedMaximum() {
-        super("Input quantity exceeds the maximum value.");
+        super("Input quantity exceeds the maximum value. Please use 'batch' functions.");
     }
 
     public ExceptionExceedMaximum(String msg) {

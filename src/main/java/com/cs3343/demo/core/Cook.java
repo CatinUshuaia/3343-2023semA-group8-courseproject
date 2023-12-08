@@ -14,20 +14,14 @@ import java.util.Set;
 
 
 public class Cook implements Comparable<Cook> {
-    private Set<String> expertise = new HashSet<>();
     private String name;
-    private int rank;
     private int cookCode;
 
     private LocalTime availableTime;
 
 
-    public Cook(String[] cuisines,String n, int rank,int id){
+    public Cook(String n, int id){
         this.name = n;
-        this.rank = rank;
-        for(String c : cuisines) {
-            expertise.add(c);
-        }
         this.cookCode = id;
     }
 
@@ -46,9 +40,7 @@ public class Cook implements Comparable<Cook> {
         while ((line = reader.readLine())!=null){
             String[] splitLine = line.split(" ");
             String name = splitLine[0];
-            String[] cuisines = splitLine[1].split(",");
-            int rank = Integer.parseInt(splitLine[2]);
-            cooks.add(new Cook(cuisines,name,rank,id));
+            cooks.add(new Cook(name,id));
             id+=1;
             //CookEntity cookEntity = new CookEntity(name, Arrays.toString(cuisines), rank);
             //cookImpl.save(cookEntity);

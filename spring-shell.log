@@ -52,3 +52,5 @@
 1701965122937:batch-order -f src/main/java/com/cs3343/demo/order.txt
 1701965282626:new-order -t 125:49 -d RoastedDuck -x 5 -y 4
 1701965291879:new-order -t 15:49 -d RoastedDuck -x 5 -y 4
+1702051087544:help
+1702051092006:print-cook
