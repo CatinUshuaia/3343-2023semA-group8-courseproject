@@ -20,7 +20,12 @@ public class CourseprojectApplication {
 
 	public static void main(String[] args) {
 		logger.info("STARTING THE APPLICATION");
-		SpringApplication.run(CourseprojectApplication.class, args);
+        try {
+            SpringApplication.run(CourseprojectApplication.class, args);
+
+        } catch (Exception ex) {
+			System.out.println(ex);
+        }
 		logger.info("APPLICATION FINISHED");
 	}
 

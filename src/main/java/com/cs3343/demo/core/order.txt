@@ -3,3 +3,5 @@
 15:51 FriedMeatWithChili,RoastedDuck 10 8
 15:55 PorkwithCornDumpling 14 4
 15:55 PorkwithCornDumpling 14 4
+
+new-order -t 15:49 -d RoastedDuck -x 5 -y 4

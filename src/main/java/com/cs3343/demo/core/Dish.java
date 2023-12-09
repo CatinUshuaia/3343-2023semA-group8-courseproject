@@ -1,5 +1,5 @@
 package com.cs3343.demo.core;
-import org.springframework.cglib.core.Local;
+
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,8 +7,7 @@ import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Objects;
-import java.util.Collections;
+
 public class Dish  implements Comparable<Dish>,Cloneable{
     private String dishName;
     private int dishCode;
@@ -41,51 +40,27 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         return this.order;
     }
     public String getDishName() { return dishName; }
-    public boolean isSameDish(Dish other){
-        return this.dishName == other.dishName;
-    }
+//    public boolean isSameDish(Dish other){
+//        return this.dishName == other.dishName;
+//    }
     public int getDishCode(){ return dishCode; }
 
     public boolean sameDish(Dish other){
         return this.dishCode==other.dishCode;
     }
-    public void setDishCode(int dishCode){
-        this.dishCode = dishCode;
-    }
+
 //    public int getDishProductTime() { return dishProductTime; }
 //    public void setDishProductTime(int dishProductTime){
 //        this.dishProductTime = dishProductTime;
 //    }
 
-//    private void setWayToCook() {
-//        if(Objects.equals(this.dishName, "roastDuck")){
-//            this.wayToCook="roast";
-//        }else if(Objects.equals(this.dishName, "friedMeatWithChili")){
-//            this.wayToCook="fry";
-//        }
-//    }
 
-    private static CookingMethod getWayToCook(String dishName) {
-        if(dishName.equals("roastedDuck")){
-            return CookingMethod.ROAST;
-        }else if(dishName.equals("friedMeatWithChili")){
-            return CookingMethod.FRY;
-        }
-        return CookingMethod.FRY;
-    }
 
     //    public CookingMethod getWayToCook() {
 //        return wayToCook;
 //    }
     private void setWayToCook(String wayToCook){
-        if(wayToCook.equals("roast")){
-            this.wayToCook = CookingMethod.ROAST;
-        }else if(wayToCook.equals("fry")){
-            this.wayToCook = CookingMethod.FRY;
-        }
-        else if(wayToCook.equals("boil")){
-            this.wayToCook = CookingMethod.BOIL;
-        }
+        this.wayToCook = CookingMethod.getWayToCook(wayToCook);
     }
     @Override
     public String toString(){
@@ -108,14 +83,14 @@ public class Dish  implements Comparable<Dish>,Cloneable{
     @Override
     public int compareTo(Dish other) {
 
-        if(this.cooked){
-            return 1;
-        }else if(other.cooked){
-            return -1;
-        }
-
-        //above logic is ued in generateSchedule1_2
-        //which can be removed later
+//        if(this.cooked){
+//            return 1;
+//        }else if(other.cooked){
+//            return -1;
+//        }
+//
+//        //above logic is ued in generateSchedule1_2
+//        //which can be removed later
 
         int comparison_wayToCook = this.wayToCook.customCompareTo(other.wayToCook);
         // int comparison_wayToCook = this.wayToCook.compareTo(other.wayToCook);
@@ -136,12 +111,20 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         return this.dishProductTime;
     }
 
-    public int getOccupiedTime(){
+    public int getOccupiedTime_bug(){
         int operationTime = this.wayToCook.getOperationTime();
         if(operationTime==-1) {
             return this.dishProductTime;
         }else{
             return operationTime;
+        }
+    }
+
+    public int getOccupiedTime(){
+        if(this.wayToCook.noSavedTimeOperation()) {
+            return this.dishProductTime;
+        }else{
+            return this.wayToCook.getOperationTime();
         }
     }
 
@@ -187,8 +170,4 @@ public class Dish  implements Comparable<Dish>,Cloneable{
     public boolean isOrderedSameTimeWith(Dish other){
         return this.getOrderedTime().compareTo(other.getOrderedTime())==0;
     }
-
-
-
-
 }

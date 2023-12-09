@@ -14,12 +14,10 @@ public class Deliverer implements Comparable<Deliverer> {
     private String name;
     private Delivery delivery;
     private LocalTime availableTime;
-    public Deliverer(){
-
-    }
+    private int deliveryCode;
 
     public Deliverer(String name){
-        this.name = name;
+        this.name=name;
         this.availableTime=LocalTime.MIN;
     }
 

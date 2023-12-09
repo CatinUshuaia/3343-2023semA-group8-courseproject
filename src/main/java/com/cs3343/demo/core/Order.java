@@ -3,7 +3,6 @@ package com.cs3343.demo.core;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.*;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -15,8 +14,7 @@ public class Order implements Comparable<Order> {
 
     private Location location;
 
-    // TODO: should use ENUM class to represent status
-    private int status;
+    private Status status;
     //0: 已下单
     //1: 所有菜品已做好，未送出
     //2：外卖员已经送出，客人未收到
@@ -24,14 +22,12 @@ public class Order implements Comparable<Order> {
     //-1: 订单已取消
     private LocalTime orderTime;
     private LocalTime cookedTime;
-    public Order() {
-    }
 
     public Order(int orderCode, ArrayList<Dish> dishes, Location location, String time) {
         this.orderCode = orderCode;
         this.dishes = dishes;
         this.location = location;
-        this.status = 0;
+        this.status = Status.ORDER_PLACED;
         this.orderTime = LocalTime.parse(time, DateTimeFormatter.ofPattern("HH:mm"));
         this.dishes.forEach(d -> {
             d.setOrder(this);
@@ -43,25 +39,16 @@ public class Order implements Comparable<Order> {
         return orderCode;
     }
 
-    public void setOrderCode(int orderCode) {
-        this.orderCode = orderCode;
-    }
 
     public ArrayList<Dish> getDishes() {
         return dishes;
     }
 
-//    public void setDishes(ArrayList<Dish> dishes) {
-//        this.dishes = dishes;
-//    }
 
     public LocalTime getOrderTime() {
         return orderTime;
     }
 
-//    public void addDishes(Dish dish) {
-//        this.dishes.add(dish);
-//    }
 
     public static Order newOrder(int orderCode, String line, ArrayList<Dish> allDishes) throws IOException, CloneNotSupportedException {
         String[] splitLine = line.split(" ");
@@ -82,6 +69,27 @@ public class Order implements Comparable<Order> {
             return new Order(orderCode,dishes,new Location(xCoordinate,yCoordinate),timeStr);
     }
 
+    public static Order newOrder(
+            int orderCode,
+            String timeStr,
+            ArrayList<Dish> allDishes,
+            String dishesStr,
+            int xCoordinate,
+            int yCoordinate)
+            throws CloneNotSupportedException {
+        String[] splitDishes = dishesStr.split(",");
+        ArrayList<Dish> dishes = new ArrayList<Dish>();
+        for (String dishStr : splitDishes) {
+            for (Dish dish : allDishes) {
+                if(dishStr.equals(dish.getDishCode()+"")
+                        || dishStr.equals(dish.getDishName())){
+                    dishes.add(dish.clone());
+                }
+            }
+        }
+        return new Order(orderCode,dishes,new Location(xCoordinate,yCoordinate),timeStr);
+    }
+
 
     public static ArrayList<Order> inputOrderInfo(String filePath, ArrayList<Dish> allDishes) throws IOException, CloneNotSupportedException {
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
@@ -89,9 +97,16 @@ public class Order implements Comparable<Order> {
         int orderCode=0;
         ArrayList<Order> orders = new ArrayList<Order>();
         while ((line = reader.readLine()) != null) {
+            orderCode += 1;
             orders.add(newOrder(orderCode,line,allDishes));
         }
         reader.close();
+        Collections.sort(orders, new Comparator<Order>() {
+            @Override
+            public int compare(Order o1, Order o2) {
+                return o1.getOrderTime().compareTo(o2.getOrderTime());
+            }
+        });
         return orders;
     }
 
@@ -116,7 +131,7 @@ public class Order implements Comparable<Order> {
             }
         }
         if(allCooked){
-            this.status = 1;
+            this.status = Status.COOKED;
             this.cookedTime = latestTime;
         }
     }
@@ -125,7 +140,7 @@ public class Order implements Comparable<Order> {
         return this.cookedTime;
     }
 
-    public int getStatus(){
+    public Status getStatus(){
         return this.status;
     }
 
@@ -134,11 +149,13 @@ public class Order implements Comparable<Order> {
     }
 
     public void UpdateStatus2InDelivering(){
-        this.status=2;
+        this.status=Status.DISPATCHED;
     }
-public void UpdateStatus3Delivered(){
-        this.status=3;
-}
+
+    public void UpdateStatus3Delivered(){
+            this.status=Status.DELIVERED;
+    }
+
     public int compareTo(Order other) {
         return this.getCookedTime().compareTo(other.getCookedTime());
     }

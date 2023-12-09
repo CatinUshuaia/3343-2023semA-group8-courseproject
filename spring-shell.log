@@ -24,3 +24,63 @@
 1701327986408:run
 1701328489578:15:50 RoastedDuck,RoastedDuck 5 4
 1701328491585:run
+1701885160934:help
+1701885204567:new-order -t 15:49 -d RoastedDuck -x 5 -y 4
+1701885213194:q
+1701885215488:help
+1701885676466:run
+1701885679781:help
+1701885740108:new-order --timeStr 15:49 --dishStr RoastedDuck --xLocation 5 --yLocation 4
+1701885821776:help
+1701885848479:new-order --time 15:49 --dish RoastedDuck --xLocation 5 --yLocation 4
+1701961851154:e
+1701962685561:help
+1701962730027:new-order -t 15:59 -d RoastedDuck -x 5 -y 4
+1701962778648:new-order -t 15:49 -d RoastedDuck -x 5 -y 4
+1701962977688:help
+1701962983528:new-order -er
+1701963046792:new-order -t 15:49 -d RoastedDuck -x sdf -y ajef
+1701964367382:help
+1701964436612:new-order -t 15:49 -d RoastedDuck -x 5 -y 4
+1701964463457:new-order -t 15:49 -d RoastedDuck,RoastedDuck -x 5 -y 4
+1701964484569:new-order -t 15:49 -d RoastedDuck -x 5 -y 4
+1701964725433:new-order
+1701964746001:new-order -t 15:49 -d RoastedDuck -x 5 -y 4
+1701964856309:new-order -t 125:49 -d RoastedDuck -x 5 -y 4
+1701965065520:help
+1701965090346:batch-order -f src/main/java/com/cs3343/demo/core/order.txt
+1701965122937:batch-order -f src/main/java/com/cs3343/demo/order.txt
+1701965282626:new-order -t 125:49 -d RoastedDuck -x 5 -y 4
+1701965291879:new-order -t 15:49 -d RoastedDuck -x 5 -y 4
+1702051087544:help
+1702051092006:print-cook
+1702106577996:run
+1702106581301:run Main
+1702106620224:help
+1702106644363:Run Main
+1702106651782:run
+1702106844003:batch-dish
+1702106867963:run
+1702106880416:new-order
+1702106921488:new-order 12:00 FriedMeatWithChili 2 3
+1702107892285:run
+1702107903467:12:01 FriedMeatWithChili 5 6
+1702107922094:help
+1702107926099:run
+1702107978701:new-order 12:01 KungPaoChicken 2 3
+1702107996532:new-order 12:20 FiredMeatWithChili 6 9
+1702108074259:new-order 12:30 KungPaoChicken 2 3 12:20 FiredMeatWithChili 6 9
+1702114741859:n
+1702114761154:r1Koe
+1702114780060:run
+1702114782251:new-order 12:01 KungPaoChicken 2 3
+1702114808393:new-order 12:20 CabbageAndPorkDumpling 3 7
+1702116805177:er0i
+1702116815761:ur2KPk3
+1702116828154:run
+1702116862514:new-order 12:01 Stir-friedVegetable 3 5
+1702116873607:new-order 12:01 Stir-friedVegetable 4 6
+1702117047663:new-order 12:03 RoastedDuck 2 3
+1702117198356:run
+1702117226907:new-order 12:01 RoastedDuck 3 4
+1702117425701:git add .
