@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>com.cs3343</groupId>
 	<artifactId>demo</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>courseproject</name>
-	<description>Demo projec</description>
+	<version>3.0.0</version>
+	<name>CityDelivery</name>
+	<description>Demo project</description>
 	<properties>
 		<java.version>21</java.version>
 		<spring-shell.version>3.1.5</spring-shell.version>

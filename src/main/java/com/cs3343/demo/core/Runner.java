@@ -17,9 +17,7 @@ import java.util.stream.Collectors;
 public class Runner implements CommandLineRunner {
 
     private final static String COOK_INPUT = "src/main/java/com/cs3343/demo/core/cook.txt";
-    // instead of inputing file, randomly generate the cook info
 
-    // can also be randomly generated
     private final static String DISH_INPUT = "src/main/java/com/cs3343/demo/core/dish.txt";
 
     private final static String ORDER_INPUT = "src/main/java/com/cs3343/demo/core/order.txt";
