@@ -5,13 +5,10 @@
 This program is a food delivery service management system designed to automate and optimize various aspects of the food delivery process. It provides functionalities for handling orders, managing cooks and deliverers, generating schedules, and assigning deliveries. Here's a guide on how to use the program:
 
 ## Getting Started
-1. 
-
-## Usage
 1. Open the terminal or command prompt.
 2. Navigate to the directory where the program file is located.
 3. Run the program by executing the following command:
-   []
+   java -jar .\CityDelivery-3.1.0.jar
 4. The program will start and provide a command-line interface for interaction.
 5. Input command 'help' to get more operations. 
 
