@@ -1,6 +1,6 @@
 package com.cs3343.demo.core;
 
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
@@ -30,7 +30,7 @@ public class Deliverer implements Comparable<Deliverer> {
         return name +" ";
     }
 
-    public static ArrayList<Deliverer> inputDelivererInfo(String xmlFilePath) throws IOException{
+    public static ArrayList<Deliverer> inputDelivererInfo_old(String xmlFilePath) throws IOException{
         ArrayList<Deliverer> deliverers = new ArrayList<>();
         try {
                 DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -52,6 +52,31 @@ String delivererName=delivererElement.getElementsByTagName("name").item(0).getTe
             }
         return deliverers;
     }
+
+
+    public static ArrayList<Deliverer> inputDelivererInfo(String filePath,boolean defaultInput) throws IOException{
+        InputStream inputStream;
+        if (defaultInput) {
+            inputStream = Dish.class.getResourceAsStream("/" + filePath);
+
+        } else {
+            inputStream = new FileInputStream(filePath);
+        }
+        if (inputStream == null) {
+            throw new IOException("File not found in resources: " + filePath);
+        }
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+        String line;
+        ArrayList<Deliverer> deliverers = new ArrayList<>();
+        while ((line = reader.readLine())!=null){
+            deliverers.add(new Deliverer(line));
+        }
+        reader.close();
+        return deliverers;
+    }
+
+
 
     @Override
     //Used to sort cooks

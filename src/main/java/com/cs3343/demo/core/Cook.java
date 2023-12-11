@@ -1,11 +1,8 @@
 package com.cs3343.demo.core;
 
 
+import java.io.*;
 import java.time.LocalTime;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -28,7 +25,7 @@ public class Cook implements Comparable<Cook>  {
         return name;
     }
 
-    public static ArrayList<Cook> inputInfo(String filePath) throws IOException{
+    public static ArrayList<Cook> inputInfo_old(String filePath) throws IOException{
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
         String line;
         ArrayList<Cook> cooks = new ArrayList<Cook>();
@@ -38,13 +35,37 @@ public class Cook implements Comparable<Cook>  {
             String name = splitLine[0];
             cooks.add(new Cook(name, id));
             id += 1;
-            //CookEntity cookEntity = new CookEntity(name, Arrays.toString(cuisines), rank);
-            //cookImpl.save(cookEntity);
-            //读取input并存入database
         }
         reader.close();
         return cooks;
+    }
+
+    public static ArrayList<Cook> inputInfo(String filePath, boolean defaultInput) throws IOException{
+        InputStream inputStream;
+        if (defaultInput) {
+            inputStream = Dish.class.getResourceAsStream("/" + filePath);
+
+        } else {
+            inputStream = new FileInputStream(filePath);
         }
+        if (inputStream == null) {
+            throw new IOException("File not found in resources: " + filePath);
+        }
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+        String line;
+        ArrayList<Cook> cooks = new ArrayList<Cook>();
+        int id =1;
+        while ((line = reader.readLine())!=null) {
+            String[] splitLine = line.split(" ");
+            String name = splitLine[0];
+            cooks.add(new Cook(name, id));
+            id += 1;
+        }
+        reader.close();
+        return cooks;
+    }
 
     @Override
     //Used to sort cooks

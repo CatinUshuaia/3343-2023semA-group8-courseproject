@@ -1,8 +1,6 @@
 package com.cs3343.demo.core;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -48,8 +46,31 @@ public class Dish  implements Comparable<Dish>,Cloneable{
         return dishName;
     }
 
-    public static ArrayList<Dish> inputDishInfo(String filePath) throws IOException {
+    public static ArrayList<Dish> inputDishInfo_old(String filePath) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
+        String line;
+        ArrayList<Dish> dishes = new ArrayList<Dish>();
+        while ((line = reader.readLine())!=null){
+            String[] splitLine = line.split(" ");
+            dishes.add(new Dish(Integer.parseInt(splitLine[0]),splitLine[1],Integer.parseInt(splitLine[2]),splitLine[3] ));
+        }
+        reader.close();
+        return dishes;
+    }
+
+    public static ArrayList<Dish> inputDishInfo(String filePath, boolean defaultInput) throws IOException {
+        InputStream inputStream;
+        if (defaultInput) {
+            inputStream = Dish.class.getResourceAsStream("/" + filePath);
+
+        } else {
+            inputStream = new FileInputStream(filePath);
+        }
+        if (inputStream == null) {
+            throw new IOException("File not found in resources: " + filePath);
+        }
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
         String line;
         ArrayList<Dish> dishes = new ArrayList<Dish>();
         while ((line = reader.readLine())!=null){
