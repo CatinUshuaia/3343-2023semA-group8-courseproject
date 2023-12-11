@@ -2,8 +2,6 @@ package com.cs3343.demo.core;
 
 import java.time.LocalTime;
 import java.util.*;
-
-
 public class Delivery {
 
     private Deliverer deliverer;

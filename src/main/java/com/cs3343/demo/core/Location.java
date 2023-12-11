@@ -1,7 +1,5 @@
 package com.cs3343.demo.core;
 
-import org.springframework.data.geo.Distance;
-
 public class Location {
     private int x;
     private int y;

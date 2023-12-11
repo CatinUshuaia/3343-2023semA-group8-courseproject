@@ -57,7 +57,23 @@ public class Runner implements CommandLineRunner {
     ) throws Exception {
     }
 
-    @ShellMethod(value = "Add new order", key = "new-order")
+    @ShellMethod(value =
+"""
+    Usage: new-order [Options]
+    
+    Description: Order dishes
+    
+    Options:
+        -t, --time          Assign order time, formatting with "HH:mm"
+        -d, --dish          Assign order dish(es), separate dishes by ","
+        -x, --xLocation     Assign x-coordinate of delivery location
+        -y, --yLocation     Assign y-coordinate of delivery location
+        
+    Example:
+        new-order -t 15:49 -d RoastedDuck,RoastedDuck -x 5 -y 4
+            - An order was placed at 15:49, where RoastedDuck and RoastedDuck were ordered, and the delivery location was at (5, 4).
+"""
+            , key = "new-order")
     public void newOrder(
             @ShellOption(value = {"-t","--time"}) String timeStr,
             @ShellOption(value = {"-d", "--dish"}) String dishStr,
@@ -115,7 +131,24 @@ public class Runner implements CommandLineRunner {
         }
 
 
-    @ShellMethod(value = "Add batch orders", key = "batch-order")
+    @ShellMethod(value =
+"""
+    Usage: batch-order [Options]
+    
+    Description: Assign multiple orders.
+    
+    Options:
+        -f, --filepath      Assign filepath of multiple orders
+        
+    Example:
+        batch-order -f src/core/order.txt
+            - Reads the file at that src/core/order.txt and reads the orders in it line by line.
+    
+    Additional Information:
+        - Each oder needs to be separated by new-line key, where the format of the order please refer to the parameters of the new-order command, each parameter needs to be separated by a space, and there is no need to add the command line options and function name.
+        - e.g. 15:49 RoastedDuck,RoastedDuck 5 4
+"""
+            , key = "batch-order")
     public void batchOrder(
             @ShellOption(value = {"-f", "--filepath"}) String filepath
     ) throws Exception {
@@ -133,40 +166,110 @@ public class Runner implements CommandLineRunner {
 
     }
 
-    @ShellMethod(value = "Add batch cooks", key = "batch-cook")
+    @ShellMethod(value =
+"""
+    Usage: batch-cook [Options]
+    
+    Description: Assign multiple cooks.
+    
+    Options:
+        -f, --filepath      Assign filepath of multiple cooks
+        
+    Example:
+        batch-order -f src/core/cooks.txt
+            - Reads the file at that src/core/cooks.txt and reads the cook information in it line by line.
+    
+    Additional Information:
+        - Each cook needs to be separated by new-line key, where the format of the cook is {cook-name: String}, each parameter needs to be separated by a space, and there is no need to add the command line options and function name.
+        - e.g. Joy Hunan
+"""
+            , key = "batch-cook")
     public void batchCook(
             @ShellOption(value = {"-f", "--filepath"}) String filepath
     )throws Exception{
         cooks.addAll(Cook.inputInfo(filepath));
     }
 
-    @ShellMethod(value = "Add batch dishes", key = "batch-dish")
+    @ShellMethod(value =
+"""
+    Usage: batch-dish [Options]
+    
+    Description: Assign multiple dishes.
+    
+    Options:
+        -f, --filepath      Assign filepath of multiple dishes
+        
+    Example:
+        batch-order -f src/core/dishes.txt
+            - Reads the file at that src/core/dishes.txt and reads the dish information in it line by line.
+    
+    Additional Information:
+        - Each dishes needs to be separated by new-line key, where the format of the dishes is {dish-id: Integer, dish-name: String, dish-product-time: Integer, way-to-cook: String}, each parameter needs to be separated by a space, and there is no need to add the command line options and function name.
+        - [way-to-cook]: boil, roast, steam (take longest time), fry (take longest time), stew
+        - e.g. 1 FriedMeatWithChili 8 fry
+"""
+            , key = "batch-dish")
     public void batchDish(
             @ShellOption(value = {"-f", "--filepath"}) String filepath
     )throws Exception{
         dishes.addAll(Dish.inputDishInfo(filepath));
     }
 
-    @ShellMethod(value = "Add batch deliverers", key = "batch-deliverer")
+    @ShellMethod(value =
+"""
+    Usage: batch-deliverer [Options]
+    
+    Description: Assign multiple deliverers.
+    
+    Options:
+        -f, --filepath      Assign filepath of multiple dishes
+        
+    Example:
+        batch-order -f src/core/deliverers.txt
+            - Reads the file at that src/core/deliverers.txt and reads the deliverer information in it line by line.
+    
+    Additional Information:
+        - Each deliverers needs to be separated by new-line key, where the format of the deliverers is  {deliverer-name: String}, each parameter needs to be separated by a space, and there is no need to add the command line options and function name.
+        - e.g. Alice
+"""
+            , key = "batch-deliverer")
     public void batchDeliverer(
             @ShellOption(value = {"-f", "--filepath"}) String filepath
     )throws Exception{
         deliverers.addAll(Deliverer.inputDelivererInfo(filepath));
     }
 
-    @ShellMethod(value = "Print all cooks.", key = "print-cook")
+    @ShellMethod(value =
+"""
+    Usage: print-cook
+    
+    Description: Print all the exist cooks
+"""
+            , key = "print-cook")
     public void printAllCook() throws Exception{
         for(Cook c: cooks){
             System.out.println(c.toString());
         }
     }
-    @ShellMethod(value = "Print all dishes.", key = "print-dish")
+    @ShellMethod(value =
+"""
+    Usage: print-dish
+    
+    Description: Print all the exist dishes
+"""
+            , key = "print-dish")
     public void printAllDish() throws Exception{
         for(Dish d: dishes){
             System.out.println(d.toString());
         }
     }
-    @ShellMethod(value = "Print all deliverers.", key = "print-deliverer")
+    @ShellMethod(value =
+"""
+    Usage: print-deliverer
+    
+    Description: Print all the exist deliverers
+"""
+            , key = "print-deliverer")
     public void printAllDeliverer() throws Exception{
         for (Deliverer d: deliverers){
             System.out.println(d.toString());

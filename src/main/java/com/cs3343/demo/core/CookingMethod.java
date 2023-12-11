@@ -55,20 +55,4 @@ public enum CookingMethod {
         return this.operationTime == Integer.MAX_VALUE;
     }
 
-//    public void setOperationTime(int operationTime) {
-//        this.operationTime = operationTime;
-//    }
-
-
-    // public static void testCompareTo(){
-    //     System.out.println(Integer.MAX_VALUE - Integer.MAX_VALUE);
-    //     System.out.println(Integer.MAX_VALUE - 1);
-    //     System.out.println(1-Integer.MAX_VALUE);
-    //     System.out.println(FRY.customCompareTo(ROAST)); //1
-    //     System.out.println(FRY.customCompareTo(BOIL)); //1
-    //     System.out.println(ROAST.customCompareTo(STEAM)); //0
-    //     System.out.println(ROAST.customCompareTo(BOIL)); //-1
-    //     System.out.println(BOIL.customCompareTo(STEAM)); //-1
-    // }
-
 }

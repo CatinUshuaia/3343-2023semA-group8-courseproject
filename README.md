@@ -1,23 +1,32 @@
 # 3343-2023semA-group8-courseproject
 
-# Getting Started
+# Food Delivery Service Management Program
 
-### Reference Documentation
-For further reference, please consider the following sections:
+This program is a food delivery service management system designed to automate and optimize various aspects of the food delivery process. It provides functionalities for handling orders, managing cooks and deliverers, generating schedules, and assigning deliveries. Here's a guide on how to use the program:
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.2.0-SNAPSHOT/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.2.0-SNAPSHOT/maven-plugin/reference/html/#build-image)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/3.2.0-SNAPSHOT/reference/htmlsingle/index.html#using.devtools)
-* [Spring Session](https://docs.spring.io/spring-session/reference/)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/3.2.0-SNAPSHOT/reference/htmlsingle/index.html#web)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/3.2.0-SNAPSHOT/reference/htmlsingle/index.html#data.sql.jpa-and-spring-data)
+## Prerequisites
+- 
 
-### Guides
-The following guides illustrate how to use some features concretely:
+## Getting Started
+1. 
 
-* [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
+## Usage
+1. Open the terminal or command prompt.
+2. Navigate to the directory where the program file is located.
+3. Run the program by executing the following command:
+   python program_file.py
+4. The program will start and provide a command-line interface for interaction.
+
+## Program Workflow
+1. The program will load the provided information, which contain necessary datum for managing the food delivery service.
+2. Follow the prompts and instructions displayed on the command line to interact with the program.
+3. You can place orders, manage cooks and deliverers, and generate dishes based on the available options.
+4. The program will handle the order processing, cook assignment, and delivery management based on the provided inputs and stored data.
+
+## Additional Notes
+- The program is designed to simulate the food delivery service management process and does not include real-time data or external dependencies.
+- You may explore and modify the provided files to customize the program's behavior and extend its functionalities according to your specific needs.
+
+For any further questions or issues, please contact your email.
+
+Enjoy using the Food Delivery Service Management Program!
