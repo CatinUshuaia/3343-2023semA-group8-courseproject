@@ -1,0 +1,5 @@
+17:05 PorkwithCornDumpling,PorkwithCornDumpling,PorkwithCornDumpling 100 100
+17:07 RoastedDuck,FriedMeatWithChili 12 12
+17:19 RoastedDuck 27 36
+17:19 RoastedDuck,PorkwithCornDumpling 81 37
+17:21 PorkwithCornDumpling 49 66
