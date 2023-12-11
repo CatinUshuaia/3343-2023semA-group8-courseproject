@@ -10,7 +10,19 @@ This program is a food delivery service management system designed to automate a
 3. Run the program by executing the following command:
    java -jar .\CityDelivery-3.1.0.jar
 4. The program will start and provide a command-line interface for interaction.
-5. Input command 'help' to get more operations. 
+5. Input command **help** to get more operations. 
+
+## All commands
+1. `help` - Display all available commands.
+2. `new-order` - Place a new order.
+3. `batch-order` - Place multiple orders at once.
+4. `batch-cook` - Replace cook list to a new one.
+5. `batch-deliverer` - Replace deliverer list to a new one.
+6. `batch-dish` - Replace dish list to a new one.
+7. `print-cook` - Print all cooks.
+8. `print-deliverer` - Print all deliverers.
+9. `print-dish` - Print all dishes.
+10. `exit` - Exit the program.
 
 ## Program Workflow
 1. The program will load the provided information, which contain necessary datum for managing the food delivery service.
