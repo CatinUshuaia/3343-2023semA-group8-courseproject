@@ -11,8 +11,9 @@ This program is a food delivery service management system designed to automate a
 1. Open the terminal or command prompt.
 2. Navigate to the directory where the program file is located.
 3. Run the program by executing the following command:
-   python program_file.py
+   []
 4. The program will start and provide a command-line interface for interaction.
+5. Input command 'help' to get more operations. 
 
 ## Program Workflow
 1. The program will load the provided information, which contain necessary datum for managing the food delivery service.
