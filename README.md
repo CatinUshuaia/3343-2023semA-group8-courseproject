@@ -1,11 +1,8 @@
-# 3343-2023semA-group8-courseproject
+# CS3343-2023semA-group8-courseproject
 
 # Food Delivery Service Management Program
 
 This program is a food delivery service management system designed to automate and optimize various aspects of the food delivery process. It provides functionalities for handling orders, managing cooks and deliverers, generating schedules, and assigning deliveries. Here's a guide on how to use the program:
-
-## Prerequisites
-- 
 
 ## Getting Started
 1. 
@@ -27,6 +24,6 @@ This program is a food delivery service management system designed to automate a
 - The program is designed to simulate the food delivery service management process and does not include real-time data or external dependencies.
 - You may explore and modify the provided files to customize the program's behavior and extend its functionalities according to your specific needs.
 
-For any further questions or issues, please contact your email.
+For any further questions or issues, please contact our email.
 
 Enjoy using the Food Delivery Service Management Program!
